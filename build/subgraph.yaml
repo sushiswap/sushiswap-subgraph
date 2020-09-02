@@ -1,6 +1,6 @@
 specVersion: 0.0.2
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: MasterChef
@@ -20,9 +20,9 @@ dataSources:
         - Withdraw
       abis:
         - name: MasterChef
-          file: ./abis/MasterChef.json
+          file: MasterChef/abis/MasterChef.json
         - name: UniswapV2Pair
-          file: ./abis/UniswapV2Pair.json
+          file: MasterChef/abis/UniswapV2Pair.json
       eventHandlers:
         - event: Deposit(indexed address,indexed uint256,uint256)
           handler: handleDeposit
@@ -37,4 +37,4 @@ dataSources:
           handler: handleAddPool
         - function: set(uint256,uint256,bool)
           handler: handleSetPoolAllocPoint
-      file: ./src/mapping.ts
+      file: MasterChef/MasterChef.wasm
