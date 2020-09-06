@@ -83,8 +83,8 @@ export function handleSetPoolAllocPoint(event: SetCall): void {
 }
 
 function updatePoolData(pool: MasterChefPool, timestamp: i32): void {
-  let quarterHourIndex = Math.floor(timestamp / dataInterval) * dataInterval;
-  let poolDataId = `${pool.id}-${quarterHourIndex}`;
+  let quarterHourIndex = (timestamp / dataInterval) * dataInterval;
+  let poolDataId = pool.id + "-" + quarterHourIndex.toString();
   let poolData = MasterChefPoolData.load(poolDataId);
 
   if (poolData === null) {
