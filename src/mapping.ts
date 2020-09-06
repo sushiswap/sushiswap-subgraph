@@ -94,7 +94,9 @@ function updatePoolData(pool: MasterChefPool, timestamp: i32): void {
   }
 
   let totalAllocPoint = getMasterChefEntity().totalAllocPoint;
-  poolData.allocShare = pool.allocPoint.div(totalAllocPoint);
+  poolData.allocShare = pool.allocPoint
+    .times(BigInt.fromI32(10).pow(12))
+    .div(totalAllocPoint);
   poolData.balance = pool.balance;
 
   poolData.save();
