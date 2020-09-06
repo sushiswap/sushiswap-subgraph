@@ -12,6 +12,46 @@ import {
   BigDecimal
 } from "@graphprotocol/graph-ts";
 
+export class MasterChef extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save MasterChef entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save MasterChef entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("MasterChef", id.toString(), this);
+  }
+
+  static load(id: string): MasterChef | null {
+    return store.get("MasterChef", id) as MasterChef | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get totalAllocPoint(): BigInt {
+    let value = this.get("totalAllocPoint");
+    return value.toBigInt();
+  }
+
+  set totalAllocPoint(value: BigInt) {
+    this.set("totalAllocPoint", Value.fromBigInt(value));
+  }
+}
+
 export class MasterChefPool extends Entity {
   constructor(id: string) {
     super();
@@ -85,5 +125,81 @@ export class MasterChefPool extends Entity {
 
   set accSushiPerShare(value: BigInt) {
     this.set("accSushiPerShare", Value.fromBigInt(value));
+  }
+
+  get addedAt(): i32 {
+    let value = this.get("addedAt");
+    return value.toI32();
+  }
+
+  set addedAt(value: i32) {
+    this.set("addedAt", Value.fromI32(value));
+  }
+}
+
+export class MasterChefPoolData extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save MasterChefPoolData entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save MasterChefPoolData entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("MasterChefPoolData", id.toString(), this);
+  }
+
+  static load(id: string): MasterChefPoolData | null {
+    return store.get("MasterChefPoolData", id) as MasterChefPoolData | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get pool(): string {
+    let value = this.get("pool");
+    return value.toString();
+  }
+
+  set pool(value: string) {
+    this.set("pool", Value.fromString(value));
+  }
+
+  get timestamp(): i32 {
+    let value = this.get("timestamp");
+    return value.toI32();
+  }
+
+  set timestamp(value: i32) {
+    this.set("timestamp", Value.fromI32(value));
+  }
+
+  get balance(): BigInt {
+    let value = this.get("balance");
+    return value.toBigInt();
+  }
+
+  set balance(value: BigInt) {
+    this.set("balance", Value.fromBigInt(value));
+  }
+
+  get allocShare(): BigInt {
+    let value = this.get("allocShare");
+    return value.toBigInt();
+  }
+
+  set allocShare(value: BigInt) {
+    this.set("allocShare", Value.fromBigInt(value));
   }
 }
