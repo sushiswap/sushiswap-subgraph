@@ -127,6 +127,15 @@ export class MasterChefPool extends Entity {
     this.set("accSushiPerShare", Value.fromBigInt(value));
   }
 
+  get exchange(): i32 {
+    let value = this.get("exchange");
+    return value.toI32();
+  }
+
+  set exchange(value: i32) {
+    this.set("exchange", Value.fromI32(value));
+  }
+
   get addedAt(): i32 {
     let value = this.get("addedAt");
     return value.toI32();
@@ -201,5 +210,14 @@ export class MasterChefPoolData extends Entity {
 
   set allocShare(value: BigInt) {
     this.set("allocShare", Value.fromBigInt(value));
+  }
+
+  get exchange(): i32 {
+    let value = this.get("exchange");
+    return value.toI32();
+  }
+
+  set exchange(value: i32) {
+    this.set("exchange", Value.fromI32(value));
   }
 }

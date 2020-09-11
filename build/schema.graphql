@@ -10,6 +10,7 @@ type MasterChefPool @entity {
   allocPoint: BigInt!
   lastRewardBlock: BigInt!
   accSushiPerShare: BigInt!
+  exchange: Int! # 0: Uniswap, 1: SushiSwap
   addedAt: Int!
 }
 
@@ -19,4 +20,5 @@ type MasterChefPoolData @entity {
   timestamp: Int!
   balance: BigInt!
   allocShare: BigInt!
+  exchange: Int! # 0: Uniswap, 1: SushiSwap
 }

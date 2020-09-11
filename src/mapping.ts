@@ -7,12 +7,17 @@ import {
   Withdraw,
   AddCall,
   SetCall,
+  MigrateCall,
 } from "../generated/MasterChef/MasterChef";
 import {
   MasterChef as MasterChefEntity,
   MasterChefPool,
   MasterChefPoolData,
 } from "../generated/schema";
+
+// Exchange identifiers. Integers to save space in historical data.
+const EXCHANGE_UNISWAP = 0;
+const EXCHANGE_SUSHISWAP = 1;
 
 // Seconds apart between stored data entries.
 const dataInterval = 60 * 15;
@@ -56,6 +61,7 @@ export function handleAddPool(event: AddCall): void {
   pool.allocPoint = poolInfo.value1;
   pool.lastRewardBlock = poolInfo.value2;
   pool.accSushiPerShare = poolInfo.value3;
+  pool.exchange = EXCHANGE_UNISWAP;
   pool.addedAt = event.block.timestamp.toI32();
   pool.save();
 
@@ -82,6 +88,17 @@ export function handleSetPoolAllocPoint(event: SetCall): void {
   pool.save();
 }
 
+export function handleMigrate(event: MigrateCall): void {
+  let masterChef = MasterChef.bind(event.to);
+
+  let pool = MasterChefPool.load(event.inputs._pid.toString());
+  pool.lpToken = masterChef.poolInfo(event.inputs._pid).value0;
+  pool.exchange = EXCHANGE_SUSHISWAP;
+  pool.save();
+
+  updatePoolData(pool as MasterChefPool, event.block.timestamp.toI32());
+}
+
 function updatePoolData(pool: MasterChefPool, timestamp: i32): void {
   let quarterHourIndex = (timestamp / dataInterval) * dataInterval;
   let poolDataId = pool.id + "-" + quarterHourIndex.toString();
@@ -98,6 +115,7 @@ function updatePoolData(pool: MasterChefPool, timestamp: i32): void {
     .times(BigInt.fromI32(10).pow(12))
     .div(totalAllocPoint);
   poolData.balance = pool.balance;
+  poolData.exchange = pool.exchange;
 
   poolData.save();
 }

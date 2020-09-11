@@ -37,4 +37,6 @@ dataSources:
           handler: handleAddPool
         - function: set(uint256,uint256,bool)
           handler: handleSetPoolAllocPoint
+        - function: migrate(uint256)
+          handler: handleMigrate
       file: ./src/mapping.ts
