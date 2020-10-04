@@ -8,12 +8,12 @@ import {
   AddCall,
   SetCall,
   MigrateCall,
-} from "../generated/MasterChef/MasterChef";
+} from "../../generated/MasterChef/MasterChef";
 import {
   MasterChef as MasterChefEntity,
   MasterChefPool,
   MasterChefPoolData,
-} from "../generated/schema";
+} from "../../generated/schema";
 
 // Exchange identifiers. Integers to save space in historical data.
 const EXCHANGE_UNISWAP = 0;

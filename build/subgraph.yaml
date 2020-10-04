@@ -40,3 +40,31 @@ dataSources:
         - function: migrate(uint256)
           handler: handleMigrate
       file: MasterChef/MasterChef.wasm
+  - kind: ethereum/contract
+    name: Timelock
+    network: mainnet
+    source:
+      address: "0x9a8541ddf3a932a9a922b607e9cf7301f1d47bd1"
+      abi: Timelock
+      startBlock: 10736929
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Timelock
+        - Spell
+        - Platform
+        - Target
+        - Param
+      abis:
+        - name: Timelock
+          file: Timelock/abis/Timelock.json
+      eventHandlers:
+        - event: CancelTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
+          handler: handleCancelTransaction
+        - event: ExecuteTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
+          handler: handleExecuteTransaction
+        - event: QueueTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
+          handler: handleQueueTransaction
+      file: Timelock/Timelock.wasm

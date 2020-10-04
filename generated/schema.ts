@@ -221,3 +221,209 @@ export class MasterChefPoolData extends Entity {
     this.set("exchange", Value.fromI32(value));
   }
 }
+
+export class Timelock extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Timelock entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Timelock entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Timelock", id.toString(), this);
+  }
+
+  static load(id: string): Timelock | null {
+    return store.get("Timelock", id) as Timelock | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get description(): string | null {
+    let value = this.get("description");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set description(value: string | null) {
+    if (value === null) {
+      this.unset("description");
+    } else {
+      this.set("description", Value.fromString(value as string));
+    }
+  }
+
+  get value(): BigInt {
+    let value = this.get("value");
+    return value.toBigInt();
+  }
+
+  set value(value: BigInt) {
+    this.set("value", Value.fromBigInt(value));
+  }
+
+  get eta(): BigInt {
+    let value = this.get("eta");
+    return value.toBigInt();
+  }
+
+  set eta(value: BigInt) {
+    this.set("eta", Value.fromBigInt(value));
+  }
+
+  get functionName(): string {
+    let value = this.get("functionName");
+    return value.toString();
+  }
+
+  set functionName(value: string) {
+    this.set("functionName", Value.fromString(value));
+  }
+
+  get data(): string {
+    let value = this.get("data");
+    return value.toString();
+  }
+
+  set data(value: string) {
+    this.set("data", Value.fromString(value));
+  }
+
+  get targetAddress(): string {
+    let value = this.get("targetAddress");
+    return value.toString();
+  }
+
+  set targetAddress(value: string) {
+    this.set("targetAddress", Value.fromString(value));
+  }
+
+  get isCancelled(): boolean {
+    let value = this.get("isCancelled");
+    return value.toBoolean();
+  }
+
+  set isCancelled(value: boolean) {
+    this.set("isCancelled", Value.fromBoolean(value));
+  }
+
+  get isExecuted(): boolean {
+    let value = this.get("isExecuted");
+    return value.toBoolean();
+  }
+
+  set isExecuted(value: boolean) {
+    this.set("isExecuted", Value.fromBoolean(value));
+  }
+
+  get expiresAt(): BigInt {
+    let value = this.get("expiresAt");
+    return value.toBigInt();
+  }
+
+  set expiresAt(value: BigInt) {
+    this.set("expiresAt", Value.fromBigInt(value));
+  }
+
+  get createdAt(): BigInt {
+    let value = this.get("createdAt");
+    return value.toBigInt();
+  }
+
+  set createdAt(value: BigInt) {
+    this.set("createdAt", Value.fromBigInt(value));
+  }
+
+  get cancelledAt(): BigInt | null {
+    let value = this.get("cancelledAt");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set cancelledAt(value: BigInt | null) {
+    if (value === null) {
+      this.unset("cancelledAt");
+    } else {
+      this.set("cancelledAt", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get executedAt(): BigInt | null {
+    let value = this.get("executedAt");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set executedAt(value: BigInt | null) {
+    if (value === null) {
+      this.unset("executedAt");
+    } else {
+      this.set("executedAt", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get createdTx(): string {
+    let value = this.get("createdTx");
+    return value.toString();
+  }
+
+  set createdTx(value: string) {
+    this.set("createdTx", Value.fromString(value));
+  }
+
+  get cancelledTx(): string | null {
+    let value = this.get("cancelledTx");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set cancelledTx(value: string | null) {
+    if (value === null) {
+      this.unset("cancelledTx");
+    } else {
+      this.set("cancelledTx", Value.fromString(value as string));
+    }
+  }
+
+  get executedTx(): string | null {
+    let value = this.get("executedTx");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set executedTx(value: string | null) {
+    if (value === null) {
+      this.unset("executedTx");
+    } else {
+      this.set("executedTx", Value.fromString(value as string));
+    }
+  }
+}
