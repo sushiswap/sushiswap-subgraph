@@ -4,9 +4,7 @@ Aims to deliver analytics & historical data for SushiSwap. Still a work in progr
 
 The Graph exposes a GraphQL endpoint to query the events and entities within the SushiSwap ecosytem.
 
-Currently there is only a single subgraph, and it is still a work in progress.
-
-Additional subgraphs will be contained in this repo.
+Currently there is only a single subgraph, but additional subgraphs can be added to this repo:
 
 1. **SushiSwap**: Currently only has support for current MasterChef and MasterChefPool data: https://thegraph.com/explorer/subgraph/sushiswap/sushiswap
 
