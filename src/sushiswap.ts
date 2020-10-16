@@ -3,10 +3,8 @@ import {
   MasterChef,
   Deposit,
   EmergencyWithdraw,
-  OwnershipTransferred,
   Withdraw,
-  SetCall,
-  MigrateCall
+  SetCall
 } from "../generated/MasterChef/MasterChef"
 
 import {
@@ -28,8 +26,6 @@ export function handleEmergencyWithdraw(event: EmergencyWithdraw): void {
   pool.save();
 }
 
-export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
-
 export function handleWithdraw(event: Withdraw): void {
   let pool = getPoolEntity(event.params.pid, event.block);
   pool.balance = pool.balance - event.params.amount;
@@ -37,25 +33,16 @@ export function handleWithdraw(event: Withdraw): void {
 }
 
 export function handleSetPoolAllocPoint(event: SetCall): void {
+  let masterChef = MasterChef.bind(event.to);
   let pool = getPoolEntity(event.inputs._pid, event.block);
 
   // Update MasterChefEntity
-  let masterChefEntity = getMasterChefEntity()
-  masterChefEntity.totalAllocPoint = masterChefEntity.totalAllocPoint.plus(
-    event.inputs._allocPoint.minus(pool.allocPoint)
-  )
+  let masterChefEntity = getMasterChefEntity();
+  masterChefEntity.totalAllocPoint = masterChef.totalAllocPoint();
   masterChefEntity.save();
 
   // Update pool
   pool.allocPoint = event.inputs._allocPoint;
-  pool.save();
-}
-
-export function handleMigrate(event: MigrateCall): void {
-  let masterChef = MasterChef.bind(event.to);
-
-  let pool = MasterChefPool.load(event.inputs._pid.toString());
-  pool.lpToken = masterChef.poolInfo(event.inputs._pid).value0;
   pool.save();
 }
 
@@ -71,9 +58,10 @@ function getPoolEntity(poolId: BigInt, block: ethereum.Block): MasterChefPool {
     pool.addedBlock = block.number;
     pool.addedTs = block.timestamp;
 
-    //update MasterChefEntity poolLength
+    //update MasterChefEntity
     let masterChefEntity = getMasterChefEntity();
     masterChefEntity.poolLength = masterChef.poolLength();
+    masterChefEntity.totalAllocPoint = masterChef.totalAllocPoint();
     masterChefEntity.save()
   }
 

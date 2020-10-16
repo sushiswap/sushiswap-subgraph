@@ -19,7 +19,6 @@ dataSources:
       entities:
         - Deposit
         - EmergencyWithdraw
-        - OwnershipTransferred
         - Withdraw
       abis:
         - name: MasterChef
@@ -29,12 +28,8 @@ dataSources:
           handler: handleDeposit
         - event: EmergencyWithdraw(indexed address,indexed uint256,uint256)
           handler: handleEmergencyWithdraw
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
         - event: Withdraw(indexed address,indexed uint256,uint256)
           handler: handleWithdraw
       callHandlers:
         - function: set(uint256,uint256,bool)
           handler: handleSetPoolAllocPoint
-        - function: migrate(uint256)
-          handler: handleMigrate
