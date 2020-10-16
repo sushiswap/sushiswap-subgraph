@@ -1,0 +1,16 @@
+type MasterChef @entity {
+  id: ID!
+  totalAllocPoint: BigInt!
+  poolLength: BigInt!
+}
+
+type MasterChefPool @entity {
+  id: ID!
+  balance: BigInt!
+  lpToken: Bytes!
+  allocPoint: BigInt!
+  lastRewardBlock: BigInt!
+  accSushiPerShare: BigInt!
+  addedBlock: BigInt!
+  addedTs: BigInt!
+}

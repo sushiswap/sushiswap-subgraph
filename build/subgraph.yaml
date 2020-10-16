@@ -1,6 +1,8 @@
 specVersion: 0.0.2
+description: SushiSwap API
+repository: https://github.com/sushiswap/sushiswap-subgraph
 schema:
-  file: schema.graphql
+  file: sushiswap.graphql
 dataSources:
   - kind: ethereum/contract
     name: MasterChef
@@ -13,6 +15,7 @@ dataSources:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
+      file: MasterChef/MasterChef.wasm
       entities:
         - Deposit
         - EmergencyWithdraw
@@ -20,9 +23,7 @@ dataSources:
         - Withdraw
       abis:
         - name: MasterChef
-          file: MasterChef/abis/MasterChef.json
-        - name: UniswapV2Pair
-          file: MasterChef/abis/UniswapV2Pair.json
+          file: abis/MasterChef.json
       eventHandlers:
         - event: Deposit(indexed address,indexed uint256,uint256)
           handler: handleDeposit
@@ -33,10 +34,7 @@ dataSources:
         - event: Withdraw(indexed address,indexed uint256,uint256)
           handler: handleWithdraw
       callHandlers:
-        - function: add(uint256,address,bool)
-          handler: handleAddPool
         - function: set(uint256,uint256,bool)
           handler: handleSetPoolAllocPoint
         - function: migrate(uint256)
           handler: handleMigrate
-      file: MasterChef/MasterChef.wasm
