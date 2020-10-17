@@ -50,6 +50,15 @@ export class MasterChef extends Entity {
   set totalAllocPoint(value: BigInt) {
     this.set("totalAllocPoint", Value.fromBigInt(value));
   }
+
+  get poolLength(): BigInt {
+    let value = this.get("poolLength");
+    return value.toBigInt();
+  }
+
+  set poolLength(value: BigInt) {
+    this.set("poolLength", Value.fromBigInt(value));
+  }
 }
 
 export class MasterChefPool extends Entity {
@@ -127,97 +136,21 @@ export class MasterChefPool extends Entity {
     this.set("accSushiPerShare", Value.fromBigInt(value));
   }
 
-  get exchange(): i32 {
-    let value = this.get("exchange");
-    return value.toI32();
-  }
-
-  set exchange(value: i32) {
-    this.set("exchange", Value.fromI32(value));
-  }
-
-  get addedAt(): i32 {
-    let value = this.get("addedAt");
-    return value.toI32();
-  }
-
-  set addedAt(value: i32) {
-    this.set("addedAt", Value.fromI32(value));
-  }
-}
-
-export class MasterChefPoolData extends Entity {
-  constructor(id: string) {
-    super();
-    this.set("id", Value.fromString(id));
-  }
-
-  save(): void {
-    let id = this.get("id");
-    assert(id !== null, "Cannot save MasterChefPoolData entity without an ID");
-    assert(
-      id.kind == ValueKind.STRING,
-      "Cannot save MasterChefPoolData entity with non-string ID. " +
-        'Considering using .toHex() to convert the "id" to a string.'
-    );
-    store.set("MasterChefPoolData", id.toString(), this);
-  }
-
-  static load(id: string): MasterChefPoolData | null {
-    return store.get("MasterChefPoolData", id) as MasterChefPoolData | null;
-  }
-
-  get id(): string {
-    let value = this.get("id");
-    return value.toString();
-  }
-
-  set id(value: string) {
-    this.set("id", Value.fromString(value));
-  }
-
-  get pool(): string {
-    let value = this.get("pool");
-    return value.toString();
-  }
-
-  set pool(value: string) {
-    this.set("pool", Value.fromString(value));
-  }
-
-  get timestamp(): i32 {
-    let value = this.get("timestamp");
-    return value.toI32();
-  }
-
-  set timestamp(value: i32) {
-    this.set("timestamp", Value.fromI32(value));
-  }
-
-  get balance(): BigInt {
-    let value = this.get("balance");
+  get addedBlock(): BigInt {
+    let value = this.get("addedBlock");
     return value.toBigInt();
   }
 
-  set balance(value: BigInt) {
-    this.set("balance", Value.fromBigInt(value));
+  set addedBlock(value: BigInt) {
+    this.set("addedBlock", Value.fromBigInt(value));
   }
 
-  get allocShare(): BigInt {
-    let value = this.get("allocShare");
+  get addedTs(): BigInt {
+    let value = this.get("addedTs");
     return value.toBigInt();
   }
 
-  set allocShare(value: BigInt) {
-    this.set("allocShare", Value.fromBigInt(value));
-  }
-
-  get exchange(): i32 {
-    let value = this.get("exchange");
-    return value.toI32();
-  }
-
-  set exchange(value: i32) {
-    this.set("exchange", Value.fromI32(value));
+  set addedTs(value: BigInt) {
+    this.set("addedTs", Value.fromBigInt(value));
   }
 }
