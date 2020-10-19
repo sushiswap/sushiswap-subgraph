@@ -1,5 +1,6 @@
 build/
+generated/
 node_modules/
-src/types/
 .DS_STORE
+.vscode
 yarn-error.log

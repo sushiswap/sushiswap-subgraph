@@ -1,25 +1,29 @@
 {
-  "name": "uniswap-v2-subgraph",
+  "name": "sushiswap-subgraph",
   "version": "1.0.0",
-  "repository": "https://github.com/graphprotocol/uniswap-v2-subgraph",
+  "repository": "https://github.com/sushiswap/sushiswap-subgraph",
   "license": "GPL-3.0-or-later",
   "scripts": {
-    "codegen": "graph codegen --output-dir src/types/",
+    "codegen": "graph codegen --output-dir generated/",
     "build": "graph build",
-    "create-local": "graph create zippoxer/sushiswap --node http://127.0.0.1:8020",
-    "deploy-local": "graph deploy zippoxer/sushiswap --debug --ipfs http://localhost:5001 --node http://127.0.0.1:8020",
-    "deploy": "graph deploy zippoxer/sushiswap --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/ --debug",
+    "create-local": "graph create matthewlilley/sushiswap --node http://127.0.0.1:8020",
+    "remove-local": "graph remove matthewlilley/sushiswap --node http://127.0.0.1:8020",
+    "deploy-local": "graph deploy matthewlilley/sushiswap --debug --ipfs http://localhost:5001 --node http://127.0.0.1:8020",
+    "deploy": "graph deploy matthewlilley/sushiswap --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/ --debug",
     "deploy-staging": "graph deploy $THE_GRAPH_GITHUB_USER/$THE_GRAPH_SUBGRAPH_NAME /Uniswap --ipfs https://api.staging.thegraph.com/ipfs/ --node https://api.staging.thegraph.com/deploy/",
-    "watch-local": "graph deploy zippoxer/sushiswap --watch --debug --node http://127.0.0.1:8020/ --ipfs http://localhost:5001"
+    "watch-local": "graph deploy matthewlilley/sushiswap --watch --debug --node http://127.0.0.1:8020/ --ipfs http://localhost:5001"
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.16.0",
-    "@graphprotocol/graph-ts": "^0.16.0",
-    "@typescript-eslint/eslint-plugin": "^2.0.0",
-    "@typescript-eslint/parser": "^2.0.0",
-    "eslint": "^6.2.2",
-    "eslint-config-prettier": "^6.1.0",
-    "prettier": "^1.18.2",
-    "typescript": "^3.5.2"
-  }
+    "@graphprotocol/graph-cli": "^0.19.0",
+    "@graphprotocol/graph-ts": "^0.19.0",
+    "@sushiswap/core": "^1.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.0.0",
+    "@typescript-eslint/parser": "^4.0.0",
+    "eslint": "^7.0.0",
+    "eslint-config-prettier": "^6.0.0",
+    "prettier": "^2.0.0",
+    "typescript": "^4.0.0",
+    "web3-utils": "^1.3.0"
+  },
+  "dependencies": {}
 }

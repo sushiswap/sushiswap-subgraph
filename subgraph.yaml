@@ -1,36 +1,119 @@
-specVersion: 0.0.2
-description: Uniswap is a decentralized protocol for automated token exchange on Ethereum.
-repository: https://github.com/graphprotocol/uniswap-v2-subgraph
+specVersion: 0.0.3
+description: SushiSwap is a decentralized protocol for automated token exchange on Ethereum.
+repository: https://github.com/sushiswap/sushiswap-subgraph
 schema:
   file: ./schema.graphql
 dataSources:
+  # - kind: ethereum/contract
+  #   name: MasterChef
+  #   network: mainnet
+  #   source:
+  #     address: '0xc2edad668740f1aa35e4d8f227fb8e17dca888cd'
+  #     abi: MasterChef
+  #     startBlock: 10736242
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.4
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - MasterChef
+  #       - UserInfo
+  #       - Pool
+  #     abis:
+  #       - name: MasterChef
+  #         file: ./node_modules/@sushiswap/core/build/contracts/MasterChef.json
+  #       - name: Pair
+  #         file: ./node_modules/@sushiswap/core/build/contracts/UniswapV2Pair.json
+  #       - name: ERC20
+  #         file: ./node_modules/@sushiswap/core/build/contracts/ERC20.json
+  #     eventHandlers:
+  #       - event: Deposit(indexed address,indexed uint256,uint256)
+  #         handler: onDeposit
+  #       - event: EmergencyWithdraw(indexed address,indexed uint256,uint256)
+  #         handler: onEmergencyWithdraw
+  #       - event: OwnershipTransferred(indexed address,indexed address)
+  #         handler: onOwnershipTransferred
+  #       - event: Withdraw(indexed address,indexed uint256,uint256)
+  #         handler: onWithdraw
+  #     callHandlers:
+  #       - function: add(uint256,address,bool)
+  #         handler: add
+  #       - function: set(uint256,uint256,bool)
+  #         handler: set
+  #       - function: massUpdatePools()
+  #         handler: massUpdatePools
+  #       - function: updatePool(uint256)
+  #         handler: updatePool
+  #       - function: setMigrator(address)
+  #         handler: setMigrator
+  #       - function: migrate(uint256)
+  #         handler: migrate
+  #       - function: dev(address)
+  #         handler: dev
+  #     blockHandlers:
+  #       - handler: block
+  #         # filter:
+  #         #   kind: call
+  #     file: ./src/mappings/masterchef.ts
+  # - kind: ethereum/contract
+  #   name: SushiBar
+  #   network: mainnet
+  #   source:
+  #     address: '0x8798249c2e607446efb7ad49ec89dd1865ff4272'
+  #     abi: Bar
+  #     startBlock: 10801571
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.4
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - Bar
+  #     abis:
+  #       - name: Bar
+  #         file: ./node_modules/@sushiswap/core/build/contracts/SushiBar.json
+  #       - name: Factory
+  #         file: ./node_modules/@sushiswap/core/build/contracts/UniswapV2Factory.json
+  #       - name: SushiToken
+  #         file: ./node_modules/@sushiswap/core/build/contracts/SushiToken.json
+  #       - name: ERC20
+  #         file: ./node_modules/@sushiswap/core/build/contracts/ERC20.json
+  #     # eventHandlers:
+  #     #   - event: Transfer(indexed address,indexed address,uint256)
+  #     #     handler: onTransfer
+  #     callHandlers:
+  #       - function: enter(uint256)
+  #         handler: enter
+  #       - function: leave(uint256)
+  #         handler: leave
+  #     file: ./src/mappings/bar.ts
   - kind: ethereum/contract
     name: Factory
     network: mainnet
     source:
-      address: '0xC0AEe478e3658e2610c5F7A4A2E1777cE9e4f2Ac'
+      address: '0xc0aee478e3658e2610c5f7a4a2e1777ce9e4f2ac'
       abi: Factory
       startBlock: 10794229
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.3
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       file: ./src/mappings/factory.ts
       entities:
-        - Pair
-        - Token
+        - Factory
       abis:
         - name: Factory
-          file: ./abis/factory.json
+          file: ./node_modules/@sushiswap/core/build/contracts/UniswapV2Factory.json
         - name: ERC20
-          file: ./abis/ERC20.json
+          file: ./node_modules/@sushiswap/core/build/contracts/ERC20.json
         - name: ERC20SymbolBytes
           file: ./abis/ERC20SymbolBytes.json
         - name: ERC20NameBytes
           file: ./abis/ERC20NameBytes.json
+        - name: SushiToken
+          file: ./node_modules/@sushiswap/core/build/contracts/SushiToken.json
       eventHandlers:
         - event: PairCreated(indexed address,indexed address,address,uint256)
-          handler: handleNewPair
+          handler: onPairCreated
 templates:
   - kind: ethereum/contract
     name: Pair
@@ -39,25 +122,34 @@ templates:
       abi: Pair
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.3
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
-      file: ./src/mappings/core.ts
+      file: ./src/mappings/pair.ts
       entities:
+        - Bundle
+        - Burn
+        - LiquidityPosition
+        - LiquidityPositionSnapshot
+        - Mint
         - Pair
+        - Swap
+        - Sync
         - Token
+        - Transaction
+        - User
       abis:
         - name: Pair
-          file: ./abis/pair.json
+          file: ./node_modules/@sushiswap/core/build/contracts/UniswapV2Pair.json
         - name: Factory
-          file: ./abis/factory.json
+          file: ./node_modules/@sushiswap/core/build/contracts/UniswapV2Factory.json
       eventHandlers:
         - event: Mint(indexed address,uint256,uint256)
-          handler: handleMint
+          handler: onMint
         - event: Burn(indexed address,uint256,uint256,indexed address)
-          handler: handleBurn
+          handler: onBurn
         - event: Swap(indexed address,uint256,uint256,uint256,uint256,indexed address)
-          handler: handleSwap
+          handler: onSwap
         - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleTransfer
+          handler: onTransfer
         - event: Sync(uint112,uint112)
-          handler: handleSync
+          handler: onSync

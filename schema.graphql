@@ -1,28 +1,357 @@
-type UniswapFactory @entity {
-  # factory address
+# Search
+type _Schema_
+  # Token
+  @fulltext(
+    name: "tokenSearch"
+    language: en
+    algorithm: rank
+    include: [{ entity: "Token", fields: [{ name: "id" }, { name: "name" }, { name: "symbol" }] }]
+  )
+  # Pair
+  @fulltext(
+    name: "pairSearch"
+    language: en
+    algorithm: rank
+    include: [{ entity: "Pair", fields: [{ name: "id" }, { name: "name" }] }]
+  )
+  # User
+  @fulltext(name: "userSearch", language: en, algorithm: rank, include: [{ entity: "User", fields: [{ name: "id" }] }])
+
+# MasterChef
+type MasterChef @entity {
+  # Contract address
   id: ID!
 
-  # pair info
-  pairCount: Int!
+  # Bonus multiplier
+  bonusMultiplier: BigInt!
 
-  # total volume
-  totalVolumeUSD: BigDecimal!
-  totalVolumeETH: BigDecimal!
+  # Bonus end block
+  bonusEndBlock: BigInt!
 
-  # untracked values - less confident USD scores
+  # Dev fund address
+  devaddr: Bytes!
+
+  # Migrator
+  migrator: Bytes!
+
+  # Owner
+  owner: Bytes!
+
+  # Start block
+  startBlock: BigInt!
+
+  # Sushi
+  sushi: Token!
+
+  # Sushi per block
+  sushiPerBlock: BigInt!
+
+  # Total allocation point
+  totalAllocPoint: BigInt!
+
+  # Pools
+  pools: [Pool!]! @derivedFrom(field: "owner")
+
+  # Pool count
+  poolCount: BigInt!
+}
+
+# Pool
+type Pool @entity {
+  # Index of pool in poolInfo on MasterChef contract
+  id: ID!
+
+  # Owner
+  owner: MasterChef!
+
+  # Standard
+  pair: Pair!
+
+  # Allocation point
+  allocPoint: BigInt!
+
+  # Last reward block
+  lastRewardBlock: BigInt!
+
+  # Accumulated sushi per share
+  accSushiPerShare: BigInt!
+
+  # Total supply of LP tokens for pool
+  totalSupply: BigInt!
+
+  # Pool users
+  users: [UserInfo!]! @derivedFrom(field: "pool")
+
+  # Addresses in pool
+  addresses: [Bytes!]!
+
+  # User count
+  userCount: BigInt!
+
+  # Created at timestamp
+  # timestamp: BigInt!
+
+  # Created at block
+  # block: BigInt!
+
+  # Average liquidity coin age (ALCA) - Liquidity flow
+  # alca: BigInt!
+
+  # Liquidity coindays destroyed SMA (CDSMA) - Liquidity flow
+  # cdsma: BigInt!
+
+  # PL/W (Permenent loss/win for pool)
+  # Calculated on positions where users have exited
+
+  # VPL/W (Virtual permenent loss/win for pool)
+  # Calculated on positions where users have exited and active positions (PL/W + IL/W).
+}
+
+# type UserPool {
+#   # user address concatenated with pool address
+#   id: ID!
+
+#   user: User!
+#   pool: pool!
+
+#   amount: BigInt!
+#   rewardDebt: BigInt!
+
+#   # Pending Sushi at lockup
+#   pendingSushiAtLockup: BigInt!
+
+#   # Harvested Sushi since lockup
+#   harvestedSushiSinceLockup: BigInt!
+
+#   # First seen
+#   block: Int!
+#   timestamp: Int!
+# }
+
+type UserInfo @entity {
+  # user address concatenated with pool address
+  id: ID!
+
+  user: User!
+  pool: Pool!
+
+  amount: BigInt!
+  rewardDebt: BigInt!
+
+  # Pending Sushi at lockup
+  pendingSushiAtLockup: BigInt!
+
+  # Harvested Sushi since lockup
+  harvestedSushiSinceLockup: BigInt!
+
+  # First seen
+  block: Int!
+  timestamp: Int!
+
+  # We do some fancy math here. Basically, any point in time, the amount of SUSHIs
+  # entitled to a user but is pending to be distributed is:
+  # pending reward = (user.amount * pool.accSushiPerShare) - user.rewardDebt
+  # Whenever a user deposits or withdraws LP tokens to a pool. Here's what happens:
+  # 1. The pool's `accSushiPerShare` (and `lastRewardBlock`) gets updated.
+  # 2. User receives the pending reward sent to his/her address.
+  # 3. User's `amount` gets updated.
+  # 4. User's `rewardDebt` gets updated.
+}
+
+type UserBar @entity {
+  # ID
+  id: ID!
+
+  # User
+  user: User!
+
+  # Bar
+  bar: Bar!
+
+  # xSushi
+  xSushi: BigDecimal!
+
+  # Staked
+  staked: BigDecimal!
+
+  # Sum of $ at time of staking
+  stakedUSD: BigDecimal!
+
+  # Harvested
+  harvested: BigDecimal!
+
+  # Sum of $ at time of harvesting
+  harvestedUSD: BigDecimal!
+
+  # To get bar pending sushi (xSushi * staked / bar.totalSupply)
+}
+
+# User
+type User @entity {
+  # TODO: What else do we want to store on the user?
+  id: ID!
+
+  # Pools
+  pools: [UserInfo!]! @derivedFrom(field: "user")
+
+  # Liquidity Positions
+  liquidityPositions: [LiquidityPosition!]! @derivedFrom(field: "user")
+
+  # Set if in the bar, otherwise null
+  bar: UserBar
+}
+
+# Bar
+type Bar @entity {
+  # Contract address
+  id: ID!
+
+  # Decimals
+  decimals: Int!
+
+  # Name
+  name: String!
+
+  # Sushi token
+  sushi: Token!
+
+  # Symbol
+  symbol: String!
+
+  # Total xSushi supply
+  totalSupply: BigDecimal!
+
+  # Staked Sushi
+  stakedSushi: BigDecimal!
+
+  # Users in the bar
+  users: [UserBar!]! @derivedFrom(field: "bar")
+}
+
+# type BarPosition @entity {
+#   id: ID!
+#   user: User!
+#   xSushi: BigDecimal!
+#   allowance: BigDecimal!
+#   share: BigDecimal!
+#   staked: BigDecimal!
+#   pending: BigDecimal!
+#   harvested: BigDecimal!
+#   yeild: BigDecimal!
+# }
+
+# Maker
+type Maker @entity {
+  # Contract address
+  id: ID!
+}
+
+# Bundle
+type Bundle @entity {
+  id: ID!
+  ethPrice: BigDecimal! # price of ETH usd
+}
+
+# Factory
+type Factory @entity {
+  # Contract address
+  id: ID!
+
+  # Pair count
+  pairCount: BigInt!
+
+  # Volume USD
+  volumeUSD: BigDecimal!
+
+  # Volume ETH
+  volumeETH: BigDecimal!
+
+  # Untracked volume
   untrackedVolumeUSD: BigDecimal!
 
-  # total liquidity
-  totalLiquidityUSD: BigDecimal!
-  totalLiquidityETH: BigDecimal!
+  # Liquidity USD
+  liquidityUSD: BigDecimal!
 
-  # transactions
+  # Liquidity ETH
+  liquidityETH: BigDecimal!
+
+  # Transaction count
+  txCount: BigInt!
+
+  # Token count
+  tokenCount: BigInt!
+
+  # User count
+  userCount: BigInt!
+
+  # Pairs
+  pairs: [Pair!]! @derivedFrom(field: "factory")
+
+  # Tokens
+  tokens: [Token!]! @derivedFrom(field: "factory")
+
+  # Hour data
+  hourData: [HourData!]! @derivedFrom(field: "factory")
+
+  # Day data
+  dayData: [DayData!]! @derivedFrom(field: "factory")
+}
+
+# Hour Data
+type HourData @entity {
+  # start of hour timestamp
+  id: ID!
+
+  # date
+  date: Int!
+
+  # factory
+  factory: Factory!
+
+  # volume
+  volumeETH: BigDecimal!
+  volumeUSD: BigDecimal!
+  untrackedVolume: BigDecimal!
+
+  # liquidity
+  liquidityETH: BigDecimal!
+  liquidityUSD: BigDecimal!
+
+  # tx count
   txCount: BigInt!
 }
 
+# Day Data
+type DayData @entity {
+  # timestamp / 86400
+  id: ID!
+
+  # date
+  date: Int!
+
+  # factory
+  factory: Factory!
+
+  # volume
+  volumeETH: BigDecimal!
+  volumeUSD: BigDecimal!
+  untrackedVolume: BigDecimal!
+
+  # liquidity
+  liquidityETH: BigDecimal!
+  liquidityUSD: BigDecimal!
+
+  # tx count
+  txCount: BigInt!
+}
+
+# Token
 type Token @entity {
   # token address
   id: ID!
+
+  # factory
+  factory: Factory!
 
   # mirrored from the smart contract
   symbol: String!
@@ -33,27 +362,108 @@ type Token @entity {
   totalSupply: BigInt!
 
   # token specific volume
-  tradeVolume: BigDecimal!
-  tradeVolumeUSD: BigDecimal!
+  volume: BigDecimal!
+  volumeUSD: BigDecimal!
   untrackedVolumeUSD: BigDecimal!
 
   # transactions across all pairs
   txCount: BigInt!
 
   # liquidity across all pairs
-  totalLiquidity: BigDecimal!
+  liquidity: BigDecimal!
 
-  # derived prices
-  derivedETH: BigDecimal
+  derivedETH: BigDecimal!
+
+  # Token hour data
+  hourData: [TokenHourData!]! @derivedFrom(field: "token")
+
+  # Token day data
+  dayData: [TokenDayData!]! @derivedFrom(field: "token")
+
+  # Base pairs
+  basePairs: [Pair!]! @derivedFrom(field: "token0")
+
+  # Quote pairs
+  quotePairs: [Pair!]! @derivedFrom(field: "token1")
+
+  # Base pairs day data
+  basePairsDayData: [PairDayData!]! @derivedFrom(field: "token0")
+
+  # Quote pairs day data
+  quotePairsDayData: [PairDayData!]! @derivedFrom(field: "token1")
 }
 
-type Pair @entity {
-  # pair address
+# Token hour data
+type TokenHourData @entity {
+  # token id - hour start timestamp
   id: ID!
+
+  # date - hour start timestamp
+  date: Int!
+
+  # token
+  token: Token!
+
+  # volume
+  volume: BigDecimal!
+  volumeETH: BigDecimal!
+  volumeUSD: BigDecimal!
+
+  # tx count
+  txCount: BigInt!
+
+  # liquidity
+  liquidity: BigDecimal!
+  liquidityETH: BigDecimal!
+  liquidityUSD: BigDecimal!
+
+  # price usd
+  priceUSD: BigDecimal!
+}
+
+# Token day data
+type TokenDayData @entity {
+  # token id - day start timestamp
+  id: ID!
+
+  # date - day start timestamp
+  date: Int!
+
+  # token
+  token: Token!
+
+  # volume
+  volume: BigDecimal!
+  volumeETH: BigDecimal!
+  volumeUSD: BigDecimal!
+
+  # tx count
+  txCount: BigInt!
+
+  # liquidity
+  liquidity: BigDecimal!
+  liquidityETH: BigDecimal!
+  liquidityUSD: BigDecimal!
+
+  # price usd
+  priceUSD: BigDecimal!
+}
+
+# Pair
+type Pair @entity {
+  # Contract address
+  id: ID!
+
+  # Factory
+  factory: Factory!
+
+  # Name
+  name: String!
 
   # mirrored from the smart contract
   token0: Token!
   token1: Token!
+
   reserve0: BigDecimal!
   reserve1: BigDecimal!
   totalSupply: BigDecimal!
@@ -61,7 +471,10 @@ type Pair @entity {
   # derived liquidity
   reserveETH: BigDecimal!
   reserveUSD: BigDecimal!
-  trackedReserveETH: BigDecimal! # used for separating per pair reserves and global
+
+  # used for separating per pair reserves and global
+  trackedReserveETH: BigDecimal!
+
   # Price in terms of the asset pair
   token0Price: BigDecimal!
   token1Price: BigDecimal!
@@ -73,26 +486,120 @@ type Pair @entity {
   untrackedVolumeUSD: BigDecimal!
   txCount: BigInt!
 
-  # creation stats
+  # Fields used to help derived relationship
+  # used to detect new exchanges
+  liquidityProviderCount: BigInt!
+
+  # lca: BigDecimal!
+  # lcad: BigDecimal!
+
+  # Liquidity positions
+  liquidityPositions: [LiquidityPosition!]! @derivedFrom(field: "pair")
+
+  # Liquidity position snapshots
+  liquidityPositionSnapshots: [LiquidityPositionSnapshot!]! @derivedFrom(field: "pair")
+
+  # Pair day data
+  dayData: [PairDayData!]! @derivedFrom(field: "pair")
+
+  # Pair hour data
+  hourData: [PairHourData!]! @derivedFrom(field: "pair")
+
+  # Transactions
+  mints: [Mint!]! @derivedFrom(field: "pair")
+  burns: [Burn!]! @derivedFrom(field: "pair")
+  swaps: [Swap!]! @derivedFrom(field: "pair")
+
+  # Created at
   createdAtTimestamp: BigInt!
   createdAtBlockNumber: BigInt!
-
-  # Fields used to help derived relationship
-  liquidityProviderCount: BigInt! # used to detect new exchanges
 }
 
-type User @entity {
+# Pair hour data
+type PairHourData @entity {
+  # pair.id - hour start timestamp
   id: ID!
-  liquidityPositions: [LiquidityPosition!] @derivedFrom(field: "user")
-  usdSwapped: BigDecimal!
+
+  # date - hour start timestamp
+  date: Int!
+
+  # pair
+  pair: Pair!
+
+  # reserves
+  reserve0: BigDecimal!
+  reserve1: BigDecimal!
+
+  # derived liquidity
+  reserveUSD: BigDecimal!
+
+  # volume
+  volumeToken0: BigDecimal!
+  volumeToken1: BigDecimal!
+
+  # volume usd
+  volumeUSD: BigDecimal!
+
+  # tx count
+  txCount: BigInt!
 }
 
+# Pair day data
+type PairDayData @entity {
+  # pair id - day start timestamp
+  id: ID!
+
+  # date - day start timestamp
+  date: Int!
+
+  # pair
+  pair: Pair!
+
+  # token0
+  token0: Token!
+
+  # token1
+  token1: Token!
+
+  # reserves
+  reserve0: BigDecimal!
+  reserve1: BigDecimal!
+
+  # total supply for LP historical returns
+  totalSupply: BigDecimal!
+
+  # derived liquidity
+  reserveUSD: BigDecimal!
+
+  # volume
+  volumeToken0: BigDecimal!
+  volumeToken1: BigDecimal!
+
+  # volume usd
+  volumeUSD: BigDecimal!
+
+  # tx count
+  txCount: BigInt!
+}
+
+# liquidity position
 type LiquidityPosition @entity {
   id: ID!
   user: User!
   pair: Pair!
   liquidityTokenBalance: BigDecimal!
-  historicalSnapshots: [LiquidityPositionSnapshot]! @derivedFrom(field: "liquidityPosition")
+  snapshots: [LiquidityPositionSnapshot]! @derivedFrom(field: "liquidityPosition")
+  block: Int!
+  timestamp: Int!
+
+  liquidityTokenMinted: BigDecimal!
+  liquidityTokenBurned: BigDecimal!
+  lca: BigDecimal!
+  lcad: BigDecimal!
+  burnCount: BigInt!
+  mintCount: BigInt!
+  lastBurn: BigInt!
+  lastMint: BigInt!
 }
 
 # saved over time for return calculations, gets created and never updated
@@ -109,11 +616,23 @@ type LiquidityPositionSnapshot @entity {
   reserve1: BigDecimal! # snapshot of pair token1 reserves
   reserveUSD: BigDecimal! # snapshot of pair reserves in USD
   liquidityTokenTotalSupply: BigDecimal! # snapshot of pool token supply
-  liquidityTokenBalance: BigDecimal! # snapshot of users pool token balance
+  # snapshot of users pool token balance
+  liquidityTokenBalance: BigDecimal!
+
+  liquidityTokenMinted: BigDecimal!
+  liquidityTokenBurned: BigDecimal!
+  lca: BigDecimal!
+  lcad: BigDecimal!
+  burnCount: BigInt!
+  mintCount: BigInt!
+  lastBurn: BigInt!
+  lastMint: BigInt!
 }
 
+# transaction
 type Transaction @entity {
-  id: ID! # txn hash
+  # transaction hash
+  id: ID!
   blockNumber: BigInt!
   timestamp: BigInt!
   # This is not the reverse of Mint.transaction; it is only used to
@@ -123,8 +642,9 @@ type Transaction @entity {
   swaps: [Swap]!
 }
 
+# mint
 type Mint @entity {
-  # transaction hash + "-" + index in mints Transaction array
+  # transaction hash - index of mint in transaction mints array
   id: ID!
   transaction: Transaction!
   timestamp: BigInt! # need this to pull recent txns for specific token or pair
@@ -147,8 +667,9 @@ type Mint @entity {
   feeLiquidity: BigDecimal
 }
 
+# burn
 type Burn @entity {
-  # transaction hash + "-" + index in mints Transaction array
+  # transaction hash - index of burn in transaction burns array
   id: ID!
   transaction: Transaction!
   timestamp: BigInt! # need this to pull recent txns for specific token or pair
@@ -167,15 +688,16 @@ type Burn @entity {
   amountUSD: BigDecimal
 
   # mark uncomplete in ETH case
-  needsComplete: Boolean!
+  complete: Boolean!
 
   # optional fee fields, if a Transfer event is fired in _mintFee
   feeTo: Bytes
   feeLiquidity: BigDecimal
 }
 
+# swap
 type Swap @entity {
-  # transaction hash + "-" + index in swaps Transaction array
+  # transaction hash - index of swap in transaction swaps array
   id: ID!
   transaction: Transaction!
   timestamp: BigInt! # need this to pull recent txns for specific token or pair
@@ -192,91 +714,4 @@ type Swap @entity {
 
   # derived info
   amountUSD: BigDecimal!
-}
-
-# stores for USD calculations
-type Bundle @entity {
-  id: ID!
-  ethPrice: BigDecimal! # price of ETH usd
-}
-
-# Data accumulated and condensed into day stats for all of Uniswap
-type UniswapDayData @entity {
-  id: ID! # timestamp rounded to current day by dividing by 86400
-  date: Int!
-
-  dailyVolumeETH: BigDecimal!
-  dailyVolumeUSD: BigDecimal!
-  dailyVolumeUntracked: BigDecimal!
-
-  totalVolumeETH: BigDecimal!
-  totalLiquidityETH: BigDecimal!
-  totalVolumeUSD: BigDecimal! # Accumulate at each trade, not just calculated off whatever totalVolume is. making it more accurate as it is a live conversion
-  totalLiquidityUSD: BigDecimal!
-
-  txCount: BigInt!
-}
-
-type PairHourData @entity {
-  id: ID!
-  hourStartUnix: Int! # unix timestamp for start of hour
-  pair: Pair!
-
-  # reserves
-  reserve0: BigDecimal!
-  reserve1: BigDecimal!
-
-  # derived liquidity
-  reserveUSD: BigDecimal!
-
-  # volume stats
-  hourlyVolumeToken0: BigDecimal!
-  hourlyVolumeToken1: BigDecimal!
-  hourlyVolumeUSD: BigDecimal!
-  hourlyTxns: BigInt!
-}
-
-# Data accumulated and condensed into day stats for each exchange
-type PairDayData @entity {
-  id: ID!
-  date: Int!
-  pairAddress: Bytes!
-  token0: Token!
-  token1: Token!
-
-  # reserves
-  reserve0: BigDecimal!
-  reserve1: BigDecimal!
-
-  # total supply for LP historical returns
-  totalSupply: BigDecimal!
-
-  # derived liquidity
-  reserveUSD: BigDecimal!
-
-  # volume stats
-  dailyVolumeToken0: BigDecimal!
-  dailyVolumeToken1: BigDecimal!
-  dailyVolumeUSD: BigDecimal!
-  dailyTxns: BigInt!
-}
-
-type TokenDayData @entity {
-  id: ID!
-  date: Int!
-  token: Token!
-
-  # volume stats
-  dailyVolumeToken: BigDecimal!
-  dailyVolumeETH: BigDecimal!
-  dailyVolumeUSD: BigDecimal!
-  dailyTxns: BigInt!
-
-  # liquidity stats
-  totalLiquidityToken: BigDecimal!
-  totalLiquidityETH: BigDecimal!
-  totalLiquidityUSD: BigDecimal!
-
-  # price stats
-  priceUSD: BigDecimal!
 }
