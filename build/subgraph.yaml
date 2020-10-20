@@ -19,7 +19,6 @@ dataSources:
       entities:
         - Deposit
         - EmergencyWithdraw
-        - OwnershipTransferred
         - Withdraw
       abis:
         - name: MasterChef
@@ -29,12 +28,36 @@ dataSources:
           handler: handleDeposit
         - event: EmergencyWithdraw(indexed address,indexed uint256,uint256)
           handler: handleEmergencyWithdraw
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
         - event: Withdraw(indexed address,indexed uint256,uint256)
           handler: handleWithdraw
       callHandlers:
         - function: set(uint256,uint256,bool)
           handler: handleSetPoolAllocPoint
-        - function: migrate(uint256)
-          handler: handleMigrate
+  - kind: ethereum/contract
+    name: Timelock
+    network: mainnet
+    source:
+      address: "0x9a8541ddf3a932a9a922b607e9cf7301f1d47bd1"
+      abi: Timelock
+      startBlock: 10736929
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: Timelock/Timelock.wasm
+      entities:
+        - Timelock
+        - Spell
+        - Platform
+        - Target
+        - Param
+      abis:
+        - name: Timelock
+          file: abis/Timelock.json
+      eventHandlers:
+        - event: CancelTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
+          handler: handleCancelTransaction
+        - event: ExecuteTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
+          handler: handleExecuteTransaction
+        - event: QueueTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
+          handler: handleQueueTransaction
