@@ -1,0 +1,52 @@
+# Bar
+type Bar @entity {
+  # Contract address
+  id: ID!
+
+  # Decimals
+  decimals: Int!
+
+  # Name
+  name: String!
+
+  # Sushi token
+  sushi: Bytes!
+
+  # Symbol
+  symbol: String!
+
+  # Total xSushi supply
+  totalSupply: BigDecimal!
+
+  # Staked Sushi
+  staked: BigDecimal!
+
+  # Users in the bar
+  users: [User!]! @derivedFrom(field: "bar")
+}
+
+# User
+type User @entity {
+  # ID
+  id: ID!
+
+  # Bar
+  bar: Bar!
+
+  # xSushi
+  xSushi: BigDecimal!
+
+  # Staked
+  staked: BigDecimal!
+
+  # Sum of $ at time of staking
+  stakedUSD: BigDecimal!
+
+  # Harvested
+  harvested: BigDecimal!
+
+  # Sum of $ at time of harvesting
+  harvestedUSD: BigDecimal!
+
+  # To get bar pending sushi (xSushi * staked / bar.totalSupply)
+}

@@ -10,7 +10,6 @@ Currently there are two subgraphs, but additional subgraphs can be added to this
 
 2. **SushiSwap-SubGraph-Fork** (on uniswap-fork branch): Indexes the SushiSwap Factory, includes Price Data, Pricing, etc: https://thegraph.com/explorer/subgraph/zippoxer/sushiswap-subgraph-fork
 
-
 ## To setup and deploy
 
 For any of the subgraphs: `sushiswap` as `[subgraph]`
