@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.3
 description: SushiSwap API
 repository: https://github.com/sushiswap/sushiswap-subgraph
 schema:
@@ -32,27 +32,3 @@ dataSources:
       callHandlers:
         - function: set(uint256,uint256,bool)
           handler: handleSetPoolAllocPoint
-  - kind: ethereum/contract
-    name: Timelock
-    network: mainnet
-    source:
-      address: '0x9a8541ddf3a932a9a922b607e9cf7301f1d47bd1'
-      abi: Timelock
-      startBlock: 10736929
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      file: ../src/timelock.ts
-      entities:
-        - Timelock
-      abis:
-        - name: Timelock
-          file: ../node_modules/@sushiswap/core/build/contracts/Timelock.json
-      eventHandlers:
-        - event: CancelTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
-          handler: handleCancelTransaction
-        - event: ExecuteTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
-          handler: handleExecuteTransaction
-        - event: QueueTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
-          handler: handleQueueTransaction
