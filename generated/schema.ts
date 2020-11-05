@@ -12,7 +12,7 @@ import {
   BigDecimal
 } from "@graphprotocol/graph-ts";
 
-export class Bar extends Entity {
+export class MasterChef extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -20,17 +20,17 @@ export class Bar extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id !== null, "Cannot save Bar entity without an ID");
+    assert(id !== null, "Cannot save MasterChef entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save Bar entity with non-string ID. " +
+      "Cannot save MasterChef entity with non-string ID. " +
         'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("Bar", id.toString(), this);
+    store.set("MasterChef", id.toString(), this);
   }
 
-  static load(id: string): Bar | null {
-    return store.get("Bar", id) as Bar | null;
+  static load(id: string): MasterChef | null {
+    return store.get("MasterChef", id) as MasterChef | null;
   }
 
   get id(): string {
@@ -42,71 +42,26 @@ export class Bar extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get decimals(): i32 {
-    let value = this.get("decimals");
-    return value.toI32();
+  get totalAllocPoint(): BigInt {
+    let value = this.get("totalAllocPoint");
+    return value.toBigInt();
   }
 
-  set decimals(value: i32) {
-    this.set("decimals", Value.fromI32(value));
+  set totalAllocPoint(value: BigInt) {
+    this.set("totalAllocPoint", Value.fromBigInt(value));
   }
 
-  get name(): string {
-    let value = this.get("name");
-    return value.toString();
+  get poolLength(): BigInt {
+    let value = this.get("poolLength");
+    return value.toBigInt();
   }
 
-  set name(value: string) {
-    this.set("name", Value.fromString(value));
-  }
-
-  get sushi(): Bytes {
-    let value = this.get("sushi");
-    return value.toBytes();
-  }
-
-  set sushi(value: Bytes) {
-    this.set("sushi", Value.fromBytes(value));
-  }
-
-  get symbol(): string {
-    let value = this.get("symbol");
-    return value.toString();
-  }
-
-  set symbol(value: string) {
-    this.set("symbol", Value.fromString(value));
-  }
-
-  get totalSupply(): BigDecimal {
-    let value = this.get("totalSupply");
-    return value.toBigDecimal();
-  }
-
-  set totalSupply(value: BigDecimal) {
-    this.set("totalSupply", Value.fromBigDecimal(value));
-  }
-
-  get staked(): BigDecimal {
-    let value = this.get("staked");
-    return value.toBigDecimal();
-  }
-
-  set staked(value: BigDecimal) {
-    this.set("staked", Value.fromBigDecimal(value));
-  }
-
-  get users(): Array<string> {
-    let value = this.get("users");
-    return value.toStringArray();
-  }
-
-  set users(value: Array<string>) {
-    this.set("users", Value.fromStringArray(value));
+  set poolLength(value: BigInt) {
+    this.set("poolLength", Value.fromBigInt(value));
   }
 }
 
-export class User extends Entity {
+export class MasterChefPool extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -114,17 +69,17 @@ export class User extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id !== null, "Cannot save User entity without an ID");
+    assert(id !== null, "Cannot save MasterChefPool entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save User entity with non-string ID. " +
+      "Cannot save MasterChefPool entity with non-string ID. " +
         'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("User", id.toString(), this);
+    store.set("MasterChefPool", id.toString(), this);
   }
 
-  static load(id: string): User | null {
-    return store.get("User", id) as User | null;
+  static load(id: string): MasterChefPool | null {
+    return store.get("MasterChefPool", id) as MasterChefPool | null;
   }
 
   get id(): string {
@@ -136,66 +91,315 @@ export class User extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get user(): string {
-    let value = this.get("user");
+  get balance(): BigInt {
+    let value = this.get("balance");
+    return value.toBigInt();
+  }
+
+  set balance(value: BigInt) {
+    this.set("balance", Value.fromBigInt(value));
+  }
+
+  get lpToken(): Bytes {
+    let value = this.get("lpToken");
+    return value.toBytes();
+  }
+
+  set lpToken(value: Bytes) {
+    this.set("lpToken", Value.fromBytes(value));
+  }
+
+  get allocPoint(): BigInt {
+    let value = this.get("allocPoint");
+    return value.toBigInt();
+  }
+
+  set allocPoint(value: BigInt) {
+    this.set("allocPoint", Value.fromBigInt(value));
+  }
+
+  get lastRewardBlock(): BigInt {
+    let value = this.get("lastRewardBlock");
+    return value.toBigInt();
+  }
+
+  set lastRewardBlock(value: BigInt) {
+    this.set("lastRewardBlock", Value.fromBigInt(value));
+  }
+
+  get accSushiPerShare(): BigInt {
+    let value = this.get("accSushiPerShare");
+    return value.toBigInt();
+  }
+
+  set accSushiPerShare(value: BigInt) {
+    this.set("accSushiPerShare", Value.fromBigInt(value));
+  }
+
+  get addedBlock(): BigInt {
+    let value = this.get("addedBlock");
+    return value.toBigInt();
+  }
+
+  set addedBlock(value: BigInt) {
+    this.set("addedBlock", Value.fromBigInt(value));
+  }
+
+  get addedTs(): BigInt {
+    let value = this.get("addedTs");
+    return value.toBigInt();
+  }
+
+  set addedTs(value: BigInt) {
+    this.set("addedTs", Value.fromBigInt(value));
+  }
+}
+
+export class Timelock extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Timelock entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Timelock entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Timelock", id.toString(), this);
+  }
+
+  static load(id: string): Timelock | null {
+    return store.get("Timelock", id) as Timelock | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
     return value.toString();
   }
 
-  set user(value: string) {
-    this.set("user", Value.fromString(value));
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
   }
 
-  get bar(): string {
-    let value = this.get("bar");
+  get description(): string | null {
+    let value = this.get("description");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set description(value: string | null) {
+    if (value === null) {
+      this.unset("description");
+    } else {
+      this.set("description", Value.fromString(value as string));
+    }
+  }
+
+  get value(): BigInt {
+    let value = this.get("value");
+    return value.toBigInt();
+  }
+
+  set value(value: BigInt) {
+    this.set("value", Value.fromBigInt(value));
+  }
+
+  get eta(): BigInt {
+    let value = this.get("eta");
+    return value.toBigInt();
+  }
+
+  set eta(value: BigInt) {
+    this.set("eta", Value.fromBigInt(value));
+  }
+
+  get functionName(): string {
+    let value = this.get("functionName");
     return value.toString();
   }
 
-  set bar(value: string) {
-    this.set("bar", Value.fromString(value));
+  set functionName(value: string) {
+    this.set("functionName", Value.fromString(value));
   }
 
-  get xSushi(): BigDecimal {
-    let value = this.get("xSushi");
-    return value.toBigDecimal();
+  get data(): string {
+    let value = this.get("data");
+    return value.toString();
   }
 
-  set xSushi(value: BigDecimal) {
-    this.set("xSushi", Value.fromBigDecimal(value));
+  set data(value: string) {
+    this.set("data", Value.fromString(value));
   }
 
-  get staked(): BigDecimal {
-    let value = this.get("staked");
-    return value.toBigDecimal();
+  get targetAddress(): string {
+    let value = this.get("targetAddress");
+    return value.toString();
   }
 
-  set staked(value: BigDecimal) {
-    this.set("staked", Value.fromBigDecimal(value));
+  set targetAddress(value: string) {
+    this.set("targetAddress", Value.fromString(value));
   }
 
-  get stakedUSD(): BigDecimal {
-    let value = this.get("stakedUSD");
-    return value.toBigDecimal();
+  get isCanceled(): boolean {
+    let value = this.get("isCanceled");
+    return value.toBoolean();
   }
 
-  set stakedUSD(value: BigDecimal) {
-    this.set("stakedUSD", Value.fromBigDecimal(value));
+  set isCanceled(value: boolean) {
+    this.set("isCanceled", Value.fromBoolean(value));
   }
 
-  get harvested(): BigDecimal {
-    let value = this.get("harvested");
-    return value.toBigDecimal();
+  get isExecuted(): boolean {
+    let value = this.get("isExecuted");
+    return value.toBoolean();
   }
 
-  set harvested(value: BigDecimal) {
-    this.set("harvested", Value.fromBigDecimal(value));
+  set isExecuted(value: boolean) {
+    this.set("isExecuted", Value.fromBoolean(value));
   }
 
-  get harvestedUSD(): BigDecimal {
-    let value = this.get("harvestedUSD");
-    return value.toBigDecimal();
+  get createdBlock(): BigInt {
+    let value = this.get("createdBlock");
+    return value.toBigInt();
   }
 
-  set harvestedUSD(value: BigDecimal) {
-    this.set("harvestedUSD", Value.fromBigDecimal(value));
+  set createdBlock(value: BigInt) {
+    this.set("createdBlock", Value.fromBigInt(value));
+  }
+
+  get createdTs(): BigInt {
+    let value = this.get("createdTs");
+    return value.toBigInt();
+  }
+
+  set createdTs(value: BigInt) {
+    this.set("createdTs", Value.fromBigInt(value));
+  }
+
+  get expiresTs(): BigInt {
+    let value = this.get("expiresTs");
+    return value.toBigInt();
+  }
+
+  set expiresTs(value: BigInt) {
+    this.set("expiresTs", Value.fromBigInt(value));
+  }
+
+  get canceledBlock(): BigInt | null {
+    let value = this.get("canceledBlock");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set canceledBlock(value: BigInt | null) {
+    if (value === null) {
+      this.unset("canceledBlock");
+    } else {
+      this.set("canceledBlock", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get canceledTs(): BigInt | null {
+    let value = this.get("canceledTs");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set canceledTs(value: BigInt | null) {
+    if (value === null) {
+      this.unset("canceledTs");
+    } else {
+      this.set("canceledTs", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get executedBlock(): BigInt | null {
+    let value = this.get("executedBlock");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set executedBlock(value: BigInt | null) {
+    if (value === null) {
+      this.unset("executedBlock");
+    } else {
+      this.set("executedBlock", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get executedTs(): BigInt | null {
+    let value = this.get("executedTs");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set executedTs(value: BigInt | null) {
+    if (value === null) {
+      this.unset("executedTs");
+    } else {
+      this.set("executedTs", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get createdTx(): string {
+    let value = this.get("createdTx");
+    return value.toString();
+  }
+
+  set createdTx(value: string) {
+    this.set("createdTx", Value.fromString(value));
+  }
+
+  get canceledTx(): string | null {
+    let value = this.get("canceledTx");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set canceledTx(value: string | null) {
+    if (value === null) {
+      this.unset("canceledTx");
+    } else {
+      this.set("canceledTx", Value.fromString(value as string));
+    }
+  }
+
+  get executedTx(): string | null {
+    let value = this.get("executedTx");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set executedTx(value: string | null) {
+    if (value === null) {
+      this.unset("executedTx");
+    } else {
+      this.set("executedTx", Value.fromString(value as string));
+    }
   }
 }

@@ -17,12 +17,11 @@ dataSources:
       language: wasm/assemblyscript
       file: ../src/sushiswap.ts
       entities:
-        - Deposit
-        - EmergencyWithdraw
-        - Withdraw
+        - MasterChef
+        - MasterChefPool
       abis:
         - name: MasterChef
-          file: ../abis/MasterChef.json
+          file: ../node_modules/@sushiswap/core/build/contracts/MasterChef.json
       eventHandlers:
         - event: Deposit(indexed address,indexed uint256,uint256)
           handler: handleDeposit
@@ -47,10 +46,6 @@ dataSources:
       file: ../src/timelock.ts
       entities:
         - Timelock
-        - Spell
-        - Platform
-        - Target
-        - Param
       abis:
         - name: Timelock
           file: ../node_modules/@sushiswap/core/build/contracts/Timelock.json

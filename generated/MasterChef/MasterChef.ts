@@ -212,35 +212,6 @@ export class MasterChef extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
-  getMultiplier(_from: BigInt, _to: BigInt): BigInt {
-    let result = super.call(
-      "getMultiplier",
-      "getMultiplier(uint256,uint256):(uint256)",
-      [
-        ethereum.Value.fromUnsignedBigInt(_from),
-        ethereum.Value.fromUnsignedBigInt(_to)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_getMultiplier(_from: BigInt, _to: BigInt): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "getMultiplier",
-      "getMultiplier(uint256,uint256):(uint256)",
-      [
-        ethereum.Value.fromUnsignedBigInt(_from),
-        ethereum.Value.fromUnsignedBigInt(_to)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
   migrator(): Address {
     let result = super.call("migrator", "migrator():(address)", []);
 
@@ -269,35 +240,6 @@ export class MasterChef extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
-  pendingSushi(_pid: BigInt, _user: Address): BigInt {
-    let result = super.call(
-      "pendingSushi",
-      "pendingSushi(uint256,address):(uint256)",
-      [
-        ethereum.Value.fromUnsignedBigInt(_pid),
-        ethereum.Value.fromAddress(_user)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_pendingSushi(_pid: BigInt, _user: Address): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "pendingSushi",
-      "pendingSushi(uint256,address):(uint256)",
-      [
-        ethereum.Value.fromUnsignedBigInt(_pid),
-        ethereum.Value.fromAddress(_user)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   poolInfo(param0: BigInt): MasterChef__poolInfoResult {
@@ -335,21 +277,6 @@ export class MasterChef extends ethereum.SmartContract {
         value[3].toBigInt()
       )
     );
-  }
-
-  poolLength(): BigInt {
-    let result = super.call("poolLength", "poolLength():(uint256)", []);
-
-    return result[0].toBigInt();
-  }
-
-  try_poolLength(): ethereum.CallResult<BigInt> {
-    let result = super.tryCall("poolLength", "poolLength():(uint256)", []);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   startBlock(): BigInt {
@@ -460,6 +387,79 @@ export class MasterChef extends ethereum.SmartContract {
       new MasterChef__userInfoResult(value[0].toBigInt(), value[1].toBigInt())
     );
   }
+
+  poolLength(): BigInt {
+    let result = super.call("poolLength", "poolLength():(uint256)", []);
+
+    return result[0].toBigInt();
+  }
+
+  try_poolLength(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall("poolLength", "poolLength():(uint256)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  getMultiplier(_from: BigInt, _to: BigInt): BigInt {
+    let result = super.call(
+      "getMultiplier",
+      "getMultiplier(uint256,uint256):(uint256)",
+      [
+        ethereum.Value.fromUnsignedBigInt(_from),
+        ethereum.Value.fromUnsignedBigInt(_to)
+      ]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_getMultiplier(_from: BigInt, _to: BigInt): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "getMultiplier",
+      "getMultiplier(uint256,uint256):(uint256)",
+      [
+        ethereum.Value.fromUnsignedBigInt(_from),
+        ethereum.Value.fromUnsignedBigInt(_to)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  pendingSushi(_pid: BigInt, _user: Address): BigInt {
+    let result = super.call(
+      "pendingSushi",
+      "pendingSushi(uint256,address):(uint256)",
+      [
+        ethereum.Value.fromUnsignedBigInt(_pid),
+        ethereum.Value.fromAddress(_user)
+      ]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_pendingSushi(_pid: BigInt, _user: Address): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "pendingSushi",
+      "pendingSushi(uint256,address):(uint256)",
+      [
+        ethereum.Value.fromUnsignedBigInt(_pid),
+        ethereum.Value.fromAddress(_user)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
 }
 
 export class ConstructorCall extends ethereum.Call {
@@ -508,6 +508,62 @@ export class ConstructorCall__Outputs {
   }
 }
 
+export class RenounceOwnershipCall extends ethereum.Call {
+  get inputs(): RenounceOwnershipCall__Inputs {
+    return new RenounceOwnershipCall__Inputs(this);
+  }
+
+  get outputs(): RenounceOwnershipCall__Outputs {
+    return new RenounceOwnershipCall__Outputs(this);
+  }
+}
+
+export class RenounceOwnershipCall__Inputs {
+  _call: RenounceOwnershipCall;
+
+  constructor(call: RenounceOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class RenounceOwnershipCall__Outputs {
+  _call: RenounceOwnershipCall;
+
+  constructor(call: RenounceOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class TransferOwnershipCall extends ethereum.Call {
+  get inputs(): TransferOwnershipCall__Inputs {
+    return new TransferOwnershipCall__Inputs(this);
+  }
+
+  get outputs(): TransferOwnershipCall__Outputs {
+    return new TransferOwnershipCall__Outputs(this);
+  }
+}
+
+export class TransferOwnershipCall__Inputs {
+  _call: TransferOwnershipCall;
+
+  constructor(call: TransferOwnershipCall) {
+    this._call = call;
+  }
+
+  get newOwner(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class TransferOwnershipCall__Outputs {
+  _call: TransferOwnershipCall;
+
+  constructor(call: TransferOwnershipCall) {
+    this._call = call;
+  }
+}
+
 export class AddCall extends ethereum.Call {
   get inputs(): AddCall__Inputs {
     return new AddCall__Inputs(this);
@@ -542,182 +598,6 @@ export class AddCall__Outputs {
   _call: AddCall;
 
   constructor(call: AddCall) {
-    this._call = call;
-  }
-}
-
-export class DepositCall extends ethereum.Call {
-  get inputs(): DepositCall__Inputs {
-    return new DepositCall__Inputs(this);
-  }
-
-  get outputs(): DepositCall__Outputs {
-    return new DepositCall__Outputs(this);
-  }
-}
-
-export class DepositCall__Inputs {
-  _call: DepositCall;
-
-  constructor(call: DepositCall) {
-    this._call = call;
-  }
-
-  get _pid(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-
-  get _amount(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-}
-
-export class DepositCall__Outputs {
-  _call: DepositCall;
-
-  constructor(call: DepositCall) {
-    this._call = call;
-  }
-}
-
-export class DevCall extends ethereum.Call {
-  get inputs(): DevCall__Inputs {
-    return new DevCall__Inputs(this);
-  }
-
-  get outputs(): DevCall__Outputs {
-    return new DevCall__Outputs(this);
-  }
-}
-
-export class DevCall__Inputs {
-  _call: DevCall;
-
-  constructor(call: DevCall) {
-    this._call = call;
-  }
-
-  get _devaddr(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-}
-
-export class DevCall__Outputs {
-  _call: DevCall;
-
-  constructor(call: DevCall) {
-    this._call = call;
-  }
-}
-
-export class EmergencyWithdrawCall extends ethereum.Call {
-  get inputs(): EmergencyWithdrawCall__Inputs {
-    return new EmergencyWithdrawCall__Inputs(this);
-  }
-
-  get outputs(): EmergencyWithdrawCall__Outputs {
-    return new EmergencyWithdrawCall__Outputs(this);
-  }
-}
-
-export class EmergencyWithdrawCall__Inputs {
-  _call: EmergencyWithdrawCall;
-
-  constructor(call: EmergencyWithdrawCall) {
-    this._call = call;
-  }
-
-  get _pid(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-}
-
-export class EmergencyWithdrawCall__Outputs {
-  _call: EmergencyWithdrawCall;
-
-  constructor(call: EmergencyWithdrawCall) {
-    this._call = call;
-  }
-}
-
-export class MassUpdatePoolsCall extends ethereum.Call {
-  get inputs(): MassUpdatePoolsCall__Inputs {
-    return new MassUpdatePoolsCall__Inputs(this);
-  }
-
-  get outputs(): MassUpdatePoolsCall__Outputs {
-    return new MassUpdatePoolsCall__Outputs(this);
-  }
-}
-
-export class MassUpdatePoolsCall__Inputs {
-  _call: MassUpdatePoolsCall;
-
-  constructor(call: MassUpdatePoolsCall) {
-    this._call = call;
-  }
-}
-
-export class MassUpdatePoolsCall__Outputs {
-  _call: MassUpdatePoolsCall;
-
-  constructor(call: MassUpdatePoolsCall) {
-    this._call = call;
-  }
-}
-
-export class MigrateCall extends ethereum.Call {
-  get inputs(): MigrateCall__Inputs {
-    return new MigrateCall__Inputs(this);
-  }
-
-  get outputs(): MigrateCall__Outputs {
-    return new MigrateCall__Outputs(this);
-  }
-}
-
-export class MigrateCall__Inputs {
-  _call: MigrateCall;
-
-  constructor(call: MigrateCall) {
-    this._call = call;
-  }
-
-  get _pid(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-}
-
-export class MigrateCall__Outputs {
-  _call: MigrateCall;
-
-  constructor(call: MigrateCall) {
-    this._call = call;
-  }
-}
-
-export class RenounceOwnershipCall extends ethereum.Call {
-  get inputs(): RenounceOwnershipCall__Inputs {
-    return new RenounceOwnershipCall__Inputs(this);
-  }
-
-  get outputs(): RenounceOwnershipCall__Outputs {
-    return new RenounceOwnershipCall__Outputs(this);
-  }
-}
-
-export class RenounceOwnershipCall__Inputs {
-  _call: RenounceOwnershipCall;
-
-  constructor(call: RenounceOwnershipCall) {
-    this._call = call;
-  }
-}
-
-export class RenounceOwnershipCall__Outputs {
-  _call: RenounceOwnershipCall;
-
-  constructor(call: RenounceOwnershipCall) {
     this._call = call;
   }
 }
@@ -790,32 +670,58 @@ export class SetMigratorCall__Outputs {
   }
 }
 
-export class TransferOwnershipCall extends ethereum.Call {
-  get inputs(): TransferOwnershipCall__Inputs {
-    return new TransferOwnershipCall__Inputs(this);
+export class MigrateCall extends ethereum.Call {
+  get inputs(): MigrateCall__Inputs {
+    return new MigrateCall__Inputs(this);
   }
 
-  get outputs(): TransferOwnershipCall__Outputs {
-    return new TransferOwnershipCall__Outputs(this);
+  get outputs(): MigrateCall__Outputs {
+    return new MigrateCall__Outputs(this);
   }
 }
 
-export class TransferOwnershipCall__Inputs {
-  _call: TransferOwnershipCall;
+export class MigrateCall__Inputs {
+  _call: MigrateCall;
 
-  constructor(call: TransferOwnershipCall) {
+  constructor(call: MigrateCall) {
     this._call = call;
   }
 
-  get newOwner(): Address {
-    return this._call.inputValues[0].value.toAddress();
+  get _pid(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
   }
 }
 
-export class TransferOwnershipCall__Outputs {
-  _call: TransferOwnershipCall;
+export class MigrateCall__Outputs {
+  _call: MigrateCall;
 
-  constructor(call: TransferOwnershipCall) {
+  constructor(call: MigrateCall) {
+    this._call = call;
+  }
+}
+
+export class MassUpdatePoolsCall extends ethereum.Call {
+  get inputs(): MassUpdatePoolsCall__Inputs {
+    return new MassUpdatePoolsCall__Inputs(this);
+  }
+
+  get outputs(): MassUpdatePoolsCall__Outputs {
+    return new MassUpdatePoolsCall__Outputs(this);
+  }
+}
+
+export class MassUpdatePoolsCall__Inputs {
+  _call: MassUpdatePoolsCall;
+
+  constructor(call: MassUpdatePoolsCall) {
+    this._call = call;
+  }
+}
+
+export class MassUpdatePoolsCall__Outputs {
+  _call: MassUpdatePoolsCall;
+
+  constructor(call: MassUpdatePoolsCall) {
     this._call = call;
   }
 }
@@ -850,6 +756,40 @@ export class UpdatePoolCall__Outputs {
   }
 }
 
+export class DepositCall extends ethereum.Call {
+  get inputs(): DepositCall__Inputs {
+    return new DepositCall__Inputs(this);
+  }
+
+  get outputs(): DepositCall__Outputs {
+    return new DepositCall__Outputs(this);
+  }
+}
+
+export class DepositCall__Inputs {
+  _call: DepositCall;
+
+  constructor(call: DepositCall) {
+    this._call = call;
+  }
+
+  get _pid(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get _amount(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+}
+
+export class DepositCall__Outputs {
+  _call: DepositCall;
+
+  constructor(call: DepositCall) {
+    this._call = call;
+  }
+}
+
 export class WithdrawCall extends ethereum.Call {
   get inputs(): WithdrawCall__Inputs {
     return new WithdrawCall__Inputs(this);
@@ -880,6 +820,66 @@ export class WithdrawCall__Outputs {
   _call: WithdrawCall;
 
   constructor(call: WithdrawCall) {
+    this._call = call;
+  }
+}
+
+export class EmergencyWithdrawCall extends ethereum.Call {
+  get inputs(): EmergencyWithdrawCall__Inputs {
+    return new EmergencyWithdrawCall__Inputs(this);
+  }
+
+  get outputs(): EmergencyWithdrawCall__Outputs {
+    return new EmergencyWithdrawCall__Outputs(this);
+  }
+}
+
+export class EmergencyWithdrawCall__Inputs {
+  _call: EmergencyWithdrawCall;
+
+  constructor(call: EmergencyWithdrawCall) {
+    this._call = call;
+  }
+
+  get _pid(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+}
+
+export class EmergencyWithdrawCall__Outputs {
+  _call: EmergencyWithdrawCall;
+
+  constructor(call: EmergencyWithdrawCall) {
+    this._call = call;
+  }
+}
+
+export class DevCall extends ethereum.Call {
+  get inputs(): DevCall__Inputs {
+    return new DevCall__Inputs(this);
+  }
+
+  get outputs(): DevCall__Outputs {
+    return new DevCall__Outputs(this);
+  }
+}
+
+export class DevCall__Inputs {
+  _call: DevCall;
+
+  constructor(call: DevCall) {
+    this._call = call;
+  }
+
+  get _devaddr(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class DevCall__Outputs {
+  _call: DevCall;
+
+  constructor(call: DevCall) {
     this._call = call;
   }
 }
