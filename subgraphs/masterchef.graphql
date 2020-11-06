@@ -1,0 +1,96 @@
+# MasterChef
+type MasterChef @entity {
+  # Contract address
+  id: ID!
+
+  # Bonus multiplier
+  bonusMultiplier: BigInt!
+
+  # Bonus end block
+  bonusEndBlock: BigInt!
+
+  # Dev fund address
+  devaddr: Bytes!
+
+  # Migrator
+  migrator: Bytes!
+
+  # Owner
+  owner: Bytes!
+
+  # Start block
+  startBlock: BigInt!
+
+  # Sushi
+  sushi: Bytes!
+
+  # Sushi per block
+  sushiPerBlock: BigInt!
+
+  # Total allocation point
+  totalAllocPoint: BigInt!
+
+  # Pools
+  pools: [Pool!]! @derivedFrom(field: "owner")
+
+  # Pool count
+  poolCount: BigInt!
+}
+
+# Pool
+type Pool @entity {
+  # Index of pool in poolInfo on MasterChef contract
+  id: ID!
+
+  # Owner
+  owner: MasterChef!
+
+  # Pair Liquidity Token Address
+  pair: Bytes!
+
+  # Allocation point
+  allocPoint: BigInt!
+
+  # Last reward block
+  lastRewardBlock: BigInt!
+
+  # Accumulated sushi per share
+  accSushiPerShare: BigInt!
+
+  # Total supply of LP tokens for pool
+  totalSupply: BigInt!
+
+  # Pool users
+  users: [User!]! @derivedFrom(field: "pool")
+
+  # User count
+  userCount: BigInt!
+}
+
+type User @entity {
+  # pool id concatenated with user address
+  id: ID!
+
+  # user address
+  address: Bytes!
+
+  # related pool
+  pool: Pool!
+
+  # We do some fancy math here. Basically, any point in time, the amount of SUSHIs
+  # entitled to a user but is pending to be distributed is:
+  # pending reward = (user.amount * pool.accSushiPerShare) - user.rewardDebt
+  # Whenever a user deposits or withdraws LP tokens to a pool. Here's what happens:
+  # 1. The pool's `accSushiPerShare` (and `lastRewardBlock`) gets updated.
+  # 2. User receives the pending reward sent to his/her address.
+  # 3. User's `amount` gets updated.
+  # 4. User's `rewardDebt` gets updated.
+  amount: BigInt!
+  rewardDebt: BigInt!
+
+  # Pending Sushi at lockup
+  pendingSushiAtLockup: BigInt!
+
+  # Harvested Sushi since lockup
+  harvestedSushiSinceLockup: BigInt!
+}

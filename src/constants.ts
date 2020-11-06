@@ -23,3 +23,5 @@ export const SUSHI_TOKEN_ADDRESS = Address.fromString('0x6b3595068778dd592e39a12
 export const SUSHI_USDT_PAIR_ADDRESS = Address.fromString('0x680a025da7b1be2c204d7745e809919bce074026')
 
 export const ADDRESS_ZERO = Address.fromString('0x0000000000000000000000000000000000000000')
+
+export const LOCKUP_BLOCK_NUMBER = BigInt.fromI32(10959148)
