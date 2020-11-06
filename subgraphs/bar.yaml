@@ -30,4 +30,7 @@ dataSources:
           handler: enter
         - function: leave(uint256)
           handler: leave
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: transfer
       file: ../src/bar.ts

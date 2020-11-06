@@ -1,7 +1,15 @@
+import {
+  ADDRESS_ZERO,
+  BIG_DECIMAL_1E18,
+  SUSHIBAR_ADDRESS,
+  SUSHI_MAKER_ADDRESS,
+  SUSHI_TOKEN_ADDRESS,
+  SUSHI_USDT_PAIR_ADDRESS,
+  ZERO_BIG_DECIMAL,
+} from './constants'
 import { Address, BigDecimal, dataSource, log } from '@graphprotocol/graph-ts'
 import { Bar, User } from '../generated/schema'
-import { Bar as BarContract, EnterCall, LeaveCall } from '../generated/SushiBar/Bar'
-import { NUMBER_LITERAL_1E18, SUSHI_TOKEN_ADDRESS, SUSHI_USDT_PAIR_ADDRESS, ZERO_BIG_DECIMAL } from './constants'
+import { Bar as BarContract, EnterCall, LeaveCall, Transfer as TransferEvent } from '../generated/SushiBar/Bar'
 
 import { Pair as PairContract } from '../generated/SushiBar/Pair'
 import { SushiToken as SushiTokenContract } from '../generated/SushiBar/SushiToken'
@@ -11,7 +19,7 @@ function getSushiPrice(): BigDecimal {
   const reserves = pair.getReserves()
   return reserves.value1
     .toBigDecimal()
-    .times(NUMBER_LITERAL_1E18)
+    .times(BIG_DECIMAL_1E18)
     .div(reserves.value0.toBigDecimal())
     .div(BigDecimal.fromString('1000000'))
 }
@@ -23,7 +31,7 @@ function createBar(): Bar {
   bar.name = contract.name()
   bar.sushi = contract.sushi()
   bar.symbol = contract.symbol()
-  bar.totalSupply = contract.totalSupply().divDecimal(NUMBER_LITERAL_1E18)
+  bar.totalSupply = contract.totalSupply().divDecimal(BIG_DECIMAL_1E18)
   bar.staked = ZERO_BIG_DECIMAL
   bar.save()
 
@@ -43,8 +51,8 @@ function getBar(): Bar {
 function updateBar(bar: Bar): Bar {
   const barContract = BarContract.bind(dataSource.address())
   const sushiTokenContract = SushiTokenContract.bind(SUSHI_TOKEN_ADDRESS)
-  bar.totalSupply = barContract.totalSupply().divDecimal(NUMBER_LITERAL_1E18)
-  bar.staked = sushiTokenContract.balanceOf(barContract._address).divDecimal(NUMBER_LITERAL_1E18)
+  bar.totalSupply = barContract.totalSupply().divDecimal(BIG_DECIMAL_1E18)
+  bar.staked = sushiTokenContract.balanceOf(barContract._address).divDecimal(BIG_DECIMAL_1E18)
   bar.save()
   return bar as Bar
 }
@@ -70,8 +78,48 @@ function getUser(address: Address): User {
   return user as User
 }
 
+export function transfer(event: TransferEvent): void {
+  // Sending xSushi to user
+  if (event.params.from == ADDRESS_ZERO) {
+    log.info('{} sent {} xSushi to {}', [
+      event.params.from.toHex(),
+      event.params.value.toString(),
+      event.params.to.toHex(),
+    ])
+  }
+
+  // User removed xSushi
+  if (event.params.to == ADDRESS_ZERO) {
+    log.info('{} removed {} xSushi', [
+      event.params.from.toHex(),
+      event.params.value.toString(),
+      event.params.to.toHex(),
+    ])
+  }
+
+  // If transfer to another user
+  if (event.params.from != ADDRESS_ZERO && event.params.to != ADDRESS_ZERO) {
+    log.info('user {} transfered {} xSushi to user {}', [
+      event.params.from.toHex(),
+      event.params.value.toString(),
+      event.params.to.toHex(),
+    ])
+
+    // TODO: We should consider if we update the harvested value on the to user at the time of sending
+    const value = event.params.value.divDecimal(BIG_DECIMAL_1E18)
+    const fromUser = getUser(event.params.from)
+    fromUser.xSushi = fromUser.xSushi.minus(value)
+    fromUser.save()
+
+    // TODO: We should consider if we update the staked value on the to user at the time of recipt
+    const toUser = getUser(event.params.to)
+    toUser.xSushi = fromUser.xSushi.plus(value)
+    toUser.save()
+  }
+}
+
 export function enter(call: EnterCall): void {
-  const amount = call.inputs._amount.divDecimal(NUMBER_LITERAL_1E18)
+  const amount = call.inputs._amount.divDecimal(BIG_DECIMAL_1E18)
 
   log.info('{} entered the bar and staked {} sushi', [call.from.toHex(), amount.toString()])
 
@@ -100,7 +148,7 @@ export function enter(call: EnterCall): void {
 }
 
 export function leave(call: LeaveCall): void {
-  const share = call.inputs._share.divDecimal(NUMBER_LITERAL_1E18)
+  const share = call.inputs._share.divDecimal(BIG_DECIMAL_1E18)
 
   const bar = updateBar(getBar())
 
