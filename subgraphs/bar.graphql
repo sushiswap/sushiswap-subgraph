@@ -21,6 +21,9 @@ type Bar @entity {
   # Staked Sushi
   staked: BigDecimal!
 
+  # Ratio xSushi:Sushi
+  ratio: BigDecimal!
+
   # Users in the bar
   users: [User!]! @derivedFrom(field: "bar")
 }
@@ -31,7 +34,7 @@ type User @entity {
   id: ID!
 
   # Bar
-  bar: Bar!
+  bar: Bar
 
   # xSushi
   xSushi: BigDecimal!
