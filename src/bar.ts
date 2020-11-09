@@ -85,10 +85,7 @@ export function transfer(event: TransferEvent): void {
 
   // Minted xSushi
   if (event.params.from == ADDRESS_ZERO) {
-    const what =
-      bar.totalSupply.equals(BIG_DECIMAL_ZERO) || bar.staked.equals(BIG_DECIMAL_ZERO)
-        ? value
-        : value.times(bar.ratio).div(bar.totalSupply)
+    const what = value.times(bar.ratio)
 
     // log.info('{} minted {} xSushi in exchange for {} sushi', [
     //   event.params.to.toHex(),
@@ -126,7 +123,7 @@ export function transfer(event: TransferEvent): void {
 
     user.xSushi = user.xSushi.minus(value)
 
-    const what = value.times(bar.staked).div(bar.totalSupply)
+    const what = value.times(bar.ratio)
 
     user.harvested = user.harvested.plus(what)
 
