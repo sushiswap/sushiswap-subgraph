@@ -34,8 +34,10 @@ function createBar(): Bar {
   bar.sushi = contract.sushi()
   bar.symbol = contract.symbol()
   bar.totalSupply = BIG_DECIMAL_ZERO
-  bar.staked = BIG_DECIMAL_ZERO
+  bar.stakedSushi = BIG_DECIMAL_ZERO
   bar.ratio = BIG_DECIMAL_ZERO
+  bar.sushiUSD = BIG_DECIMAL_ZERO
+  bar.stakedUSD = BIG_DECIMAL_ZERO
   bar.save()
 
   return bar as Bar
@@ -58,10 +60,6 @@ function createUser(address: Address): User {
   user.bar = dataSource.address().toHex()
 
   user.xSushi = BIG_DECIMAL_ZERO
-  user.staked = BIG_DECIMAL_ZERO
-  user.stakedUSD = BIG_DECIMAL_ZERO
-  user.harvested = BIG_DECIMAL_ZERO
-  user.harvestedUSD = BIG_DECIMAL_ZERO
 
   return user as User
 }
@@ -81,96 +79,25 @@ export function transfer(event: TransferEvent): void {
 
   const value = event.params.value.divDecimal(BIG_DECIMAL_1E18)
 
-  // Minted xSushi
-  if (event.params.from == ADDRESS_ZERO) {
-    const what =
-      bar.totalSupply.equals(BIG_DECIMAL_ZERO) || bar.staked.equals(BIG_DECIMAL_ZERO)
-        ? value
-        : value.times(bar.staked).div(bar.totalSupply)
+  // update Bar
+  const contract = BarContract.bind(dataSource.address())
+  bar.totalSupply = contract.totalSupply().divDecimal(BIG_DECIMAL_1E18)
+  bar.stakedSushi = SushiTokenContract.bind(SUSHI_TOKEN_ADDRESS).balanceOf(SUSHIBAR_ADDRESS).divDecimal(BIG_DECIMAL_1E18)
+  bar.ratio = bar.stakedSushi / bar.totalSupply
+  bar.sushiUSD = getSushiPrice()
+  bar.stakedUSD = bar.stakedSushi * bar.sushiUSD
+  bar.save()
 
-    // log.info('{} minted {} xSushi in exchange for {} sushi', [
-    //   event.params.to.toHex(),
-    //   value.toString(),
-    //   what.toString(),
-    // ])
-
-    bar.totalSupply = bar.totalSupply.plus(value)
-    bar.staked = bar.staked.plus(what)
-    bar.save()
-
-    const user = getUser(event.params.to)
-    user.xSushi = user.xSushi.plus(value)
-    user.staked = user.staked.plus(what)
-    user.stakedUSD = user.stakedUSD.plus(what.times(getSushiPrice()))
-    user.save()
-
-    // log.info('enter staked db: {} contract: {}', [
-    //   bar.staked.toString(),
-    //   SushiTokenContract.bind(SUSHI_TOKEN_ADDRESS).balanceOf(SUSHIBAR_ADDRESS).divDecimal(BIG_DECIMAL_1E18).toString(),
-    // ])
-
-    // log.info('enter total supply db: {} contract: {}', [
-    //   bar.totalSupply.toString(),
-    //   BarContract.bind(SUSHIBAR_ADDRESS).totalSupply().divDecimal(BIG_DECIMAL_1E18).toString(),
-    // ])
-  }
-
-  // Burned xSushi
-  if (event.params.to == ADDRESS_ZERO) {
-    // log.info('{} burned {} xSushi', [event.params.from.toHex(), value.toString()])
-    // _share.mul(sushi.balanceOf(address(this))).div(totalShares);
-
+  // update each address in event
+  if (event.params.from != ADDRESS_ZERO) {
     const user = getUser(event.params.from)
-
-    user.xSushi = user.xSushi.minus(value)
-
-    const what = value.times(bar.staked).div(bar.totalSupply)
-
-    user.harvested = user.harvested.plus(what)
-
-    user.harvestedUSD = user.harvestedUSD.plus(what.times(getSushiPrice()))
-
-    // If user xSushi is zero, remove from bar.
-    if (user.xSushi == BIG_DECIMAL_ZERO) {
-      user.bar = null
-    }
-
+    user.xSushi = contract.balanceOf(event.params.from).divDecimal(BIG_DECIMAL_1E18)
     user.save()
-
-    bar.staked = bar.staked.minus(what)
-
-    bar.totalSupply = bar.totalSupply.minus(value)
-
-    bar.save()
   }
 
-  // If transfer from address to address and not known xSushi pools.
-  if (
-    event.params.from != ADDRESS_ZERO &&
-    event.params.to != ADDRESS_ZERO &&
-    event.params.from != XSUSHI_WETH_PAIR_ADDRESS &&
-    event.params.to != XSUSHI_WETH_PAIR_ADDRESS &&
-    event.params.from != XSUSHI_USDC_PAIR_ADDRESS &&
-    event.params.to != XSUSHI_USDC_PAIR_ADDRESS
-  ) {
-    const fromUser = getUser(event.params.from)
-
-    fromUser.xSushi = fromUser.xSushi.minus(value)
-
-    if (fromUser.xSushi == BIG_DECIMAL_ZERO) {
-      fromUser.bar = null
-    }
-
-    fromUser.save()
-
-    const toUser = getUser(event.params.to)
-
-    if (toUser.bar === null) {
-      toUser.bar = bar.id
-    }
-
-    toUser.xSushi = toUser.xSushi.plus(value)
-
-    toUser.save()
+  if (event.params.to != ADDRESS_ZERO) {
+    const user = getUser(event.params.to)
+    user.xSushi = contract.balanceOf(event.params.to).divDecimal(BIG_DECIMAL_1E18)
+    user.save()
   }
 }

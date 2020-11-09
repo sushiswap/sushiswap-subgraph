@@ -19,10 +19,16 @@ type Bar @entity {
   totalSupply: BigDecimal!
 
   # Staked Sushi
-  staked: BigDecimal!
+  stakedSushi: BigDecimal!
 
-  # Ratio xSushi:Sushi
+  # Ratio Sushi per xSushi
   ratio: BigDecimal!
+
+  # Sushi Price
+  sushiUSD: BigDecimal!
+
+  # Staked USD
+  stakedUSD: BigDecimal!
 
   # Users in the bar
   users: [User!]! @derivedFrom(field: "bar")
@@ -38,18 +44,4 @@ type User @entity {
 
   # xSushi
   xSushi: BigDecimal!
-
-  # Staked
-  staked: BigDecimal!
-
-  # Sum of $ at time of staking
-  stakedUSD: BigDecimal!
-
-  # Harvested
-  harvested: BigDecimal!
-
-  # Sum of $ at time of harvesting
-  harvestedUSD: BigDecimal!
-
-  # To get bar pending sushi (xSushi * staked / bar.totalSupply)
 }
