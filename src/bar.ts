@@ -21,14 +21,14 @@ import { SushiToken as SushiTokenContract } from '../generated/SushiBar/SushiTok
 
 // TODO: Get averages of multiple sushi stablecoin pairs
 function getSushiPrice(): BigDecimal {
-  const pair = PairContract.bind(SUSHI_USDT_PAIR_ADDRESS)
-  const reserves = pair.getReserves()
+  let pair = PairContract.bind(SUSHI_USDT_PAIR_ADDRESS)
+  let reserves = pair.getReserves()
   return reserves.value1.toBigDecimal().times(BIG_DECIMAL_1E18).div(reserves.value0.toBigDecimal()).div(BIG_DECIMAL_1E6)
 }
 
 function createBar(): Bar {
-  const contract = BarContract.bind(dataSource.address())
-  const bar = new Bar(dataSource.address().toHex())
+  let contract = BarContract.bind(dataSource.address())
+  let bar = new Bar(dataSource.address().toHex())
   bar.decimals = contract.decimals()
   bar.name = contract.name()
   bar.sushi = contract.sushi()
@@ -54,7 +54,7 @@ function getBar(): Bar {
 }
 
 function createUser(address: Address): User {
-  const user = new User(address.toHex())
+  let user = new User(address.toHex())
 
   // Set relation to bar
   user.bar = dataSource.address().toHex()
@@ -75,12 +75,10 @@ function getUser(address: Address): User {
 }
 
 export function transfer(event: TransferEvent): void {
-  const bar = getBar()
-
-  const value = event.params.value.divDecimal(BIG_DECIMAL_1E18)
+  let bar = getBar()
 
   // update Bar
-  const contract = BarContract.bind(dataSource.address())
+  let contract = BarContract.bind(dataSource.address())
   bar.totalSupply = contract.totalSupply().divDecimal(BIG_DECIMAL_1E18)
   bar.stakedSushi = SushiTokenContract.bind(SUSHI_TOKEN_ADDRESS).balanceOf(SUSHIBAR_ADDRESS).divDecimal(BIG_DECIMAL_1E18)
   bar.ratio = bar.stakedSushi / bar.totalSupply
@@ -90,13 +88,13 @@ export function transfer(event: TransferEvent): void {
 
   // update each address in event
   if (event.params.from != ADDRESS_ZERO) {
-    const user = getUser(event.params.from)
+    let user = getUser(event.params.from)
     user.xSushi = contract.balanceOf(event.params.from).divDecimal(BIG_DECIMAL_1E18)
     user.save()
   }
 
   if (event.params.to != ADDRESS_ZERO) {
-    const user = getUser(event.params.to)
+    let user = getUser(event.params.to)
     user.xSushi = contract.balanceOf(event.params.to).divDecimal(BIG_DECIMAL_1E18)
     user.save()
   }
