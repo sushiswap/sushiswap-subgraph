@@ -2,19 +2,14 @@ import {
   ADDRESS_ZERO,
   BIG_DECIMAL_1E18,
   BIG_DECIMAL_1E6,
-  BIG_DECIMAL_ONE,
   BIG_DECIMAL_ZERO,
-  BIG_INT_ZERO,
   SUSHIBAR_ADDRESS,
-  SUSHI_MAKER_ADDRESS,
   SUSHI_TOKEN_ADDRESS,
   SUSHI_USDT_PAIR_ADDRESS,
-  XSUSHI_USDC_PAIR_ADDRESS,
-  XSUSHI_WETH_PAIR_ADDRESS,
 } from './constants'
-import { Address, BigDecimal, BigInt, dataSource, log } from '@graphprotocol/graph-ts'
+import { Address, BigDecimal, dataSource, log } from '@graphprotocol/graph-ts'
 import { Bar, User } from '../generated/schema'
-import { Bar as BarContract, EnterCall, LeaveCall, Transfer as TransferEvent } from '../generated/SushiBar/Bar'
+import { Bar as BarContract, Transfer as TransferEvent } from '../generated/SushiBar/Bar'
 
 import { Pair as PairContract } from '../generated/SushiBar/Pair'
 import { SushiToken as SushiTokenContract } from '../generated/SushiBar/SushiToken'
@@ -78,6 +73,13 @@ function getUser(address: Address): User {
 
 export function transfer(event: TransferEvent): void {
   const bar = getBar()
+  const barContract = BarContract.bind(SUSHIBAR_ADDRESS)
+
+  bar.totalSupply = barContract.totalSupply().divDecimal(BIG_DECIMAL_1E18)
+  bar.staked = SushiTokenContract.bind(SUSHI_TOKEN_ADDRESS).balanceOf(SUSHIBAR_ADDRESS).divDecimal(BIG_DECIMAL_1E18)
+  bar.ratio = bar.staked.div(bar.totalSupply)
+
+  bar.save()
 
   const value = event.params.value.divDecimal(BIG_DECIMAL_1E18)
 
@@ -86,7 +88,7 @@ export function transfer(event: TransferEvent): void {
     const what =
       bar.totalSupply.equals(BIG_DECIMAL_ZERO) || bar.staked.equals(BIG_DECIMAL_ZERO)
         ? value
-        : value.times(bar.staked).div(bar.totalSupply)
+        : value.times(bar.ratio).div(bar.totalSupply)
 
     // log.info('{} minted {} xSushi in exchange for {} sushi', [
     //   event.params.to.toHex(),
@@ -94,31 +96,31 @@ export function transfer(event: TransferEvent): void {
     //   what.toString(),
     // ])
 
-    bar.totalSupply = bar.totalSupply.plus(value)
-    bar.staked = bar.staked.plus(what)
-    bar.save()
-
     const user = getUser(event.params.to)
+
+    if (user.xSushi == BIG_DECIMAL_ZERO) {
+      user.bar = bar.id
+    }
+
     user.xSushi = user.xSushi.plus(value)
     user.staked = user.staked.plus(what)
     user.stakedUSD = user.stakedUSD.plus(what.times(getSushiPrice()))
     user.save()
 
-    // log.info('enter staked db: {} contract: {}', [
-    //   bar.staked.toString(),
-    //   SushiTokenContract.bind(SUSHI_TOKEN_ADDRESS).balanceOf(SUSHIBAR_ADDRESS).divDecimal(BIG_DECIMAL_1E18).toString(),
-    // ])
+    log.info('enter staked db: {} contract: {}', [
+      bar.staked.toString(),
+      SushiTokenContract.bind(SUSHI_TOKEN_ADDRESS).balanceOf(SUSHIBAR_ADDRESS).divDecimal(BIG_DECIMAL_1E18).toString(),
+    ])
 
-    // log.info('enter total supply db: {} contract: {}', [
-    //   bar.totalSupply.toString(),
-    //   BarContract.bind(SUSHIBAR_ADDRESS).totalSupply().divDecimal(BIG_DECIMAL_1E18).toString(),
-    // ])
+    log.info('enter total supply db: {} contract: {}', [
+      bar.totalSupply.toString(),
+      BarContract.bind(SUSHIBAR_ADDRESS).totalSupply().divDecimal(BIG_DECIMAL_1E18).toString(),
+    ])
   }
 
   // Burned xSushi
   if (event.params.to == ADDRESS_ZERO) {
     // log.info('{} burned {} xSushi', [event.params.from.toHex(), value.toString()])
-    // _share.mul(sushi.balanceOf(address(this))).div(totalShares);
 
     const user = getUser(event.params.from)
 
@@ -130,29 +132,15 @@ export function transfer(event: TransferEvent): void {
 
     user.harvestedUSD = user.harvestedUSD.plus(what.times(getSushiPrice()))
 
-    // If user xSushi is zero, remove from bar.
     if (user.xSushi == BIG_DECIMAL_ZERO) {
       user.bar = null
     }
 
     user.save()
-
-    bar.staked = bar.staked.minus(what)
-
-    bar.totalSupply = bar.totalSupply.minus(value)
-
-    bar.save()
   }
 
   // If transfer from address to address and not known xSushi pools.
-  if (
-    event.params.from != ADDRESS_ZERO &&
-    event.params.to != ADDRESS_ZERO &&
-    event.params.from != XSUSHI_WETH_PAIR_ADDRESS &&
-    event.params.to != XSUSHI_WETH_PAIR_ADDRESS &&
-    event.params.from != XSUSHI_USDC_PAIR_ADDRESS &&
-    event.params.to != XSUSHI_USDC_PAIR_ADDRESS
-  ) {
+  if (event.params.from != ADDRESS_ZERO && event.params.to != ADDRESS_ZERO) {
     const fromUser = getUser(event.params.from)
 
     fromUser.xSushi = fromUser.xSushi.minus(value)
