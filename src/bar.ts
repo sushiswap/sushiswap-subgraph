@@ -87,11 +87,11 @@ export function transfer(event: TransferEvent): void {
   if (event.params.from == ADDRESS_ZERO) {
     const what = value.times(bar.ratio)
 
-    // log.info('{} minted {} xSushi in exchange for {} sushi', [
-    //   event.params.to.toHex(),
-    //   value.toString(),
-    //   what.toString(),
-    // ])
+    log.info('{} minted {} xSushi in exchange for {} sushi', [
+      event.params.to.toHex(),
+      value.toString(),
+      what.toString(),
+    ])
 
     const user = getUser(event.params.to)
 
@@ -103,21 +103,11 @@ export function transfer(event: TransferEvent): void {
     user.staked = user.staked.plus(what)
     user.stakedUSD = user.stakedUSD.plus(what.times(getSushiPrice()))
     user.save()
-
-    log.info('enter staked db: {} contract: {}', [
-      bar.staked.toString(),
-      SushiTokenContract.bind(SUSHI_TOKEN_ADDRESS).balanceOf(SUSHIBAR_ADDRESS).divDecimal(BIG_DECIMAL_1E18).toString(),
-    ])
-
-    log.info('enter total supply db: {} contract: {}', [
-      bar.totalSupply.toString(),
-      BarContract.bind(SUSHIBAR_ADDRESS).totalSupply().divDecimal(BIG_DECIMAL_1E18).toString(),
-    ])
   }
 
   // Burned xSushi
   if (event.params.to == ADDRESS_ZERO) {
-    // log.info('{} burned {} xSushi', [event.params.from.toHex(), value.toString()])
+    log.info('{} burned {} xSushi', [event.params.from.toHex(), value.toString()])
 
     const user = getUser(event.params.from)
 
