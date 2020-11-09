@@ -21,7 +21,7 @@ type Bar @entity {
   # Staked Sushi
   staked: BigDecimal!
 
-  # Ratio xSushi:Sushi
+  # Ratio xSushi per Sushi
   ratio: BigDecimal!
 
   # Users in the bar
