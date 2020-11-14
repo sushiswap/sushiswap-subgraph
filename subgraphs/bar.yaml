@@ -25,11 +25,6 @@ dataSources:
           file: ../node_modules/@sushiswap/core/build/contracts/SushiToken.json
         - name: Pair
           file: ../node_modules/@sushiswap/core/build/contracts/UniswapV2Pair.json
-      callHandlers:
-        - function: enter(uint256)
-          handler: enter
-        - function: leave(uint256)
-          handler: leave
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: transfer

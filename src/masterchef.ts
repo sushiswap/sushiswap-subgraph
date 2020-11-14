@@ -221,6 +221,7 @@ export function deposit(event: Deposit): void {
 
 export function withdraw(event: Withdraw): void {
   if (event.params.amount == BigInt.fromI32(0)) {
+    // ?
     return
   }
 
@@ -232,15 +233,14 @@ export function withdraw(event: Withdraw): void {
 
   const masterChefContract = MasterChefContract.bind(dataSource.address())
 
-  const poolInfoResult = masterChefContract.poolInfo(event.params.pid)
+  const poolInfo = masterChefContract.poolInfo(event.params.pid)
 
   const pool = getPool(event.params.pid)
 
-  const pairContract = PairContract.bind(poolInfoResult.value0)
+  const pairContract = PairContract.bind(poolInfo.value0)
   pool.totalSupply = pairContract.balanceOf(masterChefContract._address)
-  pool.lastRewardBlock = poolInfoResult.value2
-  pool.accSushiPerShare = poolInfoResult.value3
-
+  pool.lastRewardBlock = poolInfo.value2
+  pool.accSushiPerShare = poolInfo.value3
   pool.save()
 
   const user = getUser(event.params.pid, event.params.user)
