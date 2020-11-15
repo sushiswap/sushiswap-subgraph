@@ -18,6 +18,10 @@ export const MASTER_CHEF_ADDRESS = Address.fromString('0xc2edad668740f1aa35e4d8f
 
 export const SUSHIBAR_ADDRESS = Address.fromString('0x8798249c2e607446efb7ad49ec89dd1865ff4272')
 
+export const SUSHIMAKER_ADDRESS = Address.fromString('0x6684977bbed67e101bb80fc07fccfba655c0a64f')
+
+export const FACTORY_ADDRESS = Address.fromString('0xc0aee478e3658e2610c5f7a4a2e1777ce9e4f2ac')
+
 export const SUSHI_TOKEN_ADDRESS = Address.fromString('0x6b3595068778dd592e39a122f4f5a5cf09c90fe2')
 
 export const SUSHI_USDT_PAIR_ADDRESS = Address.fromString('0x680a025da7b1be2c204d7745e809919bce074026')

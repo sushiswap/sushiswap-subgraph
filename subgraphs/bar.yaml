@@ -29,3 +29,38 @@ dataSources:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: transfer
       file: ../src/bar.ts
+  - kind: ethereum/contract
+    name: SushiMaker
+    network: mainnet
+    source:
+      address: '0x795065dcc9f64b5614c407a6efdc400da6221fb0'
+      abi: Pair
+      startBlock: 10833263
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Pair
+        - SushiToken
+        - Maker
+        - Bar
+        - Factory
+        - Swap
+      abis:
+        - name: Pair
+          file: ../node_modules/@sushiswap/core/build/contracts/UniswapV2Pair.json
+        - name: SushiToken
+          file: ../node_modules/@sushiswap/core/build/contracts/SushiToken.json
+        - name: Maker
+          file: ../node_modules/@sushiswap/core/build/contracts/SushiMaker.json
+        - name: Bar
+          file: ../node_modules/@sushiswap/core/build/contracts/SushiBar.json
+        - name: Factory
+          file: ../node_modules/@sushiswap/core/build/contracts/UniswapV2Factory.json
+      eventHandlers:
+        - event: Swap(indexed address,uint256,uint256,uint256,uint256,indexed address)
+          handler: handleServeItUp
+      blockHandlers:
+        - handler: handleBlock
+      file: ../src/sushimaker.ts
