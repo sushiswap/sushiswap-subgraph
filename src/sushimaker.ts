@@ -92,8 +92,6 @@ export function handleServeItUp(event: SwapEvent): void {
     pendingServing = PendingServing.load(lpToken.toHex())
   }
 
-  log.debug('Reseting serving for lpToken: {}', [lpToken.toHexString()])
-
   pendingServing.slpAmount = BIG_DECIMAL_ZERO
   pendingServing.token0Amount = BIG_DECIMAL_ZERO
   pendingServing.token1Amount = BIG_DECIMAL_ZERO
