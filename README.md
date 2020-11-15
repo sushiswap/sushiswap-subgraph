@@ -30,3 +30,43 @@ Note: This is in on going development as well.
 ## Example Queries
 
 We will add to this as development progresses.
+
+### Maker
+
+```graphql
+{
+  maker(id: "0x6684977bbed67e101bb80fc07fccfba655c0a64f") {
+    id
+    servings(orderBy: timestamp) {
+      id
+      server {
+        id
+      }
+      tx
+      pair
+      token0
+      token1
+      sushiServed
+      block
+      timestamp
+    }
+  }
+  servers {
+    id
+    sushiServed
+    servings(orderBy: timestamp) {
+      id
+      server {
+        id
+      }
+      tx
+      pair
+      token0
+      token1
+      sushi
+      block
+      timestamp
+    }
+  }
+}
+```

@@ -134,25 +134,3 @@ type History @entity {
   xSushiSupply: BigDecimal!
   ratio: BigDecimal!
 }
-
-type PendingServing @entity {
-    id: ID!
-    lpToken: Bytes!
-    token0: Bytes!
-    token1: Bytes!
-    slpAmount: BigInt!
-    token0Amount: BigInt!
-    token1Amount: BigInt!
-}
-
-type PastServing @entity {
-  id: ID!
-  from: Bytes!
-  tx: Bytes!
-  lpToken: Bytes!
-  token0: Bytes!
-  token1: Bytes!
-  sushiAmount: BigInt!
-  block: BigInt!
-  blockTs: BigInt!
-}
