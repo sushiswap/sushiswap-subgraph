@@ -140,9 +140,9 @@ type PendingServing @entity {
     lpToken: Bytes!
     token0: Bytes!
     token1: Bytes!
-    slpAmount: BigInt!
-    token0Amount: BigInt!
-    token1Amount: BigInt!
+    slpAmount: BigDecimal!
+    token0Amount: BigDecimal!
+    token1Amount: BigDecimal!
 }
 
 type PastServing @entity {
@@ -152,7 +152,7 @@ type PastServing @entity {
   lpToken: Bytes!
   token0: Bytes!
   token1: Bytes!
-  sushiAmount: BigInt!
+  sushiAmount: BigDecimal!
   block: BigInt!
   blockTs: BigInt!
 }

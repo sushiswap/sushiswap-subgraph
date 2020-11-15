@@ -16,12 +16,7 @@ import { Maker as MakerContract } from '../generated/SushiMaker/Maker'
 import { Factory as FactoryContract } from '../generated/SushiMaker/Factory'
 import { SushiToken as SushiTokenContract } from '../generated/SushiMaker/SushiToken'
 
-export function handleBlock(block: ethereum.Block): void {
-  // Only update PendingServings every 1000 blocks
-  if (block.number.toI32() % 1000 != 0) {
-    return
-  }
-
+function updateServings(): void {
   const factory = FactoryContract.bind(FACTORY_ADDRESS)
   const allPairsLength = factory.allPairsLength()
 
@@ -30,25 +25,32 @@ export function handleBlock(block: ethereum.Block): void {
     let lpToken = factory.allPairs(BigInt.fromI32(i))
     let pair = PairContract.bind(lpToken)
 
-    let pendingServing = PendingServing.load(lpToken.toHexString())
+    let pendingServing = PendingServing.load(lpToken.toHex())
     if (pendingServing == null) {
       // init new pendingServing
-      pendingServing = new PendingServing(lpToken.toHexString())
+      pendingServing = new PendingServing(lpToken.toHex())
       pendingServing.lpToken = factory.allPairs(BigInt.fromI32(i))
       pendingServing.token0 = pair.token0()
       pendingServing.token1 = pair.token1()
     }
 
     // get balance of SLP token in Maker
-    pendingServing.slpAmount = pair.balanceOf(SUSHIMAKER_ADDRESS)
+    pendingServing.slpAmount = pair.balanceOf(SUSHIMAKER_ADDRESS).toBigDecimal().div(BIG_DECIMAL_1E18)
 
     // calculate amount for each token in pair
-    let lp_ratio = pair.totalSupply() * pendingServing.slpAmount
+    let lp_ratio = pair.totalSupply().toBigDecimal().div(BIG_DECIMAL_1E18) * pendingServing.slpAmount
     let reserves = pair.getReserves()
-    pendingServing.token0Amount = lp_ratio * reserves.value0
-    pendingServing.token1Amount = lp_ratio * reserves.value1
+    pendingServing.token0Amount = lp_ratio * reserves.value0.toBigDecimal().div(BIG_DECIMAL_1E18)
+    pendingServing.token1Amount = lp_ratio * reserves.value1.toBigDecimal().div(BIG_DECIMAL_1E18)
 
     pendingServing.save()
+  }
+}
+
+export function handleBlock(block: ethereum.Block): void {
+  // Only update PendingServings every 1000 blocks
+  if (block.number.toI32() % 1000 == 0) {
+    updateServings()
   }
 }
 
@@ -78,14 +80,22 @@ export function handleServeItUp(event: SwapEvent): void {
   serving.token1 = token1
   serving.block = event.block.number
   serving.blockTs = event.block.timestamp
-  serving.sushiAmount = event.params.amount0Out
+  serving.sushiAmount = event.params.amount0Out.toBigDecimal().div(BIG_DECIMAL_1E18)
 
   serving.save()
 
   // reset pendingServing
-  let pendingServing = PendingServing.load(lpToken.toHexString())
-  pendingServing.slpAmount = BIG_INT_ZERO
-  pendingServing.token0Amount = BIG_INT_ZERO
-  pendingServing.token1Amount = BIG_INT_ZERO
+  let pendingServing = PendingServing.load(lpToken.toHex())
+
+  if (pendingServing == null) {
+    updateServings()
+    pendingServing = PendingServing.load(lpToken.toHex())
+  }
+
+  log.debug('Reseting serving for lpToken: {}', [lpToken.toHexString()])
+
+  pendingServing.slpAmount = BIG_DECIMAL_ZERO
+  pendingServing.token0Amount = BIG_DECIMAL_ZERO
+  pendingServing.token1Amount = BIG_DECIMAL_ZERO
   pendingServing.save()
 }
