@@ -19,6 +19,7 @@ dataSources:
         - MasterChef
         - User
         - Pool
+        - History
       abis:
         - name: MasterChef
           file: ../node_modules/@sushiswap/core/build/contracts/MasterChef.json

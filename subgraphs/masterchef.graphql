@@ -35,6 +35,56 @@ type MasterChef @entity {
 
   # Pool count
   poolCount: BigInt!
+
+  # SLP Balance
+  slpBalance: BigDecimal!
+
+  # SLP Age
+  slpAge: BigDecimal!
+
+  # SLP Removed
+  slpAgeRemoved: BigDecimal!
+
+  # SLP Deposited
+  slpDeposited: BigDecimal!
+
+  # SLP Withdrawn
+  slpWithdrawn: BigDecimal!
+
+  # History
+  history: [History!]! @derivedFrom(field: "owner")
+
+  # Upated at
+  updatedAt: BigInt!
+}
+
+type History @entity {
+  # Master chef id concatenated with timestamp
+  id: ID!
+
+  # Owner (MasterChef, Pool, or User).
+  owner: MasterChef!
+
+  # SLP Balance
+  slpBalance: BigDecimal!
+
+  # SLP Age
+  slpAge: BigDecimal!
+
+  # SLP Removed
+  slpAgeRemoved: BigDecimal!
+
+  # SLP Deposited
+  slpDeposited: BigDecimal!
+
+  # SLP Withdrawn
+  slpWithdrawn: BigDecimal!
+
+  # Timestamp
+  timestamp: BigInt!
+
+  # Block
+  block: BigInt!
 }
 
 # Pool
@@ -57,25 +107,81 @@ type Pool @entity {
   # Accumulated sushi per share
   accSushiPerShare: BigInt!
 
-  # Total supply of LP tokens for pool
-  totalSupply: BigInt!
+  # SLP token balance
+  balance: BigInt!
 
   # Pool users
   users: [User!]! @derivedFrom(field: "pool")
 
   # User count
   userCount: BigInt!
+
+  # SLP Balance
+  slpBalance: BigDecimal!
+
+  # SLP Age
+  slpAge: BigDecimal!
+
+  # SLP Removed
+  slpAgeRemoved: BigDecimal!
+
+  # SLP Deposited
+  slpDeposited: BigDecimal!
+
+  # SLP Withdrawn
+  slpWithdrawn: BigDecimal!
+
+  # Timestamp
+  timestamp: BigInt!
+
+  # Block
+  block: BigInt!
+
+  # Upated at
+  updatedAt: BigInt!
+}
+
+type PoolHistory @entity {
+  # Pool id concatenated with timestamp
+  id: ID!
+
+  # Pool
+  pool: Pool!
+
+  # SLP Balance
+  slpBalance: BigDecimal!
+
+  # SLP Age
+  slpAge: BigDecimal!
+
+  # SLP Removed
+  slpAgeRemoved: BigDecimal!
+
+  # SLP Deposited
+  slpDeposited: BigDecimal!
+
+  # SLP Withdrawn
+  slpWithdrawn: BigDecimal!
+
+  # User Count
+  userCount: BigInt!
+
+  # Timestamp
+  timestamp: BigInt!
+
+  # Block
+  block: BigInt!
 }
 
 type User @entity {
-  # pool id concatenated with user address
+  # Pool id concatenated with user address
   id: ID!
 
-  # user address
+  # User address
   address: Bytes!
 
-  # related pool
-  pool: Pool!
+  # Related pool
+  pool: Pool
 
   # We do some fancy math here. Basically, any point in time, the amount of SUSHIs
   # entitled to a user but is pending to be distributed is:
@@ -85,12 +191,25 @@ type User @entity {
   # 2. User receives the pending reward sent to his/her address.
   # 3. User's `amount` gets updated.
   # 4. User's `rewardDebt` gets updated.
+
+  # Amount
   amount: BigInt!
+
+  # Reward debt
   rewardDebt: BigInt!
 
-  # Pending Sushi at lockup
-  pendingSushiAtLockup: BigInt!
+  # Sushi at lockup
+  sushiAtLockup: BigInt!
 
-  # Harvested Sushi since lockup
-  harvestedSushiSinceLockup: BigInt!
+  # Sushi harvested
+  sushiHarvested: BigInt!
+
+  # Sushi harvested since lockup
+  sushiHarvestedSinceLockup: BigInt!
+
+  # Timestamp
+  timestamp: BigInt!
+
+  # Block
+  block: BigInt!
 }
