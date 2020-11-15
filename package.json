@@ -5,17 +5,14 @@
   "author": "SushiSwap",
   "scripts": {
     "codegen": "graph codegen",
-    "codegen:sushiswap": "graph codegen subgraphs/sushiswap.yaml",
     "codegen:bar": "graph codegen subgraphs/bar.yaml",
+    "codegen:masterchef": "graph codegen subgraphs/masterchef.yaml",
     "build": "graph build",
-    "build:sushiswap": "graph build subgraphs/sushiswap.yaml",
     "build:bar": "graph build subgraphs/bar.yaml",
+    "build:masterchef": "graph build subgraphs/masterchef.yaml",
     "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/",
-    "deploy:sushiswap": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/sushiswap subgraphs/sushiswap.yaml",
-    "deploy:bar": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/sushi-bar subgraphs/bar.yaml",
-    "create-local": "graph create --node http://localhost:8020/ /sushiswap/sushiswap",
-    "remove-local": "graph remove --node http://localhost:8020/ /sushiswap/sushiswap",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 /sushiswap/sushiswap"
+    "deploy:bar": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/bar subgraphs/bar.yaml",
+    "deploy:masterchef": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/masterchef subgraphs/masterchef.yaml"
   },
   "devDependencies": {
     "@graphprotocol/graph-cli": "^0.19.0",

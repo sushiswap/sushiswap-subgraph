@@ -14,13 +14,7 @@ import { Bar as BarContract, Transfer as TransferEvent } from '../generated/Sush
 
 import { Pair as PairContract } from '../generated/SushiBar/Pair'
 import { SushiToken as SushiTokenContract } from '../generated/SushiBar/SushiToken'
-
-// TODO: Get averages of multiple sushi stablecoin pairs
-function getSushiPrice(): BigDecimal {
-  const pair = PairContract.bind(SUSHI_USDT_PAIR_ADDRESS)
-  const reserves = pair.getReserves()
-  return reserves.value1.toBigDecimal().times(BIG_DECIMAL_1E18).div(reserves.value0.toBigDecimal()).div(BIG_DECIMAL_1E6)
-}
+import { getSushiPrice } from './price'
 
 function createBar(block: ethereum.Block): Bar {
   const contract = BarContract.bind(dataSource.address())
