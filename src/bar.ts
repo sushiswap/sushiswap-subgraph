@@ -4,7 +4,7 @@ import {
   BIG_DECIMAL_1E6,
   BIG_DECIMAL_ZERO,
   BIG_INT_ZERO,
-  SUSHIBAR_ADDRESS,
+  SUSHI_BAR_ADDRESS,
   SUSHI_TOKEN_ADDRESS,
   SUSHI_USDT_PAIR_ADDRESS,
 } from './constants'
@@ -142,13 +142,13 @@ export function transfer(event: TransferEvent): void {
   }
 
   const bar = getBar(event.block)
-  const barContract = BarContract.bind(SUSHIBAR_ADDRESS)
+  const barContract = BarContract.bind(SUSHI_BAR_ADDRESS)
 
   const sushiPrice = getSushiPrice()
 
   bar.totalSupply = barContract.totalSupply().divDecimal(BIG_DECIMAL_1E18)
   bar.sushiStaked = SushiTokenContract.bind(SUSHI_TOKEN_ADDRESS)
-    .balanceOf(SUSHIBAR_ADDRESS)
+    .balanceOf(SUSHI_BAR_ADDRESS)
     .divDecimal(BIG_DECIMAL_1E18)
   bar.ratio = bar.sushiStaked.div(bar.totalSupply)
 
