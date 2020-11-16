@@ -1,0 +1,21 @@
+type Timelock @entity {
+  id: ID!
+  description: String
+  value: BigInt!
+  eta: BigInt!
+  functionName: String!
+  data: String!
+  targetAddress: String!
+  isCanceled: Boolean!
+  isExecuted: Boolean!
+  createdBlock: BigInt!
+  createdTs: BigInt!
+  expiresTs: BigInt!
+  canceledBlock: BigInt
+  canceledTs: BigInt
+  executedBlock: BigInt
+  executedTs: BigInt
+  createdTx: String!
+  canceledTx: String
+  executedTx: String
+}
