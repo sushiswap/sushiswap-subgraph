@@ -18,6 +18,8 @@ export const BIG_INT_ONE_DAY_SECONDS = BigInt.fromI32(86400)
 
 export const BIG_INT_ZERO = BigInt.fromI32(0)
 
+export const LOCKUP_POOL_NUMBER = BigInt.fromI32(29)
+
 export const LOCKUP_BLOCK_NUMBER = BigInt.fromI32(10959148)
 
 export const MASTER_CHEF_ADDRESS = Address.fromString('0xc2edad668740f1aa35e4d8f227fb8e17dca888cd')

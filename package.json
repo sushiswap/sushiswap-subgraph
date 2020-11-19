@@ -7,9 +7,11 @@
     "codegen": "graph codegen",
     "codegen:bar": "graph codegen subgraphs/bar.yaml",
     "codegen:masterchef": "graph codegen subgraphs/masterchef.yaml",
+    "codegen:lockup": "graph codegen subgraphs/lockup.yaml",
     "build": "graph build",
     "build:bar": "graph build subgraphs/bar.yaml",
     "build:masterchef": "graph build subgraphs/masterchef.yaml",
+    "build:lockup": "graph build subgraphs/lockup.yaml",
     "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/",
     "deploy:bar": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/bar subgraphs/bar.yaml",
     "deploy:masterchef": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/masterchef subgraphs/masterchef.yaml"
