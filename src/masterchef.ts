@@ -22,6 +22,7 @@ import {
   BIG_INT_ZERO,
   LOCKUP_BLOCK_NUMBER,
   MASTER_CHEF_ADDRESS,
+  MASTER_CHEF_START_BLOCK,
   SUSHI_TOKEN_ADDRESS,
 } from './constants'
 import { History, MasterChef, Pool, PoolHistory, User } from '../generated/schema'
@@ -172,6 +173,7 @@ export function getUser(pid: BigInt, address: Address, block: ethereum.Block): U
     user.sushiHarvested = BIG_DECIMAL_ZERO
     user.sushiHarvestedUSD = BIG_DECIMAL_ZERO
     user.sushiHarvestedSinceLockup = BIG_DECIMAL_ZERO
+    user.sushiHarvestedSinceLockupUSD = BIG_DECIMAL_ZERO
     user.entryUSD = BIG_DECIMAL_ZERO
     user.exitUSD = BIG_DECIMAL_ZERO
     user.timestamp = block.timestamp
@@ -280,11 +282,11 @@ export function deposit(event: Deposit): void {
 
   const amount = event.params.amount.divDecimal(BIG_DECIMAL_1E18)
 
-  log.info('{} has deposited {} slp tokens to pool #{}', [
-    event.params.user.toHex(),
-    event.params.amount.toString(),
-    event.params.pid.toString(),
-  ])
+  // log.info('{} has deposited {} slp tokens to pool #{}', [
+  //   event.params.user.toHex(),
+  //   event.params.amount.toString(),
+  //   event.params.pid.toString(),
+  // ])
 
   const masterChefContract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
 
@@ -319,22 +321,27 @@ export function deposit(event: Deposit): void {
   }
 
   // Calculate SUSHI being paid out
-  if (user.amount.gt(BIG_INT_ZERO)) {
+  if (event.block.number.gt(MASTER_CHEF_START_BLOCK) && user.amount.gt(BIG_INT_ZERO)) {
     const pending = user.amount
       .toBigDecimal()
       .times(pool.accSushiPerShare.toBigDecimal())
       .div(BIG_DECIMAL_1E12)
       .minus(user.rewardDebt.toBigDecimal())
-    // log.info('Withdraw: User amount is more than zero, we should harvest {} sushi', [pending.toString()])
+      .div(BIG_DECIMAL_1E18)
+    // log.info('Deposit: User amount is more than zero, we should harvest {} sushi', [pending.toString()])
     if (pending.gt(BIG_DECIMAL_ZERO)) {
       // log.info('Harvesting {} SUSHI', [pending.toString()])
-      const harvesting = pending.div(BIG_DECIMAL_1E18)
-      user.sushiHarvested = user.sushiHarvested.plus(harvesting)
+      const sushiHarvestedUSD = pending.times(getSushiPrice(event.block))
+      user.sushiHarvested = user.sushiHarvested.plus(pending)
+      user.sushiHarvestedUSD = user.sushiHarvestedUSD.plus(sushiHarvestedUSD)
       if (event.block.number.ge(LOCKUP_BLOCK_NUMBER)) {
-        user.sushiHarvestedSinceLockup = user.sushiHarvestedSinceLockup.plus(harvesting)
+        user.sushiHarvestedSinceLockup = user.sushiHarvestedSinceLockup.plus(pending)
+        user.sushiHarvestedSinceLockupUSD = user.sushiHarvestedSinceLockupUSD.plus(sushiHarvestedUSD)
       }
-      pool.sushiHarvested = pool.sushiHarvested.plus(harvesting)
+      pool.sushiHarvested = pool.sushiHarvested.plus(pending)
+      pool.sushiHarvestedUSD = pool.sushiHarvestedUSD.plus(sushiHarvestedUSD)
       poolHistory.sushiHarvested = pool.sushiHarvested
+      poolHistory.sushiHarvestedUSD = pool.sushiHarvestedUSD
     }
   }
 
@@ -436,11 +443,11 @@ export function withdraw(event: Withdraw): void {
 
   const amount = event.params.amount.divDecimal(BIG_DECIMAL_1E18)
 
-  log.info('{} has withdrawn {} slp tokens from pool #{}', [
-    event.params.user.toHex(),
-    amount.toString(),
-    event.params.pid.toString(),
-  ])
+  // log.info('{} has withdrawn {} slp tokens from pool #{}', [
+  //   event.params.user.toHex(),
+  //   amount.toString(),
+  //   event.params.pid.toString(),
+  // ])
 
   const masterChefContract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
 
@@ -466,22 +473,34 @@ export function withdraw(event: Withdraw): void {
 
   const user = getUser(event.params.pid, event.params.user, event.block)
 
-  if (user.amount.gt(BIG_INT_ZERO)) {
+  if (event.block.number.gt(MASTER_CHEF_START_BLOCK) && user.amount.gt(BIG_INT_ZERO)) {
     const pending = user.amount
       .toBigDecimal()
       .times(pool.accSushiPerShare.toBigDecimal())
       .div(BIG_DECIMAL_1E12)
       .minus(user.rewardDebt.toBigDecimal())
-    // log.info('Withdraw: User amount is more than zero, we should harvest {} sushi', [pending.toString()])
+      .div(BIG_DECIMAL_1E18)
+    // log.info('Withdraw: User amount is more than zero, we should harvest {} sushi - block: {}', [
+    //   pending.toString(),
+    //   event.block.number.toString(),
+    // ])
+    // log.info('SUSHI PRICE {}', [getSushiPrice(event.block).toString()])
     if (pending.gt(BIG_DECIMAL_ZERO)) {
-      // log.info('Harvesting {} SUSHI', [pending.toString()])
-      const harvesting = pending.div(BIG_DECIMAL_1E18)
-      user.sushiHarvested = user.sushiHarvested.plus(harvesting)
+      // log.info('Harvesting {} SUSHI (CURRENT SUSHI PRICE {})', [
+      //   pending.toString(),
+      //   getSushiPrice(event.block).toString(),
+      // ])
+      const sushiHarvestedUSD = pending.times(getSushiPrice(event.block))
+      user.sushiHarvested = user.sushiHarvested.plus(pending)
+      user.sushiHarvestedUSD = user.sushiHarvestedUSD.plus(sushiHarvestedUSD)
       if (event.block.number.ge(LOCKUP_BLOCK_NUMBER)) {
-        user.sushiHarvestedSinceLockup = user.sushiHarvestedSinceLockup.plus(harvesting)
+        user.sushiHarvestedSinceLockup = user.sushiHarvestedSinceLockup.plus(pending)
+        user.sushiHarvestedSinceLockupUSD = user.sushiHarvestedSinceLockupUSD.plus(sushiHarvestedUSD)
       }
-      pool.sushiHarvested = pool.sushiHarvested.plus(harvesting)
+      pool.sushiHarvested = pool.sushiHarvested.plus(pending)
+      pool.sushiHarvestedUSD = pool.sushiHarvestedUSD.plus(sushiHarvestedUSD)
       poolHistory.sushiHarvested = pool.sushiHarvested
+      poolHistory.sushiHarvestedUSD = pool.sushiHarvestedUSD
     }
   }
 
