@@ -55,23 +55,3 @@ dataSources:
         - function: dev(address)
           handler: dev
       file: ../src/masterchef.ts
-  # - kind: ethereum/contract
-  #   name: SushiToken
-  #   network: mainnet
-  #   source:
-  #     address: '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2'
-  #     abi: SushiToken
-  #     startBlock: 10736242
-  #   mapping:
-  #     kind: ethereum/events
-  #     apiVersion: 0.0.4
-  #     language: wasm/assemblyscript
-  #     entities:
-  #       - User
-  #     abis:
-  #       - name: SushiToken
-  #         file: ../node_modules/@sushiswap/core/build/contracts/SushiToken.json
-  #     eventHandlers:
-  #       - event: Transfer(indexed address,indexed address,uint256)
-  #         handler: transfer
-  #     file: ../src/token.ts

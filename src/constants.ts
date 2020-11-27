@@ -12,11 +12,13 @@ export const BIG_DECIMAL_ZERO = BigDecimal.fromString('0')
 
 export const BIG_DECIMAL_ONE = BigDecimal.fromString('1')
 
-export const BIG_INT_ZERO = BigInt.fromI32(0)
-
 export const BIG_INT_ONE = BigInt.fromI32(1)
 
 export const BIG_INT_ONE_DAY_SECONDS = BigInt.fromI32(86400)
+
+export const BIG_INT_ZERO = BigInt.fromI32(0)
+
+export const LOCKUP_POOL_NUMBER = BigInt.fromI32(29)
 
 export const FACTORY_ADDRESS = Address.fromString('0xc0aee478e3658e2610c5f7a4a2e1777ce9e4f2ac')
 
