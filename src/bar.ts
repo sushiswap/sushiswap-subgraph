@@ -4,7 +4,7 @@ import {
   BIG_DECIMAL_1E6,
   BIG_DECIMAL_ZERO,
   BIG_INT_ZERO,
-  SUSHIBAR_ADDRESS,
+  SUSHI_BAR_ADDRESS,
   SUSHI_TOKEN_ADDRESS,
   SUSHI_USDT_PAIR_ADDRESS,
 } from './constants'
@@ -84,7 +84,8 @@ function createUser(address: Address, block: ethereum.Block): User {
   user.xSushiAgeDestroyed = BIG_DECIMAL_ZERO
 
   user.xSushiOffset = BIG_DECIMAL_ZERO
-
+  user.sushiOffset = BIG_DECIMAL_ZERO
+  user.usdOffset = BIG_DECIMAL_ZERO
   user.updatedAt = block.timestamp
 
   return user as User
@@ -141,29 +142,32 @@ export function transfer(event: TransferEvent): void {
   }
 
   const bar = getBar(event.block)
-  const barContract = BarContract.bind(SUSHIBAR_ADDRESS)
+  const barContract = BarContract.bind(SUSHI_BAR_ADDRESS)
 
   const sushiPrice = getSushiPrice()
 
   bar.totalSupply = barContract.totalSupply().divDecimal(BIG_DECIMAL_1E18)
   bar.sushiStaked = SushiTokenContract.bind(SUSHI_TOKEN_ADDRESS)
-    .balanceOf(SUSHIBAR_ADDRESS)
+    .balanceOf(SUSHI_BAR_ADDRESS)
     .divDecimal(BIG_DECIMAL_1E18)
   bar.ratio = bar.sushiStaked.div(bar.totalSupply)
 
+  const what = value.times(bar.ratio)
+
   // Minted xSushi
   if (event.params.from == ADDRESS_ZERO) {
-    const what = value.times(bar.ratio)
+    const user = getUser(event.params.to, event.block)
 
-    log.info('{} minted {} xSushi in exchange for {} sushi', [
+    log.info('{} minted {} xSushi in exchange for {} sushi - sushiStaked before {} sushiStaked after {}', [
       event.params.to.toHex(),
       value.toString(),
       what.toString(),
+      user.sushiStaked.toString(),
+      user.sushiStaked.plus(what).toString(),
     ])
 
-    const user = getUser(event.params.to, event.block)
-
     if (user.xSushi == BIG_DECIMAL_ZERO) {
+      log.info('{} entered the bar', [user.id])
       user.bar = bar.id
     }
 
@@ -213,8 +217,6 @@ export function transfer(event: TransferEvent): void {
 
     user.xSushiBurned = user.xSushiBurned.plus(value)
 
-    const what = value.times(bar.ratio)
-
     user.sushiHarvested = user.sushiHarvested.plus(what)
 
     const sushiHarvestedUSD = what.times(sushiPrice)
@@ -235,6 +237,7 @@ export function transfer(event: TransferEvent): void {
     user.xSushi = user.xSushi.minus(value)
 
     if (user.xSushi == BIG_DECIMAL_ZERO) {
+      log.info('{} left the bar', [user.id])
       user.bar = null
     }
 
@@ -284,10 +287,11 @@ export function transfer(event: TransferEvent): void {
 
     fromUser.xSushi = fromUser.xSushi.minus(value)
     fromUser.xSushiOut = fromUser.xSushiOut.plus(value)
-    fromUser.sushiOut = fromUser.sushiOut.plus(value.times(bar.ratio))
-    fromUser.usdOut = fromUser.usdOut.plus(fromUser.sushiOut.times(sushiPrice))
+    fromUser.sushiOut = fromUser.sushiOut.plus(what)
+    fromUser.usdOut = fromUser.usdOut.plus(what.times(sushiPrice))
 
     if (fromUser.xSushi == BIG_DECIMAL_ZERO) {
+      log.info('{} left the bar by transfer OUT', [fromUser.id])
       fromUser.bar = null
     }
 
@@ -296,32 +300,42 @@ export function transfer(event: TransferEvent): void {
     const toUser = getUser(event.params.to, event.block)
 
     if (toUser.bar === null) {
+      log.info('{} entered the bar by transfer IN', [fromUser.id])
       toUser.bar = bar.id
     }
 
+    // Recalculate xSushi age and add incoming xSushiAgeTransfered
     const toUserDays = event.block.timestamp.minus(toUser.updatedAt).divDecimal(BigDecimal.fromString('86400'))
 
-    // Recalc xSushi age and add incoming xSushiAgeTransfered
     toUser.xSushiAge = toUser.xSushiAge.plus(toUserDays.times(toUser.xSushi)).plus(xSushiAgeTranfered)
     toUser.updatedAt = event.block.timestamp
 
     toUser.xSushi = toUser.xSushi.plus(value)
     toUser.xSushiIn = toUser.xSushiIn.plus(value)
-    toUser.sushiIn = toUser.sushiIn.plus(value.times(bar.ratio))
-    toUser.usdIn = toUser.usdIn.plus(toUser.sushiIn.times(sushiPrice))
+    toUser.sushiIn = toUser.sushiIn.plus(what)
+    toUser.usdIn = toUser.usdIn.plus(what.times(sushiPrice))
 
-    const difference = toUser.xSushiIn.minus(toUser.xSushiOut)
+    const difference = toUser.xSushiIn.minus(toUser.xSushiOut).minus(toUser.xSushiOffset)
 
     // If difference of sushi in - sushi out - offset > 0, then add on the difference
     // in staked sushi based on xSushi:Sushi ratio at time of reciept.
-    if (difference.minus(toUser.xSushiOffset).gt(BIG_DECIMAL_ZERO)) {
-      const usd = toUser.usdIn.minus(toUser.usdOut)
-      const sushi = toUser.sushiIn.minus(toUser.sushiOut)
+    if (difference.gt(BIG_DECIMAL_ZERO)) {
+      const sushi = toUser.sushiIn.minus(toUser.sushiOut).minus(toUser.sushiOffset)
+      const usd = toUser.usdIn.minus(toUser.usdOut).minus(toUser.usdOffset)
+
+      log.info('{} recieved a transfer of {} xSushi from {}, sushi value of transfer is {}', [
+        toUser.id,
+        value.toString(),
+        fromUser.id,
+        what.toString(),
+      ])
 
       toUser.sushiStaked = toUser.sushiStaked.plus(sushi)
       toUser.sushiStakedUSD = toUser.sushiStakedUSD.plus(usd)
 
       toUser.xSushiOffset = toUser.xSushiOffset.plus(difference)
+      toUser.sushiOffset = toUser.sushiOffset.plus(sushi)
+      toUser.usdOffset = toUser.usdOffset.plus(usd)
     }
 
     toUser.save()

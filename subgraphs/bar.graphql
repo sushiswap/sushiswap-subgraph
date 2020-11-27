@@ -112,6 +112,12 @@ type User @entity {
 
   # Updated at
   updatedAt: BigInt!
+
+  # sushi offset
+  sushiOffset: BigDecimal!
+
+  # usd offset
+  usdOffset: BigDecimal!
 }
 
 # History

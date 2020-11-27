@@ -1,0 +1,60 @@
+# The Global Maker (Smart Contract)
+type Maker @entity {
+  # Maker address
+  id: ID!
+
+  # Sushi served
+  sushiServed: BigDecimal!
+
+  # Servers
+  servers: [Server!]! @derivedFrom(field: "maker")
+
+  # Servings
+  servings: [Serving!]! @derivedFrom(field: "maker")
+}
+
+type Server @entity {
+  # Server address
+  id: ID!
+
+  # Relation to maker
+  maker: Maker!
+
+  # Sushi served
+  sushiServed: BigDecimal!
+
+  # Servings related to the server
+  servings: [Serving!]! @derivedFrom(field: "server")
+}
+
+type Serving @entity {
+  # Pair address concatinated with block number
+  id: ID!
+
+  # Maker
+  maker: Maker!
+
+  # Server
+  server: Server!
+
+  # Transaction
+  tx: Bytes!
+
+  # Pair
+  pair: Bytes!
+
+  # Token 0
+  token0: Bytes!
+
+  # Token 1
+  token1: Bytes!
+
+  # Sushi served
+  sushiServed: BigDecimal!
+
+  # Block
+  block: BigInt!
+
+  # Timestamp
+  timestamp: BigInt!
+}

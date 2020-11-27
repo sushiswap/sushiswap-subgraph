@@ -139,6 +139,18 @@ type Pool @entity {
 
   # Upated at
   updatedAt: BigInt!
+
+  # Entry USD
+  entryUSD: BigDecimal!
+
+  # Exit USD
+  exitUSD: BigDecimal!
+
+  # Sushi harvested
+  sushiHarvested: BigDecimal!
+
+  # Sushi harvested
+  sushiHarvestedUSD: BigDecimal!
 }
 
 type PoolHistory @entity {
@@ -171,6 +183,18 @@ type PoolHistory @entity {
 
   # Block
   block: BigInt!
+
+  # Entry USD
+  entryUSD: BigDecimal!
+
+  # Exit USD
+  exitUSD: BigDecimal!
+
+  # Sushi harvested
+  sushiHarvested: BigDecimal!
+
+  # Sushi harvested
+  sushiHarvestedUSD: BigDecimal!
 }
 
 type User @entity {
@@ -198,14 +222,26 @@ type User @entity {
   # Reward debt
   rewardDebt: BigInt!
 
+  # Entry USD
+  entryUSD: BigDecimal!
+
+  # Exit USD
+  exitUSD: BigDecimal!
+
   # Sushi at lockup
-  sushiAtLockup: BigInt!
+  sushiAtLockup: BigDecimal!
 
   # Sushi harvested
-  sushiHarvested: BigInt!
+  sushiHarvested: BigDecimal!
+
+  # Sushi harvested
+  sushiHarvestedUSD: BigDecimal!
 
   # Sushi harvested since lockup
-  sushiHarvestedSinceLockup: BigInt!
+  sushiHarvestedSinceLockup: BigDecimal!
+
+  # Sushi harvested since lockup USD
+  sushiHarvestedSinceLockupUSD: BigDecimal!
 
   # Timestamp
   timestamp: BigInt!
