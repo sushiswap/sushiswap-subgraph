@@ -59,6 +59,8 @@ export function handleTransfer(event: Transfer): void {
     transaction = new Transaction(transactionHash)
     transaction.blockNumber = event.block.number
     transaction.timestamp = event.block.timestamp
+    transaction.gasUsed = event.transaction.gasUsed
+    transaction.gasPrice = event.transaction.gasPrice
     transaction.mints = []
     transaction.burns = []
     transaction.swaps = []
@@ -454,6 +456,8 @@ export function handleSwap(event: Swap): void {
     transaction = new Transaction(event.transaction.hash.toHexString())
     transaction.blockNumber = event.block.number
     transaction.timestamp = event.block.timestamp
+    transaction.gasUsed = event.transaction.gasUsed
+    transaction.gasPrice = event.transaction.gasPrice
     transaction.mints = []
     transaction.swaps = []
     transaction.burns = []
