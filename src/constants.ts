@@ -14,6 +14,8 @@ export const BIG_DECIMAL_ONE = BigDecimal.fromString('1')
 
 export const BIG_INT_ONE = BigInt.fromI32(1)
 
+export const BIG_INT_HUNDRED = BigInt.fromI32(100)
+
 export const BIG_INT_ONE_DAY_SECONDS = BigInt.fromI32(86400)
 
 export const BIG_INT_ZERO = BigInt.fromI32(0)

@@ -20,6 +20,7 @@ import {
   BIG_INT_ONE,
   BIG_INT_ONE_DAY_SECONDS,
   BIG_INT_ZERO,
+  BIG_INT_HUNDRED,
   LOCKUP_BLOCK_NUMBER,
   MASTER_CHEF_ADDRESS,
   MASTER_CHEF_START_BLOCK,
@@ -33,9 +34,9 @@ import { Pair as PairContract } from '../generated/MasterChef/Pair'
 
 function getMasterChef(block: ethereum.Block): MasterChef {
   let masterChef = MasterChef.load(MASTER_CHEF_ADDRESS.toHex())
+  const contract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
 
   if (masterChef === null) {
-    const contract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
     masterChef = new MasterChef(MASTER_CHEF_ADDRESS.toHex())
     masterChef.bonusMultiplier = contract.BONUS_MULTIPLIER()
     masterChef.bonusEndBlock = contract.bonusEndBlock()
@@ -46,7 +47,6 @@ function getMasterChef(block: ethereum.Block): MasterChef {
     masterChef.startBlock = contract.startBlock()
     masterChef.sushi = contract.sushi()
     masterChef.sushiPerBlock = contract.sushiPerBlock()
-    masterChef.totalAllocPoint = contract.totalAllocPoint()
     // userInfo ...
     masterChef.poolCount = BIG_INT_ZERO
 
@@ -57,9 +57,10 @@ function getMasterChef(block: ethereum.Block): MasterChef {
     masterChef.slpWithdrawn = BIG_DECIMAL_ZERO
 
     masterChef.updatedAt = block.timestamp
-
-    masterChef.save()
   }
+
+  masterChef.totalAllocPoint = contract.totalAllocPoint()
+  masterChef.save()
 
   return masterChef as MasterChef
 }
@@ -191,8 +192,12 @@ export function add(event: AddCall): void {
 
   const pool = getPool(masterChef.poolCount, event.block)
 
-  // Update MasterChef.
-  masterChef.totalAllocPoint = masterChef.totalAllocPoint.plus(pool.allocPoint)
+  // update sushiPerBlock if pool 45
+  if (pool.id === "45") {
+    masterChef.sushiPerBlock = BIG_INT_HUNDRED - (BIG_INT_HUNDRED * (pool.allocPoint / masterChef.totalAllocPoint))
+  }
+
+  // Update MasterChef
   masterChef.poolCount = masterChef.poolCount.plus(BIG_INT_ONE)
   masterChef.save()
 }
@@ -207,13 +212,22 @@ export function set(call: SetCall): void {
 
   const pool = getPool(call.inputs._pid, call.block)
 
+  const masterChefContract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
+  const poolInfo = masterChefContract.poolInfo(call.inputs._pid)
+
   const masterChef = getMasterChef(call.block)
 
+  // update sushiPerBlock if pool 29
+  if (call.inputs._pid.toString() === "45") {
+    masterChef.sushiPerBlock = BIG_INT_HUNDRED - (BIG_INT_HUNDRED * (call.inputs._allocPoint / masterChef.totalAllocPoint))
+  }
+
   // Update masterchef
-  masterChef.totalAllocPoint = masterChef.totalAllocPoint.plus(call.inputs._allocPoint.minus(pool.allocPoint))
   masterChef.save()
 
   // Update pool
+  pool.lastRewardBlock = poolInfo.value2
+  pool.accSushiPerShare = poolInfo.value3
   pool.allocPoint = call.inputs._allocPoint
   pool.save()
 }
