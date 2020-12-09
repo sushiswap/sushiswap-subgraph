@@ -192,11 +192,6 @@ export function add(event: AddCall): void {
 
   const pool = getPool(masterChef.poolCount, event.block)
 
-  // update sushiPerBlock if pool 45
-  if (pool.id === "45") {
-    masterChef.sushiPerBlock = BIG_INT_HUNDRED - (BIG_INT_HUNDRED * (pool.allocPoint / masterChef.totalAllocPoint))
-  }
-
   // Update MasterChef
   masterChef.poolCount = masterChef.poolCount.plus(BIG_INT_ONE)
   masterChef.save()
@@ -215,14 +210,8 @@ export function set(call: SetCall): void {
   const masterChefContract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
   const poolInfo = masterChefContract.poolInfo(call.inputs._pid)
 
-  const masterChef = getMasterChef(call.block)
-
-  // update sushiPerBlock if pool 29
-  if (call.inputs._pid.toString() === "45") {
-    masterChef.sushiPerBlock = BIG_INT_HUNDRED - (BIG_INT_HUNDRED * (call.inputs._allocPoint / masterChef.totalAllocPoint))
-  }
-
   // Update masterchef
+  const masterChef = getMasterChef(call.block)
   masterChef.save()
 
   // Update pool

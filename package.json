@@ -20,7 +20,7 @@
     "deploy:bar": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/sushi-bar subgraphs/bar.yaml",
     "deploy:exchange": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/exchange subgraphs/exchange.yaml",
     "deploy:maker": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/sushi-maker subgraphs/maker.yaml",
-    "deploy:masterchef": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/masterchef subgraphs/masterchef.yaml",
+    "deploy:masterchef": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/master-chef subgraphs/masterchef.yaml",
     "deploy:timelock": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/sushi-timelock subgraphs/timelock.yaml",
     "create-local": "graph create --node http://localhost:8020/ /sushiswap/sushiswap",
     "remove-local": "graph remove --node http://localhost:8020/ /sushiswap/sushiswap",
