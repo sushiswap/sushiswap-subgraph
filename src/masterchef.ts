@@ -79,7 +79,7 @@ export function getPool(id: BigInt, block: ethereum.Block): Pool {
     // Set relation
     pool.owner = masterChef.id
 
-    const poolInfo = masterChefContract.poolInfo(masterChef.poolCount)
+    const poolInfo = masterChefContract.poolInfo(id)
 
     pool.pair = poolInfo.value0
     pool.allocPoint = poolInfo.value1
@@ -188,8 +188,6 @@ export function getUser(pid: BigInt, address: Address, block: ethereum.Block): U
 export function add(call: AddCall): void {
   const masterChef = getMasterChef(call.block)
   const masterChefContract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
-  const poolLength = masterChefContract.poolLength().toI32()
-
   
   log.info('Add pool id: {} allowPoint: {} withUpdate: {}', [
       masterChef.poolCount.toString(),
@@ -204,7 +202,7 @@ export function add(call: AddCall): void {
   masterChef.poolCount = masterChef.poolCount.plus(BIG_INT_ONE)
   masterChef.save()
 
-  for(let i = 0; i < poolLength; i++) {
+  for(let i = 0; i < masterChef.poolCount.toI32(); i++) {
     const poolInfo = masterChefContract.poolInfo(BigInt.fromI32(i))
     const pool = getPool(BigInt.fromI32(i), call.block)
     pool.lastRewardBlock = poolInfo.value2
@@ -225,7 +223,6 @@ export function set(call: SetCall): void {
 
   const masterChefContract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
   const poolInfo = masterChefContract.poolInfo(call.inputs._pid)
-  const poolLength = masterChefContract.poolLength().toI32()
 
   // Update masterchef
   const masterChef = getMasterChef(call.block)
@@ -237,7 +234,7 @@ export function set(call: SetCall): void {
   pool.allocPoint = call.inputs._allocPoint
   pool.save()
 
-  for(let i = 0; i < poolLength; i++) {
+  for(let i = 0; i < masterChef.poolCount.toI32(); i++) {
     const poolInfo = masterChefContract.poolInfo(BigInt.fromI32(i))
     const pool = getPool(BigInt.fromI32(i), call.block)
     pool.lastRewardBlock = poolInfo.value2
@@ -278,9 +275,9 @@ export function massUpdatePools(call: MassUpdatePoolsCall): void {
   log.info('Mass update pools', [])
 
   const masterChefContract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
-  const poolLength = masterChefContract.poolLength().toI32()
+  const masterChef = getMasterChef(call.block)
 
-  for(let i = 0; i < poolLength; i++) {
+  for(let i = 0; i < masterChef.poolCount.toI32(); i++) {
     const poolInfo = masterChefContract.poolInfo(BigInt.fromI32(i))
     const pool = getPool(BigInt.fromI32(i), call.block)
     pool.lastRewardBlock = poolInfo.value2
