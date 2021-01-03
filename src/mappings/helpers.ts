@@ -58,6 +58,9 @@ export function fetchTokenSymbol(tokenAddress: Address): string {
   if (tokenAddress.toHexString() == '0xe0b7927c4af23765cb51314a0e0521a9645f0e2a') {
     return 'DGD'
   }
+  if (tokenAddress.toHexString() == '0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9') {
+    return 'AAVE'
+  }
 
   let contract = ERC20.bind(tokenAddress)
   let contractSymbolBytes = ERC20SymbolBytes.bind(tokenAddress)
@@ -84,6 +87,9 @@ export function fetchTokenName(tokenAddress: Address): string {
   // hard coded override
   if (tokenAddress.toHexString() == '0xe0b7927c4af23765cb51314a0e0521a9645f0e2a') {
     return 'DGD'
+  }
+  if (tokenAddress.toHexString() == '0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9') {
+    return 'Aave Token'
   }
 
   let contract = ERC20.bind(tokenAddress)
@@ -118,6 +124,10 @@ export function fetchTokenTotalSupply(tokenAddress: Address): BigInt {
 }
 
 export function fetchTokenDecimals(tokenAddress: Address): BigInt {
+  if (tokenAddress.toHexString() == '0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9') {
+    return BigInt.fromI32(18)
+  }
+  
   let contract = ERC20.bind(tokenAddress)
   // try types uint8 for decimals
   let decimalValue = null
