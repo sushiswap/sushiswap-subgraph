@@ -82,12 +82,4 @@ export function served(event: SwapEvent): void {
 
   maker.sushiServed = maker.sushiServed.plus(sushiServed)
   maker.save()
-
-  log.info('{} served up {} Sushi for pair {}-{} at {}', [
-    server.id,
-    sushiServed.toString(),
-    token0Contract.symbol(),
-    token1Contract.symbol(),
-    serving.timestamp.toString(),
-  ])
 }
