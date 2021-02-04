@@ -19,10 +19,10 @@ type Pool @entity {
   id: ID!
 
   # Lockup
-  lockup: Lockup!
+  lockup: Lockup
 
   # Balance
-  balance: BigInt!
+  # balance: BigInt!
 
   # Alloc point
   allocPoint: BigInt!
@@ -51,12 +51,9 @@ type User @entity {
   # Reward debt
   rewardDebt: BigInt!
 
-  # Sushi At Lockup
-  sushiAtLockup: BigInt!
-
   # Sushi Harevested Since Lockup
-  sushiHarvestedSinceLockup: BigInt!
-
-  # Sushi Locked
-  sushiLocked: BigInt!
+  sushiHarvestedSinceLockup: BigDecimal!
+  
+  # Sushi harvested since lockup USD
+  sushiHarvestedSinceLockupUSD: BigDecimal!
 }

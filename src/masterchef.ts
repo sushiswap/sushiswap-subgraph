@@ -20,10 +20,8 @@ import {
   BIG_INT_ONE,
   BIG_INT_ONE_DAY_SECONDS,
   BIG_INT_ZERO,
-  LOCKUP_BLOCK_NUMBER,
   MASTER_CHEF_ADDRESS,
   MASTER_CHEF_START_BLOCK,
-  SUSHI_TOKEN_ADDRESS,
 } from './constants'
 import { History, MasterChef, Pool, PoolHistory, User } from '../generated/schema'
 import { getSushiPrice, getUSDRate } from './price'
@@ -169,11 +167,8 @@ export function getUser(pid: BigInt, address: Address, block: ethereum.Block): U
     user.address = address
     user.amount = BIG_INT_ZERO
     user.rewardDebt = BIG_INT_ZERO
-    user.sushiAtLockup = BIG_DECIMAL_ZERO
     user.sushiHarvested = BIG_DECIMAL_ZERO
     user.sushiHarvestedUSD = BIG_DECIMAL_ZERO
-    user.sushiHarvestedSinceLockup = BIG_DECIMAL_ZERO
-    user.sushiHarvestedSinceLockupUSD = BIG_DECIMAL_ZERO
     user.entryUSD = BIG_DECIMAL_ZERO
     user.exitUSD = BIG_DECIMAL_ZERO
     user.timestamp = block.timestamp
@@ -334,10 +329,6 @@ export function deposit(event: Deposit): void {
       const sushiHarvestedUSD = pending.times(getSushiPrice(event.block))
       user.sushiHarvested = user.sushiHarvested.plus(pending)
       user.sushiHarvestedUSD = user.sushiHarvestedUSD.plus(sushiHarvestedUSD)
-      if (event.block.number.ge(LOCKUP_BLOCK_NUMBER)) {
-        user.sushiHarvestedSinceLockup = user.sushiHarvestedSinceLockup.plus(pending)
-        user.sushiHarvestedSinceLockupUSD = user.sushiHarvestedSinceLockupUSD.plus(sushiHarvestedUSD)
-      }
       pool.sushiHarvested = pool.sushiHarvested.plus(pending)
       pool.sushiHarvestedUSD = pool.sushiHarvestedUSD.plus(sushiHarvestedUSD)
       poolHistory.sushiHarvested = pool.sushiHarvested
@@ -493,10 +484,6 @@ export function withdraw(event: Withdraw): void {
       const sushiHarvestedUSD = pending.times(getSushiPrice(event.block))
       user.sushiHarvested = user.sushiHarvested.plus(pending)
       user.sushiHarvestedUSD = user.sushiHarvestedUSD.plus(sushiHarvestedUSD)
-      if (event.block.number.ge(LOCKUP_BLOCK_NUMBER)) {
-        user.sushiHarvestedSinceLockup = user.sushiHarvestedSinceLockup.plus(pending)
-        user.sushiHarvestedSinceLockupUSD = user.sushiHarvestedSinceLockupUSD.plus(sushiHarvestedUSD)
-      }
       pool.sushiHarvested = pool.sushiHarvested.plus(pending)
       pool.sushiHarvestedUSD = pool.sushiHarvestedUSD.plus(sushiHarvestedUSD)
       poolHistory.sushiHarvested = pool.sushiHarvested
