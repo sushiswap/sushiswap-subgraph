@@ -1,20 +1,20 @@
-# SushiSwap Subgraph
+# SwipeSwap Subgraph
 
-Aims to deliver analytics & historical data for SushiSwap. Still a work in progress. Feel free to contribute!
+Aims to deliver analytics & historical data for SwipeSwap. Still a work in progress. Feel free to contribute!
 
-The Graph exposes a GraphQL endpoint to query the events and entities within the SushiSwap ecosytem.
+The Graph exposes a GraphQL endpoint to query the events and entities within the SwipeSwap ecosytem.
 
 Currently there are two subgraphs, but additional subgraphs can be added to this repo:
 
-1. **SushiSwap**: Currently only has support for current MasterChef and MasterChefPool data: https://thegraph.com/explorer/subgraph/sushiswap/sushiswap
+1. **SwipeSwap**: Currently only has support for current MasterChef and MasterChefPool data: https://thegraph.com/explorer/subgraph/swipewallet/swipeswap
 
-2. **SushiSwap-SubGraph-Fork** (on uniswap-fork branch): Indexes the SushiSwap Factory, includes Price Data, Pricing, etc: https://thegraph.com/explorer/subgraph/zippoxer/sushiswap-subgraph-fork
+2. **SwipeSwap-SubGraph-Fork** (on uniswap-fork branch): Indexes the SwipeSwap Factory, includes Price Data, Pricing, etc: https://thegraph.com/explorer/subgraph/zippoxer/swipeswap-subgraph-fork
 
-3. **Sushi Bar**: Indexes the SushiBar, includes data related to the bar: https://thegraph.com/explorer/subgraph/sushiswap/sushi-bar
+3. **Swipe Bar**: Indexes the SwipeBar, includes data related to the bar: https://thegraph.com/explorer/subgraph/swipewallet/swipe-bar
 
 ## To setup and deploy
 
-For any of the subgraphs: `sushiswap` or `bar` as `[subgraph]`
+For any of the subgraphs: `swipeswap` or `bar` as `[subgraph]`
 
 1. Run the `yarn run codegen:[subgraph]` command to prepare the TypeScript sources for the GraphQL (generated/schema) and the ABIs (generated/[ABI]/\*)
 2. [Optional] run the `yarn run build:[subgraph]` command to build the subgraph. Can be used to check compile errors before deploying.
@@ -23,7 +23,7 @@ For any of the subgraphs: `sushiswap` or `bar` as `[subgraph]`
 
 ## To query these subgraphs
 
-Please use our node utility: [sushi-data](https://github.com/sushiswap/sushi-data).
+Please use our node utility: [swipe-data](https://github.com/SwipeWallet/swipe-data).
 
 Note: This is in on going development as well.
 
@@ -46,14 +46,14 @@ We will add to this as development progresses.
       pair
       token0
       token1
-      sushiServed
+      swipeServed
       block
       timestamp
     }
   }
   servers {
     id
-    sushiServed
+    swipeServed
     servings(orderBy: timestamp) {
       id
       server {
@@ -63,7 +63,7 @@ We will add to this as development progresses.
       pair
       token0
       token1
-      sushi
+      swipe
       block
       timestamp
     }
@@ -73,5 +73,5 @@ We will add to this as development progresses.
 
 # Community Subgraphs
 
-1) croco-finance fork of this repo with slight modifications - [deployment](https://thegraph.com/explorer/subgraph/benesjan/sushi-swap), [code](https://github.com/croco-finance/sushiswap-subgraph)
+1) croco-finance fork of this repo with slight modifications - [deployment](https://thegraph.com/explorer/subgraph/benesjan/swipe-swap), [code](https://github.com/croco-finance/swipeswap-subgraph)
 2) croco-finance dex-rewards-subgraph which tracks SLPs in MasterChef and all the corresponding rewards individually. (can be used for analysis of user's positions) - [deployment](https://thegraph.com/explorer/subgraph/benesjan/dex-rewards-subgraph), [code](https://github.com/croco-finance/dex-rewards-subgraph)

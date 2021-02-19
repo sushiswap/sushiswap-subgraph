@@ -1,6 +1,6 @@
 specVersion: 0.0.3
 description: Timelock
-repository: https://github.com/sushiswap/sushiswap-subgraph
+repository: https://github.com/SwipeWallet/swipeswap-subgraph
 schema:
   file: ./timelock.graphql
 dataSources:
@@ -20,7 +20,7 @@ dataSources:
         - Timelock
       abis:
         - name: Timelock
-          file: ../node_modules/@sushiswap/core/build/contracts/Timelock.json
+          file: ../node_modules/@swipeswap/core/build/contracts/Timelock.json
       eventHandlers:
         - event: CancelTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
           handler: canceledTransaction

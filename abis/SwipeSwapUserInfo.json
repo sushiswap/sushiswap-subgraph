@@ -24,7 +24,7 @@
           { "internalType": "uint256", "name": "block", "type": "uint256" },
           { "internalType": "uint256", "name": "timestamp", "type": "uint256" },
           { "internalType": "uint256", "name": "eth_rate", "type": "uint256" },
-          { "internalType": "uint256", "name": "sushiBalance", "type": "uint256" },
+          { "internalType": "uint256", "name": "swipeBalance", "type": "uint256" },
           { "internalType": "address", "name": "delegates", "type": "address" },
           { "internalType": "uint256", "name": "currentVotes", "type": "uint256" },
           { "internalType": "uint256", "name": "nonces", "type": "uint256" }
@@ -36,7 +36,7 @@
       {
         "components": [
           { "internalType": "uint256", "name": "lastRewardBlock", "type": "uint256" },
-          { "internalType": "uint256", "name": "accSushiPerShare", "type": "uint256" },
+          { "internalType": "uint256", "name": "accSwipePerShare", "type": "uint256" },
           { "internalType": "uint256", "name": "balance", "type": "uint256" },
           { "internalType": "uint256", "name": "totalSupply", "type": "uint256" },
           { "internalType": "uint256", "name": "uniBalance", "type": "uint256" },
@@ -69,7 +69,7 @@
           { "internalType": "uint256", "name": "block", "type": "uint256" },
           { "internalType": "uint256", "name": "timestamp", "type": "uint256" },
           { "internalType": "uint256", "name": "eth_rate", "type": "uint256" },
-          { "internalType": "uint256", "name": "sushiBalance", "type": "uint256" },
+          { "internalType": "uint256", "name": "swipeBalance", "type": "uint256" },
           { "internalType": "address", "name": "delegates", "type": "address" },
           { "internalType": "uint256", "name": "currentVotes", "type": "uint256" },
           { "internalType": "uint256", "name": "nonces", "type": "uint256" }
@@ -81,7 +81,7 @@
       {
         "components": [
           { "internalType": "uint256", "name": "lastRewardBlock", "type": "uint256" },
-          { "internalType": "uint256", "name": "accSushiPerShare", "type": "uint256" },
+          { "internalType": "uint256", "name": "accSwipePerShare", "type": "uint256" },
           { "internalType": "uint256", "name": "balance", "type": "uint256" },
           { "internalType": "uint256", "name": "totalSupply", "type": "uint256" },
           { "internalType": "uint256", "name": "uniBalance", "type": "uint256" },
@@ -114,7 +114,7 @@
     "inputs": [
       { "internalType": "address", "name": "uniFactory_", "type": "address" },
       { "internalType": "address", "name": "masterChef_", "type": "address" },
-      { "internalType": "address", "name": "sushi_", "type": "address" },
+      { "internalType": "address", "name": "swipe_", "type": "address" },
       { "internalType": "address", "name": "WETH_", "type": "address" }
     ],
     "name": "setContracts",

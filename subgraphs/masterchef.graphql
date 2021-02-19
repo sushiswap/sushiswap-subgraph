@@ -21,11 +21,11 @@ type MasterChef @entity {
   # Start block
   startBlock: BigInt!
 
-  # Sushi
-  sushi: Bytes!
+  # Swipe
+  swipe: Bytes!
 
-  # Sushi per block
-  sushiPerBlock: BigInt!
+  # Swipe per block
+  swipePerBlock: BigInt!
 
   # Total allocation point
   totalAllocPoint: BigInt!
@@ -104,8 +104,8 @@ type Pool @entity {
   # Last reward block
   lastRewardBlock: BigInt!
 
-  # Accumulated sushi per share
-  accSushiPerShare: BigInt!
+  # Accumulated swipe per share
+  accSwipePerShare: BigInt!
 
   # SLP token balance
   balance: BigInt!
@@ -146,11 +146,11 @@ type Pool @entity {
   # Exit USD
   exitUSD: BigDecimal!
 
-  # Sushi harvested
-  sushiHarvested: BigDecimal!
+  # Swipe harvested
+  swipeHarvested: BigDecimal!
 
-  # Sushi harvested
-  sushiHarvestedUSD: BigDecimal!
+  # Swipe harvested
+  swipeHarvestedUSD: BigDecimal!
 }
 
 type PoolHistory @entity {
@@ -190,11 +190,11 @@ type PoolHistory @entity {
   # Exit USD
   exitUSD: BigDecimal!
 
-  # Sushi harvested
-  sushiHarvested: BigDecimal!
+  # Swipe harvested
+  swipeHarvested: BigDecimal!
 
-  # Sushi harvested
-  sushiHarvestedUSD: BigDecimal!
+  # Swipe harvested
+  swipeHarvestedUSD: BigDecimal!
 }
 
 type User @entity {
@@ -207,11 +207,11 @@ type User @entity {
   # Related pool
   pool: Pool
 
-  # We do some fancy math here. Basically, any point in time, the amount of SUSHIs
+  # We do some fancy math here. Basically, any point in time, the amount of SWIPEs
   # entitled to a user but is pending to be distributed is:
-  # pending reward = (user.amount * pool.accSushiPerShare) - user.rewardDebt
+  # pending reward = (user.amount * pool.accSwipePerShare) - user.rewardDebt
   # Whenever a user deposits or withdraws LP tokens to a pool. Here's what happens:
-  # 1. The pool's `accSushiPerShare` (and `lastRewardBlock`) gets updated.
+  # 1. The pool's `accSwipePerShare` (and `lastRewardBlock`) gets updated.
   # 2. User receives the pending reward sent to his/her address.
   # 3. User's `amount` gets updated.
   # 4. User's `rewardDebt` gets updated.
@@ -228,11 +228,11 @@ type User @entity {
   # Exit USD
   exitUSD: BigDecimal!
 
-  # Sushi harvested
-  sushiHarvested: BigDecimal!
+  # Swipe harvested
+  swipeHarvested: BigDecimal!
 
-  # Sushi harvested
-  sushiHarvestedUSD: BigDecimal!
+  # Swipe harvested
+  swipeHarvestedUSD: BigDecimal!
 
   # Timestamp
   timestamp: BigInt!

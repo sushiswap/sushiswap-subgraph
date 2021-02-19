@@ -28,7 +28,7 @@ export function executedTransaction(event: ExecuteTransaction): void {
 }
 
 export function queuedTransaction(event: QueueTransaction): void {
-  const GRACE_PERIOD = 14 // expiry period (days) - https://github.com/sushiswap/sushiswap/blob/26af8ce6d573346d06d254fe83248553523e1f96/contracts/Timelock.sol#L27
+  const GRACE_PERIOD = 14 // expiry period (days) - https://github.com/SwipeWallet/swipeswap/blob/26af8ce6d573346d06d254fe83248553523e1f96/contracts/Timelock.sol#L27
   let id = event.params.txHash.toHexString()
   let tx = Timelock.load(id)
   if (tx === null) {

@@ -24,7 +24,7 @@ import {
   MASTER_CHEF_START_BLOCK,
 } from './constants'
 import { History, MasterChef, Pool, PoolHistory, User } from '../generated/schema'
-import { getSushiPrice, getUSDRate } from './price'
+import { getSwipePrice, getUSDRate } from './price'
 
 import { ERC20 as ERC20Contract } from '../generated/MasterChef/ERC20'
 import { Pair as PairContract } from '../generated/MasterChef/Pair'
@@ -42,8 +42,8 @@ function getMasterChef(block: ethereum.Block): MasterChef {
     masterChef.owner = contract.owner()
     // poolInfo ...
     masterChef.startBlock = contract.startBlock()
-    masterChef.sushi = contract.sushi()
-    masterChef.sushiPerBlock = contract.sushiPerBlock()
+    masterChef.swipe = contract.swipe()
+    masterChef.swipePerBlock = contract.swipePerBlock()
     masterChef.totalAllocPoint = contract.totalAllocPoint()
     // userInfo ...
     masterChef.poolCount = BIG_INT_ZERO
@@ -81,7 +81,7 @@ export function getPool(id: BigInt, block: ethereum.Block): Pool {
     pool.pair = poolInfo.value0
     pool.allocPoint = poolInfo.value1
     pool.lastRewardBlock = poolInfo.value2
-    pool.accSushiPerShare = poolInfo.value3
+    pool.accSwipePerShare = poolInfo.value3
 
     // Total supply of LP tokens
     pool.balance = BIG_INT_ZERO
@@ -99,8 +99,8 @@ export function getPool(id: BigInt, block: ethereum.Block): Pool {
     pool.updatedAt = block.timestamp
     pool.entryUSD = BIG_DECIMAL_ZERO
     pool.exitUSD = BIG_DECIMAL_ZERO
-    pool.sushiHarvested = BIG_DECIMAL_ZERO
-    pool.sushiHarvestedUSD = BIG_DECIMAL_ZERO
+    pool.swipeHarvested = BIG_DECIMAL_ZERO
+    pool.swipeHarvestedUSD = BIG_DECIMAL_ZERO
     pool.save()
   }
 
@@ -148,8 +148,8 @@ function getPoolHistory(pool: Pool, block: ethereum.Block): PoolHistory {
     history.block = block.number
     history.entryUSD = BIG_DECIMAL_ZERO
     history.exitUSD = BIG_DECIMAL_ZERO
-    history.sushiHarvested = BIG_DECIMAL_ZERO
-    history.sushiHarvestedUSD = BIG_DECIMAL_ZERO
+    history.swipeHarvested = BIG_DECIMAL_ZERO
+    history.swipeHarvestedUSD = BIG_DECIMAL_ZERO
   }
 
   return history as PoolHistory
@@ -167,8 +167,8 @@ export function getUser(pid: BigInt, address: Address, block: ethereum.Block): U
     user.address = address
     user.amount = BIG_INT_ZERO
     user.rewardDebt = BIG_INT_ZERO
-    user.sushiHarvested = BIG_DECIMAL_ZERO
-    user.sushiHarvestedUSD = BIG_DECIMAL_ZERO
+    user.swipeHarvested = BIG_DECIMAL_ZERO
+    user.swipeHarvestedUSD = BIG_DECIMAL_ZERO
     user.entryUSD = BIG_DECIMAL_ZERO
     user.exitUSD = BIG_DECIMAL_ZERO
     user.timestamp = block.timestamp
@@ -252,7 +252,7 @@ export function updatePool(call: UpdatePoolCall): void {
   const poolInfo = masterChef.poolInfo(call.inputs._pid)
   const pool = getPool(call.inputs._pid, call.block)
   pool.lastRewardBlock = poolInfo.value2
-  pool.accSushiPerShare = poolInfo.value3
+  pool.accSwipePerShare = poolInfo.value3
   pool.save()
 }
 
@@ -295,7 +295,7 @@ export function deposit(event: Deposit): void {
   pool.balance = pairContract.balanceOf(MASTER_CHEF_ADDRESS)
 
   pool.lastRewardBlock = poolInfo.value2
-  pool.accSushiPerShare = poolInfo.value3
+  pool.accSwipePerShare = poolInfo.value3
 
   const poolDays = event.block.timestamp.minus(pool.updatedAt).divDecimal(BigDecimal.fromString('86400'))
   pool.slpAge = pool.slpAge.plus(poolDays.times(pool.slpBalance))
@@ -315,24 +315,24 @@ export function deposit(event: Deposit): void {
     pool.userCount = pool.userCount.plus(BIG_INT_ONE)
   }
 
-  // Calculate SUSHI being paid out
+  // Calculate SWIPE being paid out
   if (event.block.number.gt(MASTER_CHEF_START_BLOCK) && user.amount.gt(BIG_INT_ZERO)) {
     const pending = user.amount
       .toBigDecimal()
-      .times(pool.accSushiPerShare.toBigDecimal())
+      .times(pool.accSwipePerShare.toBigDecimal())
       .div(BIG_DECIMAL_1E12)
       .minus(user.rewardDebt.toBigDecimal())
       .div(BIG_DECIMAL_1E18)
-    // log.info('Deposit: User amount is more than zero, we should harvest {} sushi', [pending.toString()])
+    // log.info('Deposit: User amount is more than zero, we should harvest {} swipe', [pending.toString()])
     if (pending.gt(BIG_DECIMAL_ZERO)) {
-      // log.info('Harvesting {} SUSHI', [pending.toString()])
-      const sushiHarvestedUSD = pending.times(getSushiPrice(event.block))
-      user.sushiHarvested = user.sushiHarvested.plus(pending)
-      user.sushiHarvestedUSD = user.sushiHarvestedUSD.plus(sushiHarvestedUSD)
-      pool.sushiHarvested = pool.sushiHarvested.plus(pending)
-      pool.sushiHarvestedUSD = pool.sushiHarvestedUSD.plus(sushiHarvestedUSD)
-      poolHistory.sushiHarvested = pool.sushiHarvested
-      poolHistory.sushiHarvestedUSD = pool.sushiHarvestedUSD
+      // log.info('Harvesting {} SWIPE', [pending.toString()])
+      const swipeHarvestedUSD = pending.times(getSwipePrice(event.block))
+      user.swipeHarvested = user.swipeHarvested.plus(pending)
+      user.swipeHarvestedUSD = user.swipeHarvestedUSD.plus(swipeHarvestedUSD)
+      pool.swipeHarvested = pool.swipeHarvested.plus(pending)
+      pool.swipeHarvestedUSD = pool.swipeHarvestedUSD.plus(swipeHarvestedUSD)
+      poolHistory.swipeHarvested = pool.swipeHarvested
+      poolHistory.swipeHarvestedUSD = pool.swipeHarvestedUSD
     }
   }
 
@@ -451,7 +451,7 @@ export function withdraw(event: Withdraw): void {
   const pairContract = PairContract.bind(poolInfo.value0)
   pool.balance = pairContract.balanceOf(MASTER_CHEF_ADDRESS)
   pool.lastRewardBlock = poolInfo.value2
-  pool.accSushiPerShare = poolInfo.value3
+  pool.accSwipePerShare = poolInfo.value3
 
   const poolDays = event.block.timestamp.minus(pool.updatedAt).divDecimal(BigDecimal.fromString('86400'))
   const poolAge = pool.slpAge.plus(poolDays.times(pool.slpBalance))
@@ -467,27 +467,27 @@ export function withdraw(event: Withdraw): void {
   if (event.block.number.gt(MASTER_CHEF_START_BLOCK) && user.amount.gt(BIG_INT_ZERO)) {
     const pending = user.amount
       .toBigDecimal()
-      .times(pool.accSushiPerShare.toBigDecimal())
+      .times(pool.accSwipePerShare.toBigDecimal())
       .div(BIG_DECIMAL_1E12)
       .minus(user.rewardDebt.toBigDecimal())
       .div(BIG_DECIMAL_1E18)
-    // log.info('Withdraw: User amount is more than zero, we should harvest {} sushi - block: {}', [
+    // log.info('Withdraw: User amount is more than zero, we should harvest {} swipe - block: {}', [
     //   pending.toString(),
     //   event.block.number.toString(),
     // ])
-    // log.info('SUSHI PRICE {}', [getSushiPrice(event.block).toString()])
+    // log.info('SWIPE PRICE {}', [getSwipePrice(event.block).toString()])
     if (pending.gt(BIG_DECIMAL_ZERO)) {
-      // log.info('Harvesting {} SUSHI (CURRENT SUSHI PRICE {})', [
+      // log.info('Harvesting {} SWIPE (CURRENT SWIPE PRICE {})', [
       //   pending.toString(),
-      //   getSushiPrice(event.block).toString(),
+      //   getSwipePrice(event.block).toString(),
       // ])
-      const sushiHarvestedUSD = pending.times(getSushiPrice(event.block))
-      user.sushiHarvested = user.sushiHarvested.plus(pending)
-      user.sushiHarvestedUSD = user.sushiHarvestedUSD.plus(sushiHarvestedUSD)
-      pool.sushiHarvested = pool.sushiHarvested.plus(pending)
-      pool.sushiHarvestedUSD = pool.sushiHarvestedUSD.plus(sushiHarvestedUSD)
-      poolHistory.sushiHarvested = pool.sushiHarvested
-      poolHistory.sushiHarvestedUSD = pool.sushiHarvestedUSD
+      const swipeHarvestedUSD = pending.times(getSwipePrice(event.block))
+      user.swipeHarvested = user.swipeHarvested.plus(pending)
+      user.swipeHarvestedUSD = user.swipeHarvestedUSD.plus(swipeHarvestedUSD)
+      pool.swipeHarvested = pool.swipeHarvested.plus(pending)
+      pool.swipeHarvestedUSD = pool.swipeHarvestedUSD.plus(swipeHarvestedUSD)
+      poolHistory.swipeHarvested = pool.swipeHarvested
+      poolHistory.swipeHarvestedUSD = pool.swipeHarvestedUSD
     }
   }
 

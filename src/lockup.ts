@@ -8,7 +8,7 @@ import {
   Withdraw,
 } from '../generated/MasterChef/MasterChef'
 import { Lockup, Pool, User } from '../generated/schema'
-import { getSushiPrice } from './price'
+import { getSwipePrice } from './price'
 import { Pair as PairContract } from '../generated/MasterChef/Pair'
 
 export function getUser(pid: BigInt, address: Address, block: ethereum.Block): User {
@@ -24,8 +24,8 @@ export function getUser(pid: BigInt, address: Address, block: ethereum.Block): U
     user.address = address
     user.amount = BIG_INT_ZERO
     user.rewardDebt = BIG_INT_ZERO
-    user.sushiHarvestedSinceLockup = BIG_DECIMAL_ZERO
-    user.sushiHarvestedSinceLockupUSD = BIG_DECIMAL_ZERO
+    user.swipeHarvestedSinceLockup = BIG_DECIMAL_ZERO
+    user.swipeHarvestedSinceLockupUSD = BIG_DECIMAL_ZERO
     user.save()
   }
 
@@ -42,7 +42,7 @@ export function getPool(id: BigInt): Pool {
     pool = new Pool(id.toString())
     const poolInfo = masterChefContract.poolInfo(id)
     pool.allocPoint = poolInfo.value1
-    pool.accSushiPerShare = poolInfo.value3
+    pool.accSwipePerShare = poolInfo.value3
 
     pool.save()
   }
@@ -82,7 +82,7 @@ export function set(call: SetCall): void {
       const pool = new Pool(i.toString())
       pool.lockup = lockup.id
       pool.allocPoint = poolInfo.value1
-      pool.accSushiPerShare = poolInfo.value3
+      pool.accSwipePerShare = poolInfo.value3
       // pool.balance = pairContract.balanceOf(MASTER_CHEF_ADDRESS)
       pool.save()
     }
@@ -95,21 +95,21 @@ function transfer(pid: BigInt, userAddr: Address, block: ethereum.Block): void {
 
   const poolInfo = masterChefContract.poolInfo(pid)
   const pool = getPool(pid)
-  pool.accSushiPerShare = poolInfo.value3
+  pool.accSwipePerShare = poolInfo.value3
   pool.save()
 
   if (block.number.ge(LOCKUP_BLOCK_NUMBER)) {
     const pool = getPool(pid)
     const pending = user.amount
       .toBigDecimal()
-      .times(pool.accSushiPerShare.toBigDecimal())
+      .times(pool.accSwipePerShare.toBigDecimal())
       .div(BIG_DECIMAL_1E12)
       .minus(user.rewardDebt.toBigDecimal())
       .div(BIG_DECIMAL_1E18)
     if (pending.gt(BIG_DECIMAL_ZERO)) {
-      user.sushiHarvestedSinceLockup = user.sushiHarvestedSinceLockup.plus(pending)
-      const sushiHarvestedUSD = pending.times(getSushiPrice(block))
-      user.sushiHarvestedSinceLockupUSD = user.sushiHarvestedSinceLockupUSD.plus(sushiHarvestedUSD)
+      user.swipeHarvestedSinceLockup = user.swipeHarvestedSinceLockup.plus(pending)
+      const swipeHarvestedUSD = pending.times(getSwipePrice(block))
+      user.swipeHarvestedSinceLockupUSD = user.swipeHarvestedSinceLockupUSD.plus(swipeHarvestedUSD)
     }
   }
   const userInfo = masterChefContract.userInfo(pid, userAddr)

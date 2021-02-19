@@ -9,41 +9,41 @@ type Bar @entity {
   # Name
   name: String!
 
-  # Sushi token
-  sushi: Bytes!
+  # Swipe token
+  swipe: Bytes!
 
   # Symbol
   symbol: String!
 
-  # Total xSushi supply
+  # Total xSwipe supply
   totalSupply: BigDecimal!
 
-  # Ratio xSushi per Sushi
+  # Ratio xSwipe per Swipe
   ratio: BigDecimal!
 
-  # xSushi minted
-  xSushiMinted: BigDecimal!
+  # xSwipe minted
+  xSwipeMinted: BigDecimal!
 
-  # xSushi burned
-  xSushiBurned: BigDecimal!
+  # xSwipe burned
+  xSwipeBurned: BigDecimal!
 
-  # Sushi staked
-  sushiStaked: BigDecimal!
+  # Swipe staked
+  swipeStaked: BigDecimal!
 
-  # Sushi staked USD
-  sushiStakedUSD: BigDecimal!
+  # Swipe staked USD
+  swipeStakedUSD: BigDecimal!
 
-  # Sushi harvested
-  sushiHarvested: BigDecimal!
+  # Swipe harvested
+  swipeHarvested: BigDecimal!
 
-  # Sushi harvested USD
-  sushiHarvestedUSD: BigDecimal!
+  # Swipe harvested USD
+  swipeHarvestedUSD: BigDecimal!
 
-  # xSushi age
-  xSushiAge: BigDecimal!
+  # xSwipe age
+  xSwipeAge: BigDecimal!
 
-  # xSushi age destroyed
-  xSushiAgeDestroyed: BigDecimal!
+  # xSwipe age destroyed
+  xSwipeAgeDestroyed: BigDecimal!
 
   # Users in the bar
   users: [User!]! @derivedFrom(field: "bar")
@@ -60,49 +60,49 @@ type User @entity {
   # Bar
   bar: Bar
 
-  # xSushi (balance)
-  xSushi: BigDecimal!
+  # xSwipe (balance)
+  xSwipe: BigDecimal!
 
-  # xSushi In
-  xSushiIn: BigDecimal!
+  # xSwipe In
+  xSwipeIn: BigDecimal!
 
-  # xSushi Out
-  xSushiOut: BigDecimal!
+  # xSwipe Out
+  xSwipeOut: BigDecimal!
 
   # Minted
-  xSushiMinted: BigDecimal!
+  xSwipeMinted: BigDecimal!
 
   # Burned
-  xSushiBurned: BigDecimal!
+  xSwipeBurned: BigDecimal!
 
-  # xSushi offset
-  xSushiOffset: BigDecimal!
+  # xSwipe offset
+  xSwipeOffset: BigDecimal!
 
-  # xSushi age
-  xSushiAge: BigDecimal!
+  # xSwipe age
+  xSwipeAge: BigDecimal!
 
-  # xSushi age destroyed
-  xSushiAgeDestroyed: BigDecimal!
+  # xSwipe age destroyed
+  xSwipeAgeDestroyed: BigDecimal!
 
   # Staked
-  sushiStaked: BigDecimal!
+  swipeStaked: BigDecimal!
 
   # Sum of $ at time of staking
-  sushiStakedUSD: BigDecimal!
+  swipeStakedUSD: BigDecimal!
 
   # Harvested
-  sushiHarvested: BigDecimal!
+  swipeHarvested: BigDecimal!
 
   # Sum of $ at time of harvesting
-  sushiHarvestedUSD: BigDecimal!
+  swipeHarvestedUSD: BigDecimal!
 
-  # To get bar pending sushi (xSushi * staked / bar.totalSupply)
+  # To get bar pending swipe (xSwipe * staked / bar.totalSupply)
 
-  # Sushi Out
-  sushiOut: BigDecimal!
+  # Swipe Out
+  swipeOut: BigDecimal!
 
-  # Sushi In
-  sushiIn: BigDecimal!
+  # Swipe In
+  swipeIn: BigDecimal!
 
   # USD Out
   usdOut: BigDecimal!
@@ -113,8 +113,8 @@ type User @entity {
   # Updated at
   updatedAt: BigInt!
 
-  # sushi offset
-  sushiOffset: BigDecimal!
+  # swipe offset
+  swipeOffset: BigDecimal!
 
   # usd offset
   usdOffset: BigDecimal!
@@ -129,14 +129,14 @@ type History @entity {
   id: ID!
   date: Int!
   timeframe: Timeframe!
-  sushiStaked: BigDecimal!
-  sushiStakedUSD: BigDecimal!
-  sushiHarvested: BigDecimal!
-  sushiHarvestedUSD: BigDecimal!
-  xSushiAge: BigDecimal!
-  xSushiAgeDestroyed: BigDecimal!
-  xSushiMinted: BigDecimal!
-  xSushiBurned: BigDecimal!
-  xSushiSupply: BigDecimal!
+  swipeStaked: BigDecimal!
+  swipeStakedUSD: BigDecimal!
+  swipeHarvested: BigDecimal!
+  swipeHarvestedUSD: BigDecimal!
+  xSwipeAge: BigDecimal!
+  xSwipeAgeDestroyed: BigDecimal!
+  xSwipeMinted: BigDecimal!
+  xSwipeBurned: BigDecimal!
+  xSwipeSupply: BigDecimal!
   ratio: BigDecimal!
 }

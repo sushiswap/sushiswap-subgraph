@@ -1,11 +1,11 @@
 specVersion: 0.0.3
 description: Bar
-repository: https://github.com/sushiswap/sushiswap-subgraph
+repository: https://github.com/SwipeWallet/swipeswap-subgraph
 schema:
   file: ./bar.graphql
 dataSources:
   - kind: ethereum/contract
-    name: SushiBar
+    name: SwipeBar
     network: mainnet
     source:
       address: '0x8798249c2e607446efb7ad49ec89dd1865ff4272'
@@ -20,11 +20,11 @@ dataSources:
         - User
       abis:
         - name: Bar
-          file: ../node_modules/@sushiswap/core/build/contracts/SushiBar.json
-        - name: SushiToken
-          file: ../node_modules/@sushiswap/core/build/contracts/SushiToken.json
+          file: ../node_modules/@swipeswap/core/build/contracts/SwipeBar.json
+        - name: SwipeToken
+          file: ../node_modules/@swipeswap/core/build/contracts/SwipeToken.json
         - name: Pair
-          file: ../node_modules/@sushiswap/core/build/contracts/UniswapV2Pair.json
+          file: ../node_modules/@swipeswap/core/build/contracts/UniswapV2Pair.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: transfer

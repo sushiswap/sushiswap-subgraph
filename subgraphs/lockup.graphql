@@ -27,8 +27,8 @@ type Pool @entity {
   # Alloc point
   allocPoint: BigInt!
 
-  # Accumulated sushi per share
-  accSushiPerShare: BigInt!
+  # Accumulated swipe per share
+  accSwipePerShare: BigInt!
 }
 
 # User
@@ -51,9 +51,9 @@ type User @entity {
   # Reward debt
   rewardDebt: BigInt!
 
-  # Sushi Harevested Since Lockup
-  sushiHarvestedSinceLockup: BigDecimal!
+  # Swipe Harevested Since Lockup
+  swipeHarvestedSinceLockup: BigDecimal!
   
-  # Sushi harvested since lockup USD
-  sushiHarvestedSinceLockupUSD: BigDecimal!
+  # Swipe harvested since lockup USD
+  swipeHarvestedSinceLockupUSD: BigDecimal!
 }

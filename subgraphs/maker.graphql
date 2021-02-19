@@ -3,8 +3,8 @@ type Maker @entity {
   # Maker address
   id: ID!
 
-  # Sushi served
-  sushiServed: BigDecimal!
+  # Swipe served
+  swipeServed: BigDecimal!
 
   # Servers
   servers: [Server!]! @derivedFrom(field: "maker")
@@ -20,8 +20,8 @@ type Server @entity {
   # Relation to maker
   maker: Maker!
 
-  # Sushi served
-  sushiServed: BigDecimal!
+  # Swipe served
+  swipeServed: BigDecimal!
 
   # Servings related to the server
   servings: [Serving!]! @derivedFrom(field: "server")
@@ -49,8 +49,8 @@ type Serving @entity {
   # Token 1
   token1: Bytes!
 
-  # Sushi served
-  sushiServed: BigDecimal!
+  # Swipe served
+  swipeServed: BigDecimal!
 
   # Block
   block: BigInt!
