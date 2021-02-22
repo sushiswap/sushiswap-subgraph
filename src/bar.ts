@@ -233,6 +233,8 @@ export function transfer(event: TransferEvent): void {
 
     user.xSushiAgeDestroyed = user.xSushiAgeDestroyed.plus(xSushiAgeDestroyed)
 
+    // remove xSushiAge
+    user.xSushiAge = user.xSushiAge.minus(xSushiAgeDestroyed);
     // Update xSushi last
     user.xSushi = user.xSushi.minus(value)
 
