@@ -91,7 +91,7 @@ export function getEthPrice(block: ethereum.Block = null): BigDecimal {
 }
 
 export function findEthPerToken(token: Token): BigDecimal {
-  if (token.id == WETH_ADDRESS) {
+  if (Address.fromString(token.id) == WETH_ADDRESS) {
     return BIG_DECIMAL_ONE
   }
 

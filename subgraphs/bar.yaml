@@ -20,11 +20,11 @@ dataSources:
         - User
       abis:
         - name: Bar
-          file: ../node_modules/@sushiswap/core/build/contracts/SushiBar.json
+          file: ../node_modules/@sushiswap/core/build/abi/SushiBar.json
         - name: SushiToken
-          file: ../node_modules/@sushiswap/core/build/contracts/SushiToken.json
+          file: ../node_modules/@sushiswap/core/build/abi/SushiToken.json
         - name: Pair
-          file: ../node_modules/@sushiswap/core/build/contracts/UniswapV2Pair.json
+          file: ../node_modules/@sushiswap/core/build/abi/UniswapV2Pair.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: transfer
