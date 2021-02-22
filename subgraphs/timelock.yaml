@@ -20,7 +20,7 @@ dataSources:
         - Timelock
       abis:
         - name: Timelock
-          file: ../node_modules/@sushiswap/core/build/contracts/Timelock.json
+          file: ../node_modules/@sushiswap/core/build/abi/Timelock.json
       eventHandlers:
         - event: CancelTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
           handler: canceledTransaction
