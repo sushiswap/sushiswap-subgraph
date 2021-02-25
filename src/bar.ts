@@ -3,10 +3,12 @@ import {
   BIG_DECIMAL_1E18,
   BIG_DECIMAL_1E6,
   BIG_DECIMAL_ZERO,
+  BIG_INT_ONE,
   BIG_INT_ZERO,
   SUSHI_BAR_ADDRESS,
   SUSHI_TOKEN_ADDRESS,
   SUSHI_USDT_PAIR_ADDRESS,
+  XSUSHI_THRESHOLD,
 } from './constants'
 import { Address, BigDecimal, BigInt, dataSource, ethereum, log } from '@graphprotocol/graph-ts'
 import { Bar, History, User } from '../generated/schema'
@@ -38,6 +40,7 @@ function createBar(block: ethereum.Block): Bar {
   bar.xSushiBurned = BIG_DECIMAL_ZERO
   bar.xSushiAge = BIG_DECIMAL_ZERO
   bar.xSushiAgeDestroyed = BIG_DECIMAL_ZERO
+  bar.xSushiUsers = BIG_INT_ZERO
   bar.ratio = BIG_DECIMAL_ZERO
   bar.updatedAt = block.timestamp
   bar.save()
@@ -59,7 +62,7 @@ function createUser(address: Address, block: ethereum.Block): User {
   const user = new User(address.toHex())
 
   // Set relation to bar
-  user.bar = dataSource.address().toHex()
+  user.bar = null
 
   user.xSushi = BIG_DECIMAL_ZERO
   user.xSushiMinted = BIG_DECIMAL_ZERO
@@ -122,6 +125,7 @@ function getHistory(block: ethereum.Block): History {
     history.xSushiMinted = BIG_DECIMAL_ZERO
     history.xSushiBurned = BIG_DECIMAL_ZERO
     history.xSushiSupply = BIG_DECIMAL_ZERO
+    history.xSushiUsers = BIG_INT_ZERO
     history.ratio = BIG_DECIMAL_ZERO
   }
 
@@ -166,14 +170,15 @@ export function transfer(event: TransferEvent): void {
       user.sushiStaked.plus(what).toString(),
     ])
 
-    if (user.xSushi == BIG_DECIMAL_ZERO) {
-      log.info('{} entered the bar', [user.id])
-      user.bar = bar.id
-    }
-
     user.xSushiMinted = user.xSushiMinted.plus(value)
 
     const sushiStakedUSD = what.times(sushiPrice)
+
+    if (user.xSushi.le(XSUSHI_THRESHOLD) && user.xSushi.plus(value).gt(XSUSHI_THRESHOLD)) {
+      log.info('{} entered the bar', [user.id])
+      user.bar = bar.id
+      bar.xSushiUsers = bar.xSushiUsers.plus(BIG_INT_ONE)
+    }
 
     user.sushiStaked = user.sushiStaked.plus(what)
     user.sushiStakedUSD = user.sushiStakedUSD.plus(sushiStakedUSD)
@@ -206,6 +211,7 @@ export function transfer(event: TransferEvent): void {
     history.sushiStaked = history.sushiStaked.plus(what)
     history.sushiStakedUSD = history.sushiStakedUSD.plus(sushiStakedUSD)
     history.ratio = bar.ratio
+    history.xSushiUsers = bar.xSushiUsers
     history.save()
   }
 
@@ -234,13 +240,14 @@ export function transfer(event: TransferEvent): void {
     user.xSushiAgeDestroyed = user.xSushiAgeDestroyed.plus(xSushiAgeDestroyed)
 
     // remove xSushiAge
-    user.xSushiAge = user.xSushiAge.minus(xSushiAgeDestroyed);
+    user.xSushiAge = user.xSushiAge.minus(xSushiAgeDestroyed)
     // Update xSushi last
     user.xSushi = user.xSushi.minus(value)
 
-    if (user.xSushi == BIG_DECIMAL_ZERO) {
+    if (user.xSushi.le(XSUSHI_THRESHOLD) && user.xSushi.plus(value).gt(XSUSHI_THRESHOLD)) {
       log.info('{} left the bar', [user.id])
       user.bar = null
+      bar.xSushiUsers = bar.xSushiUsers.minus(BIG_INT_ONE)
     }
 
     user.updatedAt = event.block.timestamp
@@ -264,6 +271,7 @@ export function transfer(event: TransferEvent): void {
     history.sushiHarvested = history.sushiHarvested.plus(what)
     history.sushiHarvestedUSD = history.sushiHarvestedUSD.plus(sushiHarvestedUSD)
     history.ratio = bar.ratio
+    history.xSushiUsers = bar.xSushiUsers
     history.save()
   }
 
@@ -292,19 +300,25 @@ export function transfer(event: TransferEvent): void {
     fromUser.sushiOut = fromUser.sushiOut.plus(what)
     fromUser.usdOut = fromUser.usdOut.plus(what.times(sushiPrice))
 
-    if (fromUser.xSushi == BIG_DECIMAL_ZERO) {
+    if (fromUser.xSushi.le(XSUSHI_THRESHOLD) && fromUser.xSushi.plus(value).gt(XSUSHI_THRESHOLD)) {
       log.info('{} left the bar by transfer OUT', [fromUser.id])
       fromUser.bar = null
+      bar.xSushiUsers = bar.xSushiUsers.minus(BIG_INT_ONE)
     }
 
     fromUser.save()
 
     const toUser = getUser(event.params.to, event.block)
 
-    if (toUser.bar === null) {
+    if (toUser.xSushi.le(XSUSHI_THRESHOLD) && toUser.xSushi.plus(value).gt(XSUSHI_THRESHOLD)) {
       log.info('{} entered the bar by transfer IN', [fromUser.id])
       toUser.bar = bar.id
+      bar.xSushiUsers = bar.xSushiUsers.plus(BIG_INT_ONE)
     }
+
+    const history = getHistory(event.block)
+    history.xSushiUsers = bar.xSushiUsers
+    history.save()
 
     // Recalculate xSushi age and add incoming xSushiAgeTransfered
     const toUserDays = event.block.timestamp.minus(toUser.updatedAt).divDecimal(BigDecimal.fromString('86400'))
@@ -325,7 +339,7 @@ export function transfer(event: TransferEvent): void {
       const sushi = toUser.sushiIn.minus(toUser.sushiOut).minus(toUser.sushiOffset)
       const usd = toUser.usdIn.minus(toUser.usdOut).minus(toUser.usdOffset)
 
-      log.info('{} recieved a transfer of {} xSushi from {}, sushi value of transfer is {}', [
+      log.info('{} received a transfer of {} xSushi from {}, sushi value of transfer is {}', [
         toUser.id,
         value.toString(),
         fromUser.id,

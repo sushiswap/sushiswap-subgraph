@@ -48,6 +48,9 @@ type Bar @entity {
   # Users in the bar
   users: [User!]! @derivedFrom(field: "bar")
 
+  # Total users with xSushi
+  xSushiUsers: BigInt!
+
   # Updated at
   updatedAt: BigInt!
 }
@@ -138,5 +141,6 @@ type History @entity {
   xSushiMinted: BigDecimal!
   xSushiBurned: BigDecimal!
   xSushiSupply: BigDecimal!
+  xSushiUsers: BigInt!
   ratio: BigDecimal!
 }
