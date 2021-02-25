@@ -12,7 +12,7 @@ import {
   UpdatePoolCall,
   Withdraw,
 } from '../generated/MasterChef/MasterChef'
-import { Address, BigDecimal, BigInt, dataSource, ethereum, log } from '@graphprotocol/graph-ts'
+import { Address, BigDecimal, BigInt, ethereum, log } from '@graphprotocol/graph-ts'
 import {
   BIG_DECIMAL_1E12,
   BIG_DECIMAL_1E18,
@@ -22,12 +22,15 @@ import {
   BIG_INT_ZERO,
   MASTER_CHEF_ADDRESS,
   MASTER_CHEF_START_BLOCK,
+  NULL_CALL_RESULT_VALUE,
 } from './constants'
-import { History, MasterChef, Pool, PoolHistory, User } from '../generated/schema'
+import { History, MasterChef, Pair, Pool, PoolHistory, Token, User } from '../generated/schema'
 import { getSushiPrice, getUSDRate } from './price'
 
-import { ERC20 as ERC20Contract } from '../generated/MasterChef/ERC20'
 import { Pair as PairContract } from '../generated/MasterChef/Pair'
+import { ERC20 as TokenContract } from '../generated/MasterChef/ERC20'
+import { ERC20SymbolBytes as TokenContractSymbolBytes } from '../generated/Factory/ERC20SymbolBytes'
+import { PairCreated } from '../generated/MasterChef/Factory'
 
 function getMasterChef(block: ethereum.Block): MasterChef {
   let masterChef = MasterChef.load(MASTER_CHEF_ADDRESS.toHex())
@@ -178,6 +181,72 @@ export function getUser(pid: BigInt, address: Address, block: ethereum.Block): U
 
   return user as User
 }
+
+export function getToken(address: Address): Token {
+
+  let token = Token.load(address.toHex())
+
+  if(token == null){
+    token = new Token(address.toHex())
+    token.decimals = getDecimals(address)
+    token.symbol = getSymbol(address)
+    token.save()
+  }
+
+  return token as Token
+}
+
+
+export function getSymbol(address: Address): string {
+  // hard coded override
+  if (address.toHex() == '0xe0b7927c4af23765cb51314a0e0521a9645f0e2a') {
+    return 'DGD'
+  }
+  if (address.toHex() == '0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9') {
+    return 'AAVE'
+  }
+
+  const tokenContract = TokenContract.bind(address)
+  const tokenContractSymbolBytes = TokenContractSymbolBytes.bind(address)
+
+  // try types string and bytes32 for symbol
+  let symbolValue = 'unknown'
+  const symbolResult = tokenContract.try_symbol()
+  if (symbolResult.reverted) {
+    const symbolResultBytes = tokenContractSymbolBytes.try_symbol()
+    if (!symbolResultBytes.reverted) {
+      // for broken pairs that have no symbol function exposed
+      if (symbolResultBytes.value.toHex() != NULL_CALL_RESULT_VALUE) {
+        symbolValue = symbolResultBytes.value.toString()
+      }
+    }
+  } else {
+    symbolValue = symbolResult.value
+  }
+
+  return symbolValue
+}
+
+export function getDecimals(address: Address): BigInt {
+  // hardcode overrides
+  if (address.toHex() == '0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9') {
+    return BigInt.fromI32(18)
+  }
+
+  const tokenContract = TokenContract.bind(address)
+
+  // try types uint8 for decimals
+  let decimalValue = null
+
+  const decimalResult = tokenContract.try_decimals()
+
+  if (!decimalResult.reverted) {
+    decimalValue = decimalResult.value
+  }
+
+  return BigInt.fromI32(decimalValue)
+}
+
 
 export function add(event: AddCall): void {
   const masterChef = getMasterChef(event.block)
@@ -603,4 +672,17 @@ export function ownershipTransferred(event: OwnershipTransferred): void {
     event.params.previousOwner.toHex(),
     event.params.newOwner.toHex(),
   ])
+}
+
+export function pairCreated(event: PairCreated): void {
+  
+  const token0 = getToken(event.params.token0)
+  const token1 = getToken(event.params.token1)
+
+  let pair = new Pair(event.params.pair.toHex())
+  pair.token0 = token0.id
+  pair.token1 = token1.id
+  pair.save()
+
+  log.info('New pair created {} - {}', [token0.id, token1.id])
 }

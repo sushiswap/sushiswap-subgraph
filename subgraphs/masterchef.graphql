@@ -240,3 +240,27 @@ type User @entity {
   # Block
   block: BigInt!
 }
+
+type Token @entity {
+
+  # Token address
+  id: ID!
+
+  # Symbol
+  symbol: String!
+
+  # Decimals
+  decimals: BigInt!
+}
+
+type Pair @entity {
+
+  # Pair address
+  id: ID!
+
+  # Token 0
+  token0: Token!
+
+  # Token 1
+  token1: Token!
+}
