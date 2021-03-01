@@ -51,6 +51,11 @@ type Bar @entity {
   # Total users with xSushi
   xSushiUsers: BigInt!
 
+  # Total users with more xSushi than treshold
+  # This is done to remove some users that have a very low amount of xSushi
+  # and that might skew the results when doing average per users
+  xSushiTrackedUsers: BigInt!
+
   # Updated at
   updatedAt: BigInt!
 }
@@ -142,5 +147,6 @@ type History @entity {
   xSushiBurned: BigDecimal!
   xSushiSupply: BigDecimal!
   xSushiUsers: BigInt!
+  xSushiTrackedUsers: BigInt!
   ratio: BigDecimal!
 }
