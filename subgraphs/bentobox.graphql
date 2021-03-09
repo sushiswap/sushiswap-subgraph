@@ -1,0 +1,84 @@
+enum BentoBoxActionType {
+  deposit
+  transfer
+  withdraw
+}
+
+type BentoBoxAction @entity {
+  id: ID!
+  bentoBox: BentoBox!
+  type: BentoBoxActionType!
+  from: User!
+  to: User!
+  token: Token!
+  amount: BigInt!
+  block: BigInt!
+  timestamp: BigInt!
+}
+
+type BentoBox @entity {
+  # Contract ID
+  id: ID!
+  tokens: [Token!] @derivedFrom(field: "bentoBox")
+  transactions: [BentoBoxAction!] @derivedFrom(field: "bentoBox")
+  flashloans: [FlashLoan!] @derivedFrom(field: "bentoBox")
+}
+
+type FlashLoan @entity {
+  id: ID!
+  bentoBox: BentoBox!
+  borrower: Bytes!
+  receiver: Bytes!
+  token: Token!
+  amount: BigInt!
+  feeAmount: BigInt!
+  block: BigInt!
+  timestamp: BigInt!
+}
+
+type MasterContractApproval @entity {
+  # concatenate UserAddress with MasterContract
+  id: ID!
+  user: User!
+  approved: Boolean!
+}
+
+type MasterContract @entity {
+  id: ID!
+  approved: Boolean!
+}
+
+type Protocol @entity {
+  id: ID!
+}
+
+type Token @entity {
+  id: ID!
+  bentoBox: BentoBox!
+  totalBaseSupply: BigInt!
+  totalElasticSupply: BigInt!
+  name: String!
+  symbol: String!
+  decimals: BigInt!
+  block: BigInt!
+  timestamp: BigInt!
+}
+
+type UserToken @entity {
+  # concatenate UserAddress with TokenAddress
+  id: ID!
+  user: User!
+  token: Token!
+  amount: BigInt!
+  share: BigInt!
+}
+
+type User @entity {
+  id: ID!
+  tokenBalances: [UserToken!] @derivedFrom(field: "user")
+  MasterContractApprovals: [MasterContractApproval!] @derivedFrom(field: "user")
+  withdrawals: [BentoBoxAction!] @derivedFrom(field: "from")
+  deposits: [BentoBoxAction!] @derivedFrom(field: "to")
+  block: BigInt!
+  timestamp: BigInt!
+}

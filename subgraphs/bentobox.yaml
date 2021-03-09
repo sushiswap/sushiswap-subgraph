@@ -1,0 +1,53 @@
+specVersion: 0.0.2
+description: BentoBox
+repository: https://github.com/sushiswap/sushiswap-subgraph
+schema:
+  file: ./bentobox.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: BentoBox
+    network: mainnet
+    source:
+      address: '0xB5891167796722331b7ea7824F036b3Bdcb4531C'
+      abi: BentoBox
+      startBlock: 11827718
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ../src/bentobox/mappings/bentobox.ts
+      entities:
+        - LogDeploy
+        - LogDeposit
+        - LogWithdraw
+        - LogTransfer
+        - LogFlashLoan
+        - LogWhiteListMasterContract
+        - LogSetMasterContractApproval
+        - LogRegisterProtocol
+      abis:
+        - name: BentoBox
+          file: ../abis/BentoBox.json
+        - name: ERC20
+          file: ../node_modules/@sushiswap/core/build/contracts/ERC20.json
+        - name: ERC20SymbolBytes
+          file: ../abis/ERC20SymbolBytes.json
+        - name: ERC20NameBytes
+          file: ../abis/ERC20NameBytes.json
+      eventHandlers:
+        - event: LogDeploy(indexed address,bytes,indexed address)
+          handler: handleLogDeploy
+        - event: LogDeposit(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleLogDeposit
+        - event: LogWithdraw(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleLogWithdraw
+        - event: LogTransfer(indexed address,indexed address,indexed address,uint256)
+          handler: handleLogTransfer
+        - event: LogFlashLoan(indexed address,indexed address,uint256,uint256,indexed address)
+          handler: handleLogFlashLoan
+        - event: LogWhiteListMasterContract(indexed address,bool)
+          handler: handleLogWhiteListMasterContract
+        - event: LogSetMasterContractApproval(indexed address,indexed address,bool)
+          handler: handleLogMasterContractApproval
+        - event: LogRegisterProtocol(indexed address)
+          handler: handleLogRegisterProtocol
