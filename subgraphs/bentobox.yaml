@@ -51,3 +51,59 @@ dataSources:
           handler: handleLogMasterContractApproval
         - event: LogRegisterProtocol(indexed address)
           handler: handleLogRegisterProtocol
+
+  templates:
+    - kind: ethereum/contract
+      name: KashiPair
+      network: "mainnet"
+      source:
+        abi: KashiPair
+      mapping:
+        kind: ethereum/events
+        apiVersion: 0.0.4
+        language: wasm/assemblyscript
+        file: .,/src/bentobox/mappings/kashi.ts
+      entities:
+        - Approval
+        - LogExchangeRate
+        - LogAccrue
+        - LogAddCollateral
+        - LogAddAsset
+        - LogRemoveCollateral
+        - LogRemoveAsset
+        - LogBorrow
+        - LogRepay
+        - LogFeeTo
+        - LogWithdrawFees
+        - OwnershipTransferred
+        - Transfer
+      abis:
+        - name: KashiPair
+          file: ../abis/KashiPair.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: LogExchangeRate(uint256)
+          handler: handleLogExchangeRate
+        - event: LogAccrue(uint256,uint256,uint256,uint256)
+          handler: handleLogAccrue
+        - event: LogAddCollateral(indexed address,indexed address,uint256)
+          handler: handleLogAddCollateral
+        - event: LogAddAsset(indexed address,indexed address,uint256,uint256)
+          handler: handleLogAddAsset
+        - event: LogRemoveCollateral(indexed address,indexed address,uint256)
+          handler: handleLogRemoveCollateral
+        - event: LogRemoveAsset(indexed address,indexed address,uint256,uint256)
+          handler: handleLogRemoveAsset
+        - event: LogBorrow(indexed address,indexed address,uint256,uint256,uint256)
+          handler: handleLogBorrow
+        - event: LogRepay(indexed address,indexed address,uint256,uint256)
+          handler: handleLogRepay
+        - event: LogFeeTo(indexed address)
+          handler: handleLogFeeTo
+        - event: LogWithdrawFees(indexed address,uint256)
+          handler: handleLogWithdrawFees
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Transfer(indexed address,indexed address)
+          handler: handleTransfer

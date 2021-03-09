@@ -19,3 +19,15 @@ export const BENTOBOX_DEPOSIT = 'deposit'
 export const BENTOBOX_TRANSFER = 'transfer'
 
 export const BENTOBOX_WITHDRAW = 'withdraw'
+
+export const PAIR_ADD_COLLATERAL = 'addCollateral'
+
+export const PAIR_REMOVE_COLLATERAL = 'removeCollateral'
+
+export const PAIR_ADD_ASSET = 'addAsset'
+
+export const PAIR_REMOVE_ASSET = 'removeAsset'
+
+export const PAIR_BORROW = 'borrow'
+
+export const PAIR_REPAY = 'repay'
