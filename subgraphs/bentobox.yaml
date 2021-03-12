@@ -6,11 +6,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: BentoBox
-    network: mainnet
+    network: ropsten
     source:
       address: '0xB5891167796722331b7ea7824F036b3Bdcb4531C'
       abi: BentoBox
-      startBlock: 11827718
+      startBlock: 9635173
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -28,6 +28,8 @@ dataSources:
       abis:
         - name: BentoBox
           file: ../abis/BentoBox.json
+        - name: KashiPair
+          file: ../abis/KashiPair.json
         - name: ERC20
           file: ../node_modules/@sushiswap/core/build/contracts/ERC20.json
         - name: ERC20SymbolBytes
@@ -52,17 +54,17 @@ dataSources:
         - event: LogRegisterProtocol(indexed address)
           handler: handleLogRegisterProtocol
 
-  templates:
-    - kind: ethereum/contract
-      name: KashiPair
-      network: "mainnet"
-      source:
-        abi: KashiPair
-      mapping:
-        kind: ethereum/events
-        apiVersion: 0.0.4
-        language: wasm/assemblyscript
-        file: .,/src/bentobox/mappings/kashi.ts
+templates:
+  - kind: ethereum/contract
+    name: KashiPair
+    network: ropsten
+    source:
+      abi: KashiPair
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ../src/bentobox/mappings/kashi.ts
       entities:
         - Approval
         - LogExchangeRate
@@ -80,12 +82,14 @@ dataSources:
       abis:
         - name: KashiPair
           file: ../abis/KashiPair.json
+        - name: BentoBox
+          file: ../abis/BentoBox.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,uint256)
           handler: handleApproval
         - event: LogExchangeRate(uint256)
           handler: handleLogExchangeRate
-        - event: LogAccrue(uint256,uint256,uint256,uint256)
+        - event: LogAccrue(uint256,uint256,uint64,uint256)
           handler: handleLogAccrue
         - event: LogAddCollateral(indexed address,indexed address,uint256)
           handler: handleLogAddCollateral
@@ -105,5 +109,5 @@ dataSources:
           handler: handleLogWithdrawFees
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-        - event: Transfer(indexed address,indexed address)
+        - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer

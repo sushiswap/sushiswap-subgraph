@@ -20,6 +20,10 @@ export const BENTOBOX_TRANSFER = 'transfer'
 
 export const BENTOBOX_WITHDRAW = 'withdraw'
 
+export const KASHI_PAIR_MEDIUM_RISK_MASTER_ADDRESS = Address.fromString('0x059bc66d06f0a3fef2ec88bbfd538b0ccd6c0ad0')
+
+export const KASHI_PAIR_MEDIUM_RISK_TYPE = 'medium'
+
 export const PAIR_ADD_COLLATERAL = 'addCollateral'
 
 export const PAIR_REMOVE_COLLATERAL = 'removeCollateral'

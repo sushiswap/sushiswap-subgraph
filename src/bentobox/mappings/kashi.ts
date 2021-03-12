@@ -14,8 +14,12 @@ import {
   Transfer,
 } from '../../../generated/templates/KashiPair/KashiPair'
 
+import { BentoBox as BentoBoxContract } from '../../../generated/BentoBox/BentoBox'
+
 import {
+  BENTOBOX_ADDRESS,
   BIG_INT_ONE_HUNDRED,
+  BIG_INT_ZERO,
   PAIR_ADD_ASSET,
   PAIR_ADD_COLLATERAL,
   PAIR_BORROW,
@@ -25,8 +29,10 @@ import {
 } from '../constants'
 
 import { getKashiPair, getUser, getUserKashiPair } from '../entities'
-import { createKashiPairAction } from '../entities/pair-action'
-import { log } from '@graphprotocol/graph-ts'
+import { createKashiPairAction } from '../entities/kashi-pair-action'
+import { Address, log } from '@graphprotocol/graph-ts'
+
+// TODO: add callHandler for liquidate function on KashiPairs
 
 export function handleApproval(event: Approval): void {
   log.info('[BentoBox:KashiPair] Approval {} {} {}', [
@@ -42,8 +48,12 @@ export function handleLogExchangeRate(event: LogExchangeRate): void {
   ])
 
   const pair = getKashiPair(event.address, event.block)
-  pair.exchangeRate = pair.exchangeRate.plus(event.params.rate)
+  pair.exchangeRate = event.params.rate
+  pair.block = event.block.number
+  pair.timestamp = event.block.timestamp
   pair.save()
+
+  // TODO: add hourly and daily updates logic here
 }
 
 export function handleLogAccrue(event: LogAccrue): void {
@@ -54,20 +64,21 @@ export function handleLogAccrue(event: LogAccrue): void {
     event.params.utilization.toString()
   ])
 
-  // TODO: this probably needs to be re-worked to work with feeFraction
   const pair = getKashiPair(event.address, event.block)
   const extraAmount = event.params.accruedAmount
   const feeFraction = event.params.feeFraction
 
-  pair.totalAsset = pair.totalAsset.plus(extraAmount.minus(feeFraction))
-  pair.totalBorrow = pair.totalBorrow.plus(earnedAmount)
+  pair.totalAssetBase = pair.totalAssetBase.plus(feeFraction)
+  pair.totalBorrowElastic = pair.totalBorrowElastic.plus(extraAmount)
   pair.feesEarnedFraction = pair.feesEarnedFraction.plus(feeFraction)
   pair.interestPerSecond = event.params.rate
   pair.utilization = event.params.utilization
-  pair.lastBlockAccrued = event.block.number
+  pair.lastAccrued = event.block.timestamp
   pair.block = event.block.number
   pair.timestamp = event.block.timestamp
   pair.save()
+
+  // TODO: add hourly and daily updates logic here
 }
 
 export function handleLogAddCollateral(event: LogAddCollateral): void {
@@ -79,20 +90,28 @@ export function handleLogAddCollateral(event: LogAddCollateral): void {
 
     const share = event.params.share
 
-    const pair = getKashiPair(event.params.to, event.block)
-    pair.totalCollateral = pair.totalCollateral.plus(share)
+    const pair = getKashiPair(event.address, event.block)
+    pair.totalCollateralShare = pair.totalCollateralShare.plus(share)
+    pair.block = event.block.number
+    pair.timestamp = event.block.timestamp
     pair.save()
 
-    getUser(event.params.from, event.block)
-    const userData = getUserKashiPair(event.params.from, event.params.to)
-    userData.userCollateralShare = userData.userCollateralShare.plus(share)
+    // TODO: need to look into if we should be updating block and timestamp for
+    //       User entity when adding Collateral
+    //const user = getUser(event.params.from, event.block)
+    //user.block = event.block.number
+    //user.timestamp = event.block.timestamp
+    //user.save()
+
+    const userData = getUserKashiPair(event.params.to, event.address, event.block)
+    userData.collateralShare = userData.collateralShare.plus(share)
     userData.save()
 
-    log.debug('pair-id: {}, collateral: {}', [event.address.toHex(), pair.collateral])
-
     const action = createKashiPairAction(event, PAIR_ADD_COLLATERAL)
-    action.poolPercentage = share.div(pair.totalCollateral).times(BIG_INT_ONE_HUNDRED)
+    action.poolPercentage = share.div(pair.totalCollateralShare).times(BIG_INT_ONE_HUNDRED)
     action.save()
+
+    // TODO: add hourly and daily updates logic here
 }
 
 export function handleLogAddAsset(event: LogAddAsset): void {
@@ -102,23 +121,28 @@ export function handleLogAddAsset(event: LogAddAsset): void {
     event.params.share.toString(),
     event.params.fraction.toString()
   ])
+  // elastic = BentoBox shares held by the KashiPair, base = Total fractions held by asset suppliers
 
   const share = event.params.share
   const fraction = event.params.fraction
 
   const pair = getKashiPair(event.address, event.block)
-  pair.totalAsset = pair.totalAsset.plus(share)
-  pair.totalAssetFraction = pair.totalAssetFraction.plus(fraction)
+  pair.totalAssetElastic = pair.totalAssetElastic.plus(share)
+  pair.totalAssetBase = pair.totalAssetBase.plus(fraction)
   pair.save()
 
-  getUser(event.params.from, event.block)
-  const userData = getUserKashiPair(event.params.from, event.address)
-  userData.balanceOf = userData.balanceOf.plus(fraction)
+
+  // TODO: see if we need update user entity
+
+  const userData = getUserKashiPair(event.params.to, event.address, event.block)
+  userData.assetFraction = userData.assetFraction.plus(fraction)
   userData.save()
 
   const action = createKashiPairAction(event, PAIR_ADD_ASSET)
-  action.poolPercentage = fraction.div(pair.totalAssetFraction).times(BIG_INT_ONE_HUNDRED)
+  action.poolPercentage = fraction.div(pair.totalAssetBase).times(BIG_INT_ONE_HUNDRED)
   action.save()
+
+  // TODO: add hourly and daily updates logic here
 }
 
 export function handleLogRemoveCollateral(event: LogRemoveCollateral): void {
@@ -129,21 +153,24 @@ export function handleLogRemoveCollateral(event: LogRemoveCollateral): void {
   ])
 
   const share = event.params.share
-
   const pair = getKashiPair(event.address, event.block)
+  const poolPercentage = share.div(pair.totalCollateralShare).times(BIG_INT_ONE_HUNDRED)
 
-  const poolPercentage = share.div(pair.totalCollateral).times(BIG_INT_ONE_HUNDRED)
-
-  pair.totalCollateral = pair.totalCollateral.minus(share)
+  pair.totalCollateralShare = pair.totalCollateralShare.minus(share)
   pair.save()
 
-  const userData = getUserKashiPair(event.params.from, event.address)
-  userData.userCollateralShare = user.userCollateralShare.minus(share)
+  // TODO: see if we want to update the users (maybe event add more props)
+
+  // TODO: also within the getUserKashiPair we should always check if solvent and save that off
+  const userData = getUserKashiPair(event.params.from, event.address, event.block)
+  userData.collateralShare = userData.collateralShare.minus(share)
   userData.save()
 
   const action = createKashiPairAction(event, PAIR_REMOVE_COLLATERAL)
   action.poolPercentage = poolPercentage
   action.save()
+
+  // TODO: add hourly and daily updates logic here
 }
 
 export function handleLogRemoveAsset(event: LogRemoveAsset): void {
@@ -153,25 +180,29 @@ export function handleLogRemoveAsset(event: LogRemoveAsset): void {
     event.params.share.toString(),
     event.params.fraction.toString()
   ])
+  // elastic = BentoBox shares held by the KashiPair, base = Total fractions held by asset suppliers
 
   const share = event.params.share
   const fraction = event.params.fraction
-
   const pair = getKashiPair(event.address, event.block)
+  const poolPercentage = fraction.div(pair.totalAssetBase).times(BIG_INT_ONE_HUNDRED)
 
-  const poolPercentage = fraction.div(pair.totalAssetFraction).times(BIG_INT_ONE_HUNDRED)
 
-  pair.totalAssetFraction = pair.totalAssetFraction.minus(fraction)
-  pair.totalAsset = pair.totalAsset.minus(share)
+  pair.totalAssetElastic = pair.totalAssetElastic.minus(share)
+  pair.totalAssetBase = pair.totalAssetBase.minus(fraction)
   pair.save()
 
-  const userData = getUserKashiPair(event.params.from, event.address)
-  userData.balanceOf = userData.balanceOf.minus(fraction)
+  //TODO: maybe update user and check if solvent
+
+  const userData = getUserKashiPair(event.params.from, event.address, event.block)
+  userData.assetFraction = userData.assetFraction.minus(fraction)
   userData.save()
 
   const action = createKashiPairAction(event, PAIR_REMOVE_ASSET)
   action.poolPercentage = poolPercentage
   action.save()
+
+  // TODO: add hourly and daily updates logic here
 }
 
 export function handleLogBorrow(event: LogBorrow): void {
@@ -182,11 +213,34 @@ export function handleLogBorrow(event: LogBorrow): void {
     event.params.feeAmount.toString(),
     event.params.part.toString()
   ])
+  // elastic = Total token amount to be repayed by borrowers, base = Total parts of the debt held by borrowers
 
-  // TODO: need to figure out the logic for borrow events, mainly what to do with the part
-  // part -> Total part of the debt held by borrowers.
+  const amount = event.params.amount
+  const feeAmount = event.params.feeAmount
+  const part = event.params.part
 
+  const pair = getKashiPair(event.address, event.block)
+  pair.totalBorrowBase = pair.totalBorrowBase.plus(part)
+  pair.totalBorrowElastic = pair.totalBorrowElastic.plus(amount).plus(feeAmount)
 
+  // TODO: may need to do a contact call to bentoBox and call the toShare function to get the amount to subtract by
+  //       check that is working properly
+  const bentoBoxContract = BentoBoxContract.bind(BENTOBOX_ADDRESS)
+  let share = bentoBoxContract.toShare(Address.fromString(pair.asset), amount, false)
+  pair.totalAssetElastic = pair.totalAssetElastic.minus(share)
+  pair.save()
+
+  // TODO: probaly update User and check if solvent
+
+  const userData = getUserKashiPair(event.params.from, event.address, event.block)
+  userData.borrowPart = userData.borrowPart.plus(part)
+  userData.save()
+
+  const action = createKashiPairAction(event, PAIR_BORROW)
+  action.poolPercentage = part.div(pair.totalBorrowBase).times(BIG_INT_ONE_HUNDRED)
+  action.save()
+
+  // TODO: add hourly and daily updates logic here
 }
 
 export function handleLogRepay(event: LogRepay): void {
@@ -196,30 +250,58 @@ export function handleLogRepay(event: LogRepay): void {
     event.params.amount.toString(),
     event.params.part.toString()
   ])
+  // elastic = Total token amount to be repayed by borrowers, base = Total parts of the debt held by borrowers
 
-  // TODO: need to figure out the logic for repay events as well
-  // @param part The amount to repay. See `userBorrowPart`.
+  const amount = event.params.amount
+  const part = event.params.part
+  const pair = getKashiPair(event.address, event.block)
+  const poolPercentage = part.div(pair.totalBorrowBase).times(BIG_INT_ONE_HUNDRED)
 
+  pair.totalBorrowBase = pair.totalBorrowBase.minus(part)
+  pair.totalBorrowElastic = pair.totalBorrowElastic.minus(amount)
+
+  const bentoBoxContract = BentoBoxContract.bind(BENTOBOX_ADDRESS)
+  let share = bentoBoxContract.toShare(Address.fromString(pair.asset), amount, false)
+  pair.totalAssetElastic = pair.totalAssetElastic.plus(share)
+  pair.save()
+
+  // TODO: probaly update User and check if solvent
+  const userData = getUserKashiPair(event.params.to, event.address, event.block)
+  userData.borrowPart = userData.borrowPart.minus(part)
+  userData.save()
+
+  const action = createKashiPairAction(event, PAIR_REPAY)
+  action.poolPercentage = poolPercentage
+  action.save()
+
+  // TODO: add hourly and daily updates logic here
 }
 
 export function handleLogFeeTo(event: LogFeeTo): void {
-  log.info('[BentoBox:KashiPair] Log Fee To {}', [event.params.newFeeTo])
+  log.info('[BentoBox:KashiPair] Log Fee To {}', [event.params.newFeeTo.toHex()])
 
+  // TODO: I think the block and timestamp should be updated everytime getPair is called
+  //       same getUser and maybe even UserKashiPair
   const pair = getKashiPair(event.address, event.block)
   pair.feeTo = event.params.newFeeTo
-  pair.block = event.block.number()
-  pair.timestamp = event.block.timestamp()
+  pair.block = event.block.number
+  pair.timestamp = event.block.timestamp
   pair.save()
 }
 
 export function handleLogWithdrawFees(event: LogWithdrawFees): void {
   log.info('[BentoBox:KashiPair] Log Withdraw Fees {} {}', [
-    event.params.feeTo,
-    event.params.feesEarnedFraction
+    event.params.feeTo.toHex(),
+    event.params.feesEarnedFraction.toString()
   ])
 
+  // TODO: fix block and timestamp updates as asked in above function
   const pair = getKashiPair(event.address, event.block)
+  pair.feesEarnedFraction = BIG_INT_ZERO
+  pair.totalFeesEarnedFraction = pair.totalFeesEarnedFraction.plus(event.params.feesEarnedFraction)
   pair.block = event.block.number
   pair.timestamp = event.block.timestamp
   pair.save()
+
+  // TODO: add hourly and daily updates logic here
 }

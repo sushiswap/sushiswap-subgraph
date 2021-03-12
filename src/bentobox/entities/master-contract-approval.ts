@@ -9,6 +9,7 @@ export function getMasterContractApproval(user: Address, masterContract: Address
   if (masterContractApproval === null) {
     masterContractApproval = new MasterContractApproval(id)
     masterContractApproval.user = user.toHex()
+    masterContractApproval.masterContract = masterContract.toHex()
     masterContractApproval.approved = false
     masterContractApproval.save()
   }

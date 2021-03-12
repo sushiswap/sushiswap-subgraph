@@ -1,8 +1,8 @@
+import { ethereum } from '@graphprotocol/graph-ts'
 import { Token, User, UserToken } from '../../../generated/schema'
-
 import { BIG_INT_ZERO } from '../constants'
 
-export function getUserToken(user: User, token: Token): UserToken {
+export function getUserToken(user: User, token: Token, block: ethereum.Block): UserToken {
   const id = user.id.concat('-').concat(token.id)
 
   let userToken = UserToken.load(id)
@@ -11,10 +11,12 @@ export function getUserToken(user: User, token: Token): UserToken {
     userToken = new UserToken(id)
     userToken.user = user.id
     userToken.token = token.id
-    userToken.amount = BIG_INT_ZERO
     userToken.share = BIG_INT_ZERO
-    userToken.save()
   }
+
+  userToken.block = block.number
+  userToken.timestamp = block.timestamp
+  userToken.save()
 
   return userToken as UserToken
 }

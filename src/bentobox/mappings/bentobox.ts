@@ -1,4 +1,10 @@
-import { BENTOBOX_DEPOSIT, BENTOBOX_TRANSFER, BENTOBOX_WITHDRAW } from '../constants'
+import {
+  BENTOBOX_DEPOSIT,
+  BENTOBOX_TRANSFER,
+  BENTOBOX_WITHDRAW,
+  KASHI_PAIR_MEDIUM_RISK_MASTER_ADDRESS,
+  KASHI_PAIR_MEDIUM_RISK_TYPE,
+} from '../constants'
 import {
   LogDeploy,
   LogDeposit,
@@ -16,9 +22,12 @@ import {
   getUserToken,
   getMasterContractApproval,
   getMasterContract,
+  createBentoBoxAction,
+  createKashiPair,
+  createFlashLoan,
 } from '../entities'
 
-import { createBentoBoxAction } from '../entities/bentobox-action'
+import { KashiPair as PairTemplate } from '../../../generated/templates'
 import { log } from '@graphprotocol/graph-ts'
 
 export function handleLogDeploy(event: LogDeploy): void {
@@ -28,14 +37,10 @@ export function handleLogDeploy(event: LogDeploy): void {
     event.params.cloneAddress.toHex()
   ])
 
-  // Need to figure out how these deploy events work now
-  /*if (event.params.masterContract == BENTOBOX_MEDIUM_RISK_PAIR) {
-    createPair(event.params.cloneAddress, event.block)
-
-    incrementLendingPairsCount()
-
+  if (event.params.masterContract == KASHI_PAIR_MEDIUM_RISK_MASTER_ADDRESS) {
+    createKashiPair(event.params.cloneAddress, event.block, KASHI_PAIR_MEDIUM_RISK_TYPE)
     PairTemplate.create(event.params.cloneAddress)
-  }*/
+  }
 }
 
 export function handleLogDeposit(event: LogDeposit): void {
@@ -47,10 +52,15 @@ export function handleLogDeposit(event: LogDeposit): void {
     event.params.share.toString()
   ])
 
-  const token = getToken(event.params.token, event.block)
+  const from = getUser(event.params.from, event.block)
+  const to = getUser(event.params.to, event.block)
 
-  const userTokenData = getUserToken(getUser(event.params.to, event.block) as User, token as Token)
-  userTokenData.amount = userTokenData.amount.plus(event.params.amount)
+  const token = getToken(event.params.token, event.block)
+  token.totalSupplyBase = token.totalSupplyBase.plus(event.params.share)
+  token.totalSupplyElastic = token.totalSupplyElastic.plus(event.params.amount)
+  token.save()
+
+  const userTokenData = getUserToken(to, token as Token, event.block)
   userTokenData.share = userTokenData.share.plus(event.params.share)
   userTokenData.save()
 
@@ -66,12 +76,16 @@ export function handleLogWithdraw(event: LogWithdraw): void {
     event.params.share.toString()
   ])
 
-  const token = getToken(event.params.token, event.block)
+  const from = getUser(event.params.from, event.block)
+  const to = getUser(event.params.to, event.block)
 
-  const sender = getUserToken(getUser(event.params.from, event.block) as User, token as Token)
-  sender.amount = sender.amount.minus(event.params.amount)
-  sender.share = sender.share.minus(event.params.share)
-  sender.save()
+  const token = getToken(event.params.token, event.block)
+  token.totalSupplyBase = token.totalSupplyBase.minus(event.params.share)
+  token.totalSupplyElastic = token.totalSupplyElastic.minus(event.params.amount)
+
+  const userTokenData = getUserToken(from, token as Token, event.block)
+  userTokenData.share = userTokenData.share.minus(event.params.share)
+  userTokenData.save()
 
   createBentoBoxAction(event, BENTOBOX_WITHDRAW)
 }
@@ -84,15 +98,15 @@ export function handleLogTransfer(event: LogTransfer): void {
     event.params.share.toString(),
   ])
 
+  const from = getUser(event.params.from, event.block)
+  const to = getUser(event.params.to, event.block)
   const token = getToken(event.params.token, event.block)
 
-  const sender = getUserToken(getUser(event.params.from, event.block) as User, token as Token)
-  sender.amount = sender.amount.minus(event.params.share)
+  const sender = getUserToken(from, token as Token, event.block)
   sender.share = sender.share.minus(event.params.share)
   sender.save()
 
-  const receiver = getUserToken(getUser(event.params.to, event.block) as User, token as Token)
-  receiver.amount = receiver.amount.plus(event.params.share)
+  const receiver = getUserToken(to, token as Token, event.block)
   receiver.share = receiver.share.plus(event.params.share)
   receiver.save()
 
@@ -108,16 +122,7 @@ export function handleLogFlashLoan(event: LogFlashLoan): void {
     event.params.receiver.toHex()
   ])
 
-  const token = getToken(event.params.token, event.block)
-
-  const flashLoan = new FlashLoan(event.transaction.hash.toHex() + '-' + event.logIndex.toString())
-  flashLoan.bentoBox = event.address.toHex()
-  flashLoan.borrower = event.params.borrower
-  flashLoan.token = token.id
-  flashLoan.amount = event.params.amount
-  flashLoan.feeAmount = event.params.feeAmount
-  flashLoan.receiver = event.params.receiver
-  flashLoan.save()
+  createFlashLoan(event)
 }
 
 export function handleLogWhiteListMasterContract(event: LogWhiteListMasterContract): void {
@@ -125,9 +130,10 @@ export function handleLogWhiteListMasterContract(event: LogWhiteListMasterContra
     event.params.masterContract.toHex(),
     event.params.approved == true ? 'true' : 'false',
   ])
-  const masterContract = getMasterContract(event.params.masterContract)
-  masterContract.approved = event.params.approved
-  masterContract.save()
+
+  if (event.params.approved == true) {
+    getMasterContract(event.params.masterContract)
+  }
 }
 
 export function handleLogMasterContractApproval(event: LogSetMasterContractApproval): void {

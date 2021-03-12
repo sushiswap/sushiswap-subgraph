@@ -1,8 +1,6 @@
 import { Address, BigInt, ethereum } from '@graphprotocol/graph-ts'
 import { BIG_INT_ZERO, NULL_CALL_RESULT_VALUE, BENTOBOX_ADDRESS } from '../constants'
 
-import { BentoBox as BentoBoxContract } from '../../../generated/BentoBox/BentoBox'
-
 import { ERC20 } from '../../../generated/BentoBox/ERC20'
 import { ERC20NameBytes } from '../../../generated/BentoBox/ERC20NameBytes'
 import { ERC20SymbolBytes } from '../../../generated/BentoBox/ERC20SymbolBytes'
@@ -18,8 +16,8 @@ export function createToken(address: Address, block: ethereum.Block): Token {
   token.bentoBox = bentoBox.id
   token.name = getName(address)
   token.decimals = getDecimals(address)
-  token.totalBaseSupply = BIG_INT_ZERO
-  token.totalElasticSupply = BIG_INT_ZERO
+  token.totalSupplyBase = BIG_INT_ZERO
+  token.totalSupplyElastic = BIG_INT_ZERO
   token.block = block.number
   token.timestamp = block.timestamp
 
@@ -35,11 +33,8 @@ export function getToken(address: Address, block: ethereum.Block): Token {
     token = createToken(address, block)
   }
 
-  // set base and elastic supply from contract
-  const bentoBoxContract = BentoBoxContract.bind(BENTOBOX_ADDRESS)
-  let totals = bentoBoxContract.totals(address)
-  token.totalBaseSupply = totals.value0
-  token.totalElasticSupply = totals.value1
+  token.block = block.number
+  token.timestamp = block.timestamp
   token.save()
 
   return token as Token
@@ -53,7 +48,7 @@ export function getSymbol(address: Address): string {
   if (address.toHex() == '0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9') {
     return 'AAVE'
   }
-  if (tokenAddress.toHexString() == '0x5dbcf33d8c2e976c6b560249878e6f1491bca25c') {
+  if (address.toHexString() == '0x5dbcf33d8c2e976c6b560249878e6f1491bca25c') {
     return 'yUSD'
   }
 
@@ -85,7 +80,7 @@ export function getName(address: Address): string {
   if (address.toHex() == '0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9') {
     return 'Aave Token'
   }
-  if (tokenAddress.toHexString() == '0x5dbcf33d8c2e976c6b560249878e6f1491bca25c') {
+  if (address.toHexString() == '0x5dbcf33d8c2e976c6b560249878e6f1491bca25c') {
     return 'yUSD'
   }
 
