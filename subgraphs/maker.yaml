@@ -21,11 +21,11 @@ dataSources:
         - Serving
       abis:
         - name: Pair
-          file: ../node_modules/@sushiswap/core/build/abi/UniswapV2Pair.json
+          file: ../node_modules/@sushiswap/core/build/contracts/UniswapV2Pair.json
         - name: ERC20
-          file: ../node_modules/@sushiswap/core/build/abi/ERC20.json
+          file: ../node_modules/@sushiswap/core/build/contracts/ERC20.json
         - name: Factory
-          file: ../node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
+          file: ../node_modules/@sushiswap/core/build/contracts/UniswapV2Factory.json
       eventHandlers:
         - event: Swap(indexed address,uint256,uint256,uint256,uint256,indexed address)
           handler: served
