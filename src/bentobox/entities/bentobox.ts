@@ -1,16 +1,20 @@
 import { BentoBox } from '../../../generated/schema'
-import { dataSource } from '@graphprotocol/graph-ts'
+import { dataSource, ethereum } from '@graphprotocol/graph-ts'
+import { BIG_INT_ZERO } from '../constants'
 
-export function getBentoBox(): BentoBox {
+export function getBentoBox(block: ethereum.Block): BentoBox {
   let bentoBox = BentoBox.load(dataSource.address().toHex())
 
   if (bentoBox === null) {
     bentoBox = new BentoBox(dataSource.address().toHex())
-    bentoBox.save()
+    bentoBox.totalTokens = BIG_INT_ZERO
+    bentoBox.totalUsers = BIG_INT_ZERO
+    bentoBox.totalKashiPairs = BIG_INT_ZERO
   }
 
-  // TODO: add block and timestamp and update it here every call if we do below
-  //       may be good to add additonal props (totalTokens, totalPairs, totalUsers, etc)
+  bentoBox.block = block.number
+  bentoBox.timestamp = block.timestamp
+  bentoBox.save()
 
   return bentoBox as BentoBox
 }

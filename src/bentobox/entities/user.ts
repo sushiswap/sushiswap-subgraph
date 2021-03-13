@@ -1,11 +1,10 @@
 import { Address, ethereum } from '@graphprotocol/graph-ts'
-
 import { User } from '../../../generated/schema'
-
 import { getBentoBox } from './bentobox'
+import { BIG_INT_ONE } from '../constants'
 
 export function getUser(address: Address, block: ethereum.Block): User {
-  const bentoBox = getBentoBox()
+  const bentoBox = getBentoBox(block)
 
   const uid = address.toHex()
   let user = User.load(uid)
@@ -13,6 +12,9 @@ export function getUser(address: Address, block: ethereum.Block): User {
   if (user === null) {
     user = new User(uid)
     user.bentoBox = bentoBox.id
+
+    bentoBox.totalUsers = bentoBox.totalUsers.plus(BIG_INT_ONE)
+    bentoBox.save()
   }
 
   user.block = block.number

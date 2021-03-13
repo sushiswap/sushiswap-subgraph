@@ -10,6 +10,8 @@ export const BIG_INT_ZERO = BigInt.fromI32(0)
 
 export const BIG_INT_ONE = BigInt.fromI32(1)
 
+export const BIG_INT_TWO = BigInt.fromI32(2)
+
 export const BIG_INT_ONE_HUNDRED = BigInt.fromI32(100)
 
 export const NULL_CALL_RESULT_VALUE = '0x0000000000000000000000000000000000000000000000000000000000000001'

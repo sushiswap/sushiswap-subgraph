@@ -28,7 +28,13 @@ import {
   PAIR_REPAY,
 } from '../constants'
 
-import { getKashiPair, getUser, getUserKashiPair } from '../entities'
+import {
+  getKashiPair,
+  getUser,
+  getUserKashiPair,
+  updateKashiPairDayData,
+  updateKashiPairHourData
+} from '../entities'
 import { createKashiPairAction } from '../entities/kashi-pair-action'
 import { Address, log } from '@graphprotocol/graph-ts'
 
@@ -53,7 +59,8 @@ export function handleLogExchangeRate(event: LogExchangeRate): void {
   pair.timestamp = event.block.timestamp
   pair.save()
 
-  // TODO: add hourly and daily updates logic here
+  updateKashiPairDayData(event)
+  updateKashiPairHourData(event)
 }
 
 export function handleLogAccrue(event: LogAccrue): void {
@@ -78,7 +85,8 @@ export function handleLogAccrue(event: LogAccrue): void {
   pair.timestamp = event.block.timestamp
   pair.save()
 
-  // TODO: add hourly and daily updates logic here
+  updateKashiPairDayData(event)
+  updateKashiPairHourData(event)
 }
 
 export function handleLogAddCollateral(event: LogAddCollateral): void {
@@ -111,7 +119,8 @@ export function handleLogAddCollateral(event: LogAddCollateral): void {
     action.poolPercentage = share.div(pair.totalCollateralShare).times(BIG_INT_ONE_HUNDRED)
     action.save()
 
-    // TODO: add hourly and daily updates logic here
+    updateKashiPairDayData(event)
+    updateKashiPairHourData(event)
 }
 
 export function handleLogAddAsset(event: LogAddAsset): void {
@@ -142,7 +151,8 @@ export function handleLogAddAsset(event: LogAddAsset): void {
   action.poolPercentage = fraction.div(pair.totalAssetBase).times(BIG_INT_ONE_HUNDRED)
   action.save()
 
-  // TODO: add hourly and daily updates logic here
+  updateKashiPairDayData(event)
+  updateKashiPairHourData(event)
 }
 
 export function handleLogRemoveCollateral(event: LogRemoveCollateral): void {
@@ -161,7 +171,6 @@ export function handleLogRemoveCollateral(event: LogRemoveCollateral): void {
 
   // TODO: see if we want to update the users (maybe event add more props)
 
-  // TODO: also within the getUserKashiPair we should always check if solvent and save that off
   const userData = getUserKashiPair(event.params.from, event.address, event.block)
   userData.collateralShare = userData.collateralShare.minus(share)
   userData.save()
@@ -170,7 +179,8 @@ export function handleLogRemoveCollateral(event: LogRemoveCollateral): void {
   action.poolPercentage = poolPercentage
   action.save()
 
-  // TODO: add hourly and daily updates logic here
+  updateKashiPairDayData(event)
+  updateKashiPairHourData(event)
 }
 
 export function handleLogRemoveAsset(event: LogRemoveAsset): void {
@@ -202,7 +212,8 @@ export function handleLogRemoveAsset(event: LogRemoveAsset): void {
   action.poolPercentage = poolPercentage
   action.save()
 
-  // TODO: add hourly and daily updates logic here
+  updateKashiPairDayData(event)
+  updateKashiPairHourData(event)
 }
 
 export function handleLogBorrow(event: LogBorrow): void {
@@ -240,7 +251,8 @@ export function handleLogBorrow(event: LogBorrow): void {
   action.poolPercentage = part.div(pair.totalBorrowBase).times(BIG_INT_ONE_HUNDRED)
   action.save()
 
-  // TODO: add hourly and daily updates logic here
+  updateKashiPairDayData(event)
+  updateKashiPairHourData(event)
 }
 
 export function handleLogRepay(event: LogRepay): void {
@@ -274,7 +286,8 @@ export function handleLogRepay(event: LogRepay): void {
   action.poolPercentage = poolPercentage
   action.save()
 
-  // TODO: add hourly and daily updates logic here
+  updateKashiPairDayData(event)
+  updateKashiPairHourData(event)
 }
 
 export function handleLogFeeTo(event: LogFeeTo): void {
@@ -303,5 +316,6 @@ export function handleLogWithdrawFees(event: LogWithdrawFees): void {
   pair.timestamp = event.block.timestamp
   pair.save()
 
-  // TODO: add hourly and daily updates logic here
+  // TODO: add function within kashi-pair-data to update totalFees for hour and day data
+  //       then call those functions here
 }

@@ -1,5 +1,5 @@
 import { Address, BigInt, ethereum } from '@graphprotocol/graph-ts'
-import { BIG_INT_ZERO, NULL_CALL_RESULT_VALUE, BENTOBOX_ADDRESS } from '../constants'
+import { BIG_INT_ZERO, BIG_INT_ONE, NULL_CALL_RESULT_VALUE, BENTOBOX_ADDRESS } from '../constants'
 
 import { ERC20 } from '../../../generated/BentoBox/ERC20'
 import { ERC20NameBytes } from '../../../generated/BentoBox/ERC20NameBytes'
@@ -8,7 +8,7 @@ import { Token } from '../../../generated/schema'
 import { getBentoBox } from './bentobox'
 
 export function createToken(address: Address, block: ethereum.Block): Token {
-  const bentoBox = getBentoBox()
+  const bentoBox = getBentoBox(block)
 
   const token = new Token(address.toHex())
 
@@ -22,6 +22,9 @@ export function createToken(address: Address, block: ethereum.Block): Token {
   token.timestamp = block.timestamp
 
   token.save()
+
+  bentoBox.totalTokens = bentoBox.totalTokens.plus(BIG_INT_ONE)
+  bentoBox.save()
 
   return token as Token
 }

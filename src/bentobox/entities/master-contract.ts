@@ -1,9 +1,9 @@
-import { Address } from '@graphprotocol/graph-ts'
+import { Address, ethereum } from '@graphprotocol/graph-ts'
 import { MasterContract } from '../../../generated/schema'
 import { getBentoBox } from './bentobox'
 
-export function getMasterContract(masterContract: Address): MasterContract {
-  const bentoBox = getBentoBox()
+export function getMasterContract(masterContract: Address, block: ethereum.Block): MasterContract {
+  const bentoBox = getBentoBox(block)
 
   const id = masterContract.toHex()
   let masterContract = MasterContract.load(id)

@@ -10,12 +10,12 @@ type BentoBox @entity {
   masterContracts: [MasterContract!] @derivedFrom(field: "bentoBox")
   #protocols
 
-  #totalTokens
-  #totalPairs
-  #totalUsers
+  totalTokens: BigInt!
+  totalKashiPairs: BigInt!
+  totalUsers: BigInt!
 
-  #block
-  #timestamp
+  block: BigInt!
+  timestamp: BigInt!
 }
 
 enum BentoBoxActionType {
@@ -126,8 +126,6 @@ type KashiPair @entity {
   totalBorrowBase: BigInt!
   interestPerSecond: BigInt!
   utilization: BigInt!
-  #borrowInterestPerSecond: BigInt!
-  #supplyInterestPerSecond: BigInt!
   feesEarnedFraction: BigInt!
   totalFeesEarnedFraction: BigInt!
   lastAccrued: BigInt!
@@ -179,8 +177,7 @@ type KashiPairHourData @entity {
   # pair id - hour start timestamp
   id: ID!
 
-  # date - hour start timestamp
-  date: Int!
+  hourStartUnix: Int!
 
   pair: KashiPair!
 
@@ -190,11 +187,16 @@ type KashiPairHourData @entity {
   totalBorrowElastic: BigInt!
   totalBorrowBase: BigInt!
 
+  #hourlyVolumeSupplied
+  #hourlyVolumeBorrowed
+  #hourlyTxns
+
   #totalFeesEarnedFraction: BigInt!
   avgExchangeRate: BigInt!
+  avgUtilization: BigInt!
   avgInterestPerSecond: BigInt!
-  #avgSupplyInterestPerSecond: BigInt!
-  #avgBorrowInterestPerSecond: BigInt!
+  avgSupplyInterestPerSecond: BigInt!
+  avgBorrowInterestPerSecond: BigInt!
 }
 
 type KashiPairDayData @entity {
@@ -212,9 +214,14 @@ type KashiPairDayData @entity {
   totalBorrowElastic: BigInt!
   totalBorrowBase: BigInt!
 
+  #hourlyVolumeSupplied
+  #hourlyVolumeBorrowed
+  #hourlyTxns
+
   #totalFeesEarnedFraction: BigInt!
   avgExchangeRate: BigInt!
+  avgUtilization: BigInt!
   avgInterestPerSecond: BigInt!
-  #avgSupplyInterestPerSecond: BigInt!
-  #avgBorrowInterestPerSecond: BigInt!
+  avgSupplyInterestPerSecond: BigInt!
+  avgBorrowInterestPerSecond: BigInt!
 }

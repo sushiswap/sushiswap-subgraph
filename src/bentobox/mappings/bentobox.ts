@@ -132,7 +132,7 @@ export function handleLogWhiteListMasterContract(event: LogWhiteListMasterContra
   ])
 
   if (event.params.approved == true) {
-    getMasterContract(event.params.masterContract)
+    getMasterContract(event.params.masterContract, event.block)
   }
 }
 
