@@ -1,7 +1,7 @@
 import { BigDecimal, BigInt, ethereum } from '@graphprotocol/graph-ts'
 import { Token, TokenDayData } from '../../../generated/schema'
 
-import { BIG_DECIMAL_ZERO } from 'constants/'
+import { BIG_DECIMAL_ZERO } from 'const'
 import { getBundle } from '.'
 
 export function getTokenDayData(token: Token, event: ethereum.Event): TokenDayData {

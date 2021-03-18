@@ -14,7 +14,7 @@ import {
   UNISWAP_WETH_USDT_PAIR_ADDRESS,
   USDT_ADDRESS,
   WETH_ADDRESS,
-} from 'constants/'
+} from 'const'
 import { Address, BigDecimal, BigInt, ethereum, log } from '@graphprotocol/graph-ts'
 
 import { Factory as FactoryContract } from 'exchange/generated/Factory/Factory'

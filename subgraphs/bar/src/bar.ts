@@ -7,7 +7,7 @@ import {
   SUSHI_BAR_ADDRESS,
   SUSHI_TOKEN_ADDRESS,
   SUSHI_USDT_PAIR_ADDRESS,
-} from '../../../packages/constants/constants'
+} from 'const'
 import { Address, BigDecimal, BigInt, dataSource, ethereum, log } from '@graphprotocol/graph-ts'
 import { Bar, History, User } from '../generated/schema'
 import { Bar as BarContract, Transfer as TransferEvent } from '../generated/SushiBar/Bar'
@@ -234,7 +234,7 @@ export function transfer(event: TransferEvent): void {
     user.xSushiAgeDestroyed = user.xSushiAgeDestroyed.plus(xSushiAgeDestroyed)
 
     // remove xSushiAge
-    user.xSushiAge = user.xSushiAge.minus(xSushiAgeDestroyed);
+    user.xSushiAge = user.xSushiAge.minus(xSushiAgeDestroyed)
     // Update xSushi last
     user.xSushi = user.xSushi.minus(value)
 

@@ -1,5 +1,14 @@
 import { Address, BigInt, ethereum, log } from '@graphprotocol/graph-ts'
-import { BIG_DECIMAL_1E12, BIG_DECIMAL_1E18, BIG_DECIMAL_ZERO, BIG_INT_ONE, BIG_INT_ZERO, LOCKUP_BLOCK_NUMBER, LOCKUP_POOL_NUMBER, MASTER_CHEF_ADDRESS } from 'constants/'
+import {
+  BIG_DECIMAL_1E12,
+  BIG_DECIMAL_1E18,
+  BIG_DECIMAL_ZERO,
+  BIG_INT_ONE,
+  BIG_INT_ZERO,
+  LOCKUP_BLOCK_NUMBER,
+  LOCKUP_POOL_NUMBER,
+  MASTER_CHEF_ADDRESS,
+} from 'const'
 import {
   Deposit,
   MasterChef as MasterChefContract,
@@ -8,7 +17,7 @@ import {
   Withdraw,
 } from '../generated/MasterChef/MasterChef'
 import { Lockup, Pool, User } from '../generated/schema'
-import { getSushiPrice } from 'pricing/'
+import { getSushiPrice } from 'pricing'
 import { Pair as PairContract } from '../generated/MasterChef/Pair'
 
 export function getUser(pid: BigInt, address: Address, block: ethereum.Block): User {

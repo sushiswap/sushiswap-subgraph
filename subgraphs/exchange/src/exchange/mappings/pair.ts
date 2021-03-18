@@ -1,10 +1,4 @@
-import {
-  ADDRESS_ZERO,
-  BIG_DECIMAL_ZERO,
-  MASTER_CHEF_ADDRESS,
-  MINIMUM_USD_THRESHOLD_NEW_PAIRS,
-  WHITELIST,
-} from 'constants/'
+import { ADDRESS_ZERO, BIG_DECIMAL_ZERO, MASTER_CHEF_ADDRESS, MINIMUM_USD_THRESHOLD_NEW_PAIRS, WHITELIST } from 'const'
 import { Address, BigDecimal, BigInt, log, store } from '@graphprotocol/graph-ts'
 import { Burn, Mint, Pair, Swap, Token, Transaction } from '../../../generated/schema'
 import {
@@ -267,10 +261,7 @@ export function onTransfer(event: TransferEvent): void {
   }
 
   // BURN
-  if (
-    event.params.from != ADDRESS_ZERO &&
-    event.params.from.toHex() != pair.id
-  ) {
+  if (event.params.from != ADDRESS_ZERO && event.params.from.toHex() != pair.id) {
     const fromUserLiquidityPosition = createLiquidityPosition(event.params.from, event.address, event.block)
 
     fromUserLiquidityPosition.liquidityTokenBalance = fromUserLiquidityPosition.liquidityTokenBalance.minus(value)
@@ -281,10 +272,7 @@ export function onTransfer(event: TransferEvent): void {
   }
 
   // MINT
-  if (
-    event.params.to != ADDRESS_ZERO &&
-    event.params.to.toHex() != pair.id
-  ) {
+  if (event.params.to != ADDRESS_ZERO && event.params.to.toHex() != pair.id) {
     const toUserLiquidityPosition = createLiquidityPosition(event.params.to, event.address, event.block)
 
     toUserLiquidityPosition.liquidityTokenBalance = toUserLiquidityPosition.liquidityTokenBalance.plus(value)

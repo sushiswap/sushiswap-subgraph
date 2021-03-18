@@ -1,5 +1,5 @@
 import { Address, ethereum } from '@graphprotocol/graph-ts'
-import { BIG_DECIMAL_ZERO, BIG_INT_ZERO, FACTORY_ADDRESS } from 'constants/'
+import { BIG_DECIMAL_ZERO, BIG_INT_ZERO, FACTORY_ADDRESS } from 'const'
 
 import { Pair } from '../../../generated/schema'
 import { Pair as PairContract } from '../../../generated/templates/Pair/Pair'

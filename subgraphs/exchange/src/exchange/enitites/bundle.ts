@@ -1,4 +1,4 @@
-import { BIG_DECIMAL_ZERO } from 'constants/'
+import { BIG_DECIMAL_ZERO } from 'const'
 import { BigDecimal } from '@graphprotocol/graph-ts'
 import { Bundle } from '../../../generated/schema'
 

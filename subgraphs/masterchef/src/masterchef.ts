@@ -22,9 +22,9 @@ import {
   BIG_INT_ZERO,
   MASTER_CHEF_ADDRESS,
   MASTER_CHEF_START_BLOCK,
-} from 'constants/constants'
+} from 'const'
 import { History, MasterChef, Pool, PoolHistory, User } from '../generated/schema'
-import { getSushiPrice, getUSDRate } from 'pricing/price'
+import { getSushiPrice, getUSDRate } from 'pricing'
 
 import { ERC20 as ERC20Contract } from '../generated/MasterChef/ERC20'
 import { Pair as PairContract } from '../generated/MasterChef/Pair'

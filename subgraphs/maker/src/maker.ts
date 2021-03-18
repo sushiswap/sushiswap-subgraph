@@ -1,11 +1,5 @@
 import { Address, ByteArray, log } from '@graphprotocol/graph-ts'
-import {
-  BIG_DECIMAL_1E18,
-  BIG_DECIMAL_ZERO,
-  FACTORY_ADDRESS,
-  SUSHI_BAR_ADDRESS,
-  SUSHI_MAKER_ADDRESS,
-} from 'constants/'
+import { BIG_DECIMAL_1E18, BIG_DECIMAL_ZERO, FACTORY_ADDRESS, SUSHI_BAR_ADDRESS, SUSHI_MAKER_ADDRESS } from 'const'
 import { Maker, Server, Serving } from '../generated/schema'
 
 import { ERC20 as ERC20Contract } from '../generated/Maker/ERC20'

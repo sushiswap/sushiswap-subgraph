@@ -1,5 +1,5 @@
 import { Address, BigInt, log } from '@graphprotocol/graph-ts'
-import { BIG_DECIMAL_ZERO, BIG_INT_ZERO, NULL_CALL_RESULT_VALUE } from 'constants/'
+import { BIG_DECIMAL_ZERO, BIG_INT_ZERO, NULL_CALL_RESULT_VALUE } from 'const'
 
 import { ERC20 } from '../../../generated/Factory/ERC20'
 import { ERC20NameBytes } from '../../../generated/Factory/ERC20NameBytes'

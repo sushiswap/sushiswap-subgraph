@@ -1,16 +1,16 @@
 {
-    "name": "pricing",
-    "version": "1.0.0",
-    "description": "Common logic and utilities to use throughout the project",
-    "license": "MIT",
-    "private": true,
-    "main": "price.ts",
-    "dependencies": {
-        "constants": "^1.0.0",
-        "exchange": "^1.0.0"
-    },
-    "scripts": {
-        "codegen": ".",
-        "build": "."
-      }
+  "name": "pricing",
+  "version": "1.0.0",
+  "description": "Common logic and utilities to use throughout the project",
+  "license": "MIT",
+  "private": true,
+  "main": "index.ts",
+  "dependencies": {
+    "const": "^1.0.0",
+    "exchange": "^1.0.0"
+  },
+  "scripts": {
+    "codegen": ".",
+    "build": "."
   }
+}

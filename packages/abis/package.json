@@ -4,9 +4,11 @@
     "description": "Abis",
     "license": "MIT",
     "private": true,
-    "files": ["./*.json"],
+    "files": [
+        "./*.json"
+    ],
     "scripts": {
-      "codegen": ".",
-      "build": "."
+        "codegen": ".",
+        "build": "."
     }
-  }
+}

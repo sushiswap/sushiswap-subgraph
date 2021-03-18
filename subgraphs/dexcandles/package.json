@@ -11,5 +11,4 @@
         "remove-local": "graph remove --node http://localhost:8020/ /sushiswap/sushiswap",
         "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 /sushiswap/sushiswap"
     }
-  }
-  
+}
