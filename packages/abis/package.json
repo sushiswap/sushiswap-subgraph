@@ -9,6 +9,16 @@
     ],
     "scripts": {
         "codegen": ".",
-        "build": "."
+        "build": ".",
+
+        "prepare:bsc": ".",
+        "prepare:fantom": ".",
+        "prepare:goerli": ".",
+        "prepare:kovan": ".",
+        "prepare:mainnet": ".",
+        "prepare:matic": ".",
+        "prepare:rinkeby": ".",
+        "prepare:ropsten": ".",
+        "prepare:xdai": "."
     }
 }

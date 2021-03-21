@@ -8,9 +8,9 @@ dataSources:
     name: Maker
     network: mainnet
     source:
-      address: '0x795065dcc9f64b5614c407a6efdc400da6221fb0'
+      address: '0xe11fc0b43ab98eb91e9836129d1ee7c3bc95df50'
       abi: Pair
-      startBlock: 10833263
+      startBlock: 11626958
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4

@@ -7,6 +7,16 @@
   "main": "index.ts",
   "scripts": {
     "codegen": ".",
-    "build": "."
+    "build": ".",
+
+    "prepare:bsc": "mustache config/bsc.json index.template.ts > index.ts",
+    "prepare:fantom": "mustache config/fantom.json index.template.ts > index.ts",
+    "prepare:goerli": "mustache config/goerli.json index.template.ts > index.ts",
+    "prepare:kovan": "mustache config/kovan.json index.template.ts > index.ts",
+    "prepare:mainnet": "mustache config/mainnet.json index.template.ts > index.ts",
+    "prepare:matic": "mustache config/matic.json index.template.ts > index.ts",
+    "prepare:rinkeby": "mustache config/rinkeby.json index.template.ts > index.ts",
+    "prepare:ropsten": "mustache config/ropsten.json index.template.ts > index.ts",
+    "prepare:xdai": "mustache config/xdai.json index.template.ts > index.ts"
   }
 }

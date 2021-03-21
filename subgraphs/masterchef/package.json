@@ -9,6 +9,16 @@
         "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/masterchef masterchef.yaml",
         "create-local": "graph create --node http://localhost:8020/ /sushiswap/sushiswap",
         "remove-local": "graph remove --node http://localhost:8020/ /sushiswap/sushiswap",
-        "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 /sushiswap/sushiswap"
+        "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 /sushiswap/sushiswap",
+
+        "prepare:bsc": "mustache config/bsc.json masterchef.template.yaml > masterchef.yaml",
+        "prepare:fantom": "mustache config/fantom.json masterchef.template.yaml > masterchef.yaml",
+        "prepare:goerli": "mustache config/goerli.json masterchef.template.yaml > masterchef.yaml",
+        "prepare:kovan": "mustache config/kovan.json masterchef.template.yaml > masterchef.yaml",
+        "prepare:mainnet": "mustache config/mainnet.json masterchef.template.yaml > masterchef.yaml",
+        "prepare:matic": "mustache config/matic.json masterchef.template.yaml > masterchef.yaml",
+        "prepare:rinkeby": "mustache config/rinkeby.json masterchef.template.yaml > masterchef.yaml",
+        "prepare:ropsten": "mustache config/ropsten.json masterchef.template.yaml > masterchef.yaml",
+        "prepare:xdai": "mustache config/xdai.json masterchef.template.yaml > masterchef.yaml"
     }
 }

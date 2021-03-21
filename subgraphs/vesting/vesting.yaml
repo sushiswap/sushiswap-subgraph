@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: SushiDistributor
-    network: ropsten
+    network: mainnet
     source:
-      address: "0x84D1F7202e0E7DAc211617017cA72a2cB5E2B955"
+      address: ''
       abi: SushiDistributor
-      startBlock: 9667012
+      startBlock: 
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4

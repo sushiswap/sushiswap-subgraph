@@ -9,6 +9,16 @@
         "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/maker maker.yaml",
         "create-local": "graph create --node http://localhost:8020/ /sushiswap/sushiswap",
         "remove-local": "graph remove --node http://localhost:8020/ /sushiswap/sushiswap",
-        "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 /sushiswap/sushiswap"
+        "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 /sushiswap/sushiswap",
+
+        "prepare:bsc": "mustache config/bsc.json maker.template.yaml > maker.yaml",
+        "prepare:fantom": "mustache config/fantom.json maker.template.yaml > maker.yaml",
+        "prepare:goerli": "mustache config/goerli.json maker.template.yaml > maker.yaml",
+        "prepare:kovan": "mustache config/kovan.json maker.template.yaml > maker.yaml",
+        "prepare:mainnet": "mustache config/mainnet.json maker.template.yaml > maker.yaml",
+        "prepare:matic": "mustache config/matic.json maker.template.yaml > maker.yaml",
+        "prepare:rinkeby": "mustache config/rinkeby.json maker.template.yaml > maker.yaml",
+        "prepare:ropsten": "mustache config/ropsten.json maker.template.yaml > maker.yaml",
+        "prepare:xdai": "mustache config/xdai.json maker.template.yaml > maker.yaml"
     }
 }

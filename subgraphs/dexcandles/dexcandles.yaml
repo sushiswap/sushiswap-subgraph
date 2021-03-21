@@ -8,9 +8,9 @@ dataSources:
     name: Factory
     network: mainnet
     source:
-      address: '0xC0AEe478e3658e2610c5F7A4A2E1777cE9e4f2Ac'
+      address: '0xc0aee478e3658e2610c5f7a4a2e1777ce9e4f2ac'
       abi: Factory
-      startBlock: 10000834
+      startBlock: 10794229
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.3
@@ -27,7 +27,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: Pair
-    network: mainnet
+    network: 10794229
     source:
       abi: Pair
     mapping:

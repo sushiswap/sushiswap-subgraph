@@ -1,0 +1,24 @@
+specVersion: 0.0.2
+schema:
+  file: ./vesting.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: SushiDistributor
+    network: {{ network }}
+    source:
+      address: '{{ address }}'
+      abi: SushiDistributor
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Claimed
+      abis:
+        - name: SushiDistributor
+          file: ../../packages/abis/SushiDistributor.json
+      eventHandlers:
+        - event: Claimed(uint256,uint256,indexed address,indexed uint256)
+          handler: handleClaimed
+      file: ./src/vesting.ts

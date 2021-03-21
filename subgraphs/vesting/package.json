@@ -9,6 +9,16 @@
         "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/vesting vesting.yaml",
         "create-local": "graph create --node http://localhost:8020/ /sushiswap/sushiswap",
         "remove-local": "graph remove --node http://localhost:8020/ /sushiswap/sushiswap",
-        "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 /sushiswap/sushiswap"
+        "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 /sushiswap/sushiswap",
+
+        "prepare:bsc": ".",
+        "prepare:fantom": ".",
+        "prepare:goerli": ".",
+        "prepare:kovan": ".",
+        "prepare:mainnet": "mustache config/mainnet.json vesting.template.yaml > vesting.yaml",
+        "prepare:matic": ".",
+        "prepare:rinkeby": ".",
+        "prepare:ropsten": "mustache config/ropsten.json vesting.template.yaml > vesting.yaml",
+        "prepare:xdai": "."
     }
 }

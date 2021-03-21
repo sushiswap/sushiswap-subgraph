@@ -9,6 +9,16 @@
         "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/bar bar.yaml",
         "create-local": "graph create --node http://localhost:8020/ /sushiswap/sushiswap",
         "remove-local": "graph remove --node http://localhost:8020/ /sushiswap/sushiswap",
-        "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 /sushiswap/sushiswap"
+        "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 /sushiswap/sushiswap",
+
+        "prepare:bsc": "mustache config/bsc.json bar.template.yaml > bar.yaml",
+        "prepare:fantom": "mustache config/fantom.json bar.template.yaml > bar.yaml",
+        "prepare:goerli": "mustache config/goerli.json bar.template.yaml > bar.yaml",
+        "prepare:kovan": "mustache config/kovan.json bar.template.yaml > bar.yaml",
+        "prepare:mainnet": "mustache config/mainnet.json bar.template.yaml > bar.yaml",
+        "prepare:matic": "mustache config/matic.json bar.template.yaml > bar.yaml",
+        "prepare:rinkeby": "mustache config/rinkeby.json bar.template.yaml > bar.yaml",
+        "prepare:ropsten": "mustache config/ropsten.json bar.template.yaml > bar.yaml",
+        "prepare:xdai": "mustache config/xdai.json bar.template.yaml > bar.yaml"
     }
 }
