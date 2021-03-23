@@ -1,0 +1,35 @@
+specVersion: 0.0.3
+description: Lockup
+repository: https://github.com/sushiswap/sushiswap-subgraph
+schema:
+  file: ./lockup.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: MasterChef
+    network: mainnet
+    source:
+      address: '0xc2edad668740f1aa35e4d8f227fb8e17dca888cd'
+      abi: MasterChef
+      startBlock: 10736242
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Lockup
+        - Pool
+        - User
+      abis:
+        - name: MasterChef
+          file: ../../node_modules/@sushiswap/core/build/abi/MasterChef.json
+        - name: Pair
+          file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Pair.json
+      eventHandlers:
+        - event: Deposit(indexed address,indexed uint256,uint256)
+          handler: deposit
+        - event: Withdraw(indexed address,indexed uint256,uint256)
+          handler: withdraw
+      callHandlers:
+        - function: set(uint256,uint256,bool)
+          handler: set
+      file: ./src/lockup.ts

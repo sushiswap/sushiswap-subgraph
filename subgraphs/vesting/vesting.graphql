@@ -1,0 +1,19 @@
+type User @entity {
+  id: ID!
+  claims: [Claim!]! @derivedFrom(field: "user")
+  totalClaimed: BigDecimal!
+}
+
+type Claim @entity {
+  id: ID!
+  user: User!
+  week: Int!
+  amount: BigDecimal!
+}
+
+type Week @entity {
+  id: ID!
+  numberOfClaims: BigInt!
+  totalClaimed: BigDecimal!
+  merkleRoot: String!
+}

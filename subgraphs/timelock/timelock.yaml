@@ -1,0 +1,30 @@
+specVersion: 0.0.3
+description: Timelock
+repository: https://github.com/sushiswap/sushiswap-subgraph
+schema:
+  file: ./timelock.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Timelock
+    network: mainnet
+    source:
+      address: '0x9a8541ddf3a932a9a922b607e9cf7301f1d47bd1'
+      abi: Timelock
+      startBlock: 10736929
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/timelock.ts
+      entities:
+        - Timelock
+      abis:
+        - name: Timelock
+          file: ../../node_modules/@sushiswap/core/build/abi/Timelock.json
+      eventHandlers:
+        - event: CancelTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
+          handler: canceledTransaction
+        - event: ExecuteTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
+          handler: executedTransaction
+        - event: QueueTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
+          handler: queuedTransaction

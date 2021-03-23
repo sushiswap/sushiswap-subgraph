@@ -1,0 +1,18 @@
+{
+    "factory_address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
+    "masterchef_address": "",
+    "sushi_bar_address": "",
+    "sushi_maker_address": "",
+    "sushi_token_address": "",
+    "sushi_usdt_pair_address": "",
+    "xsushi_usdc_pair_address": "",
+    "xsushi_weth_pair_address": "",
+    "sushi_distributor_address": "",
+    "weth_address": "",
+    "sushiswap_weth_usdt_pair_address": "",
+    "usdt_address": "",
+    "uniswap_factory_address": "",
+    "uniswap_weth_usdt_pair_address": "",
+    "uniswap_sushi_eth_pair_address": "",
+    "uniswap_sushi_usdt_pair_address": ""
+}

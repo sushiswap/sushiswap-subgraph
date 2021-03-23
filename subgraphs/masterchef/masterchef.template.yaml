@@ -1,0 +1,57 @@
+specVersion: 0.0.3
+description: Masterchef
+repository: https://github.com/sushiswap/sushiswap-subgraph
+schema:
+  file: ./masterchef.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: MasterChef
+    network: {{ network }}
+    source:
+      address: '{{ address }}'
+      abi: MasterChef
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - MasterChef
+        - History
+        - Pool
+        - PoolHistory
+        - User
+      abis:
+        - name: MasterChef
+          file: ../../node_modules/@sushiswap/core/build/abi/MasterChef.json
+        - name: Factory
+          file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
+        - name: Pair
+          file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Pair.json
+        - name: ERC20
+          file: ../../node_modules/@sushiswap/core/build/abi/ERC20.json
+      eventHandlers:
+        - event: Deposit(indexed address,indexed uint256,uint256)
+          handler: deposit
+        - event: EmergencyWithdraw(indexed address,indexed uint256,uint256)
+          handler: emergencyWithdraw
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: ownershipTransferred
+        - event: Withdraw(indexed address,indexed uint256,uint256)
+          handler: withdraw
+      callHandlers:
+        - function: add(uint256,address,bool)
+          handler: add
+        - function: set(uint256,uint256,bool)
+          handler: set
+        - function: massUpdatePools()
+          handler: massUpdatePools
+        - function: updatePool(uint256)
+          handler: updatePool
+        - function: setMigrator(address)
+          handler: setMigrator
+        - function: migrate(uint256)
+          handler: migrate
+        - function: dev(address)
+          handler: dev
+      file: ./src/masterchef.ts

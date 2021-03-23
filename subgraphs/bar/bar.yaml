@@ -1,0 +1,31 @@
+specVersion: 0.0.3
+description: Bar
+repository: https://github.com/sushiswap/sushiswap-subgraph
+schema:
+  file: ./bar.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: SushiBar
+    network: mainnet
+    source:
+      address: '0x8798249c2e607446efb7ad49ec89dd1865ff4272'
+      abi: Bar
+      startBlock: 10801571
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Bar
+        - User
+      abis:
+        - name: Bar
+          file: ../../node_modules/@sushiswap/core/build/abi/SushiBar.json
+        - name: SushiToken
+          file: ../../node_modules/@sushiswap/core/build/abi/SushiToken.json
+        - name: Pair
+          file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Pair.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: transfer
+      file: ./src/bar.ts

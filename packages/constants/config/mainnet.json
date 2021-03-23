@@ -1,0 +1,22 @@
+{
+    "factory_address": "0xc0aee478e3658e2610c5f7a4a2e1777ce9e4f2ac",
+    "masterchef_address": "0xc2edad668740f1aa35e4d8f227fb8e17dca888cd",
+    "sushi_bar_address": "0x8798249c2e607446efb7ad49ec89dd1865ff4272",
+    "sushi_maker_address": "0xE11fc0B43ab98Eb91e9836129d1ee7c3Bc95df50",
+    "sushi_token_address": "0x6b3595068778dd592e39a122f4f5a5cf09c90fe2",
+    "sushi_usdt_pair_address": "0x680a025da7b1be2c204d7745e809919bce074026",
+    "xsushi_usdc_pair_address": "0xd597924b16cc1904d808285bc9044fd51ceeead7",
+    "xsushi_weth_pair_address": "0x36e2fcccc59e5747ff63a03ea2e5c0c2c14911e7",
+    "sushi_distributor_address": "",
+    "usdc_weth_pair": "0x397ff1542f962076d0bfe58ea045ffa2d347aca0",
+    "dai_weth_pair": "0xc3d03e4f041fd4cd388c549ee2a29a9e5075882f",
+    "usdt_weth_pair": "0x06da0fd433c1a5d7a4faa01111c044910a184553",
+    "sushi_usdt_pair": "0x680a025da7b1be2c204d7745e809919bce074026",
+    "weth_address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    "sushiswap_weth_usdt_pair_address": "0x06da0fd433c1a5d7a4faa01111c044910a184553",
+    "usdt_address": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+    "uniswap_factory_address": "0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f",
+    "uniswap_weth_usdt_pair_address": "0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852",
+    "uniswap_sushi_eth_pair_address": "0xce84867c3c02b05dc570d0135103d3fb9cc19433",
+    "uniswap_sushi_usdt_pair_address": "0xe3ffab89e53422f468be955e7011932efe80aa26"
+}

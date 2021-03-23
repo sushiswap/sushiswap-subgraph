@@ -1,0 +1,32 @@
+specVersion: 0.0.3
+description: Maker
+repository: https://github.com/sushiswap/sushiswap-subgraph
+schema:
+  file: ./maker.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Maker
+    network: mainnet
+    source:
+      address: '0xe11fc0b43ab98eb91e9836129d1ee7c3bc95df50'
+      abi: Pair
+      startBlock: 11626958
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Maker
+        - Server
+        - Serving
+      abis:
+        - name: Pair
+          file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Pair.json
+        - name: ERC20
+          file: ../../node_modules/@sushiswap/core/build/abi/ERC20.json
+        - name: Factory
+          file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
+      eventHandlers:
+        - event: Swap(indexed address,uint256,uint256,uint256,uint256,indexed address)
+          handler: served
+      file: ./src/maker.ts

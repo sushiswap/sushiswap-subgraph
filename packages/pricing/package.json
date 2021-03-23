@@ -1,0 +1,26 @@
+{
+  "name": "pricing",
+  "version": "1.0.0",
+  "description": "Common logic and utilities to use throughout the project",
+  "license": "MIT",
+  "private": true,
+  "main": "index.ts",
+  "dependencies": {
+    "const": "^1.0.0",
+    "exchange": "^1.0.0"
+  },
+  "scripts": {
+    "codegen": ".",
+    "build": ".",
+
+    "prepare:bsc": ".",
+    "prepare:fantom": ".",
+    "prepare:goerli": ".",
+    "prepare:kovan": ".",
+    "prepare:mainnet": ".",
+    "prepare:matic": ".",
+    "prepare:rinkeby": ".",
+    "prepare:ropsten": ".",
+    "prepare:xdai": "."
+  }
+}
