@@ -2,7 +2,7 @@ import { Address, BigInt } from '@graphprotocol/graph-ts'
 
 export const ADDRESS_ZERO = Address.fromString('0x0000000000000000000000000000000000000000')
 
-export const BENTOBOX_ADDRESS = Address.fromString('0xb5891167796722331b7ea7824f036b3bdcb4531c')
+export const BENTOBOX_ADDRESS = Address.fromString('0xccb146728f6D94Fe22D1030E7FA369bd33916824')
 
 export const BIG_INT_MINUS_ONE = BigInt.fromI32(-1)
 
@@ -22,7 +22,7 @@ export const BENTOBOX_TRANSFER = 'transfer'
 
 export const BENTOBOX_WITHDRAW = 'withdraw'
 
-export const KASHI_PAIR_MEDIUM_RISK_MASTER_ADDRESS = Address.fromString('0x059bc66d06f0a3fef2ec88bbfd538b0ccd6c0ad0')
+export const KASHI_PAIR_MEDIUM_RISK_MASTER_ADDRESS = Address.fromString('0xd57469335e06ed52b57278a0ff4ecb62bad05e99')
 
 export const KASHI_PAIR_MEDIUM_RISK_TYPE = 'medium'
 
