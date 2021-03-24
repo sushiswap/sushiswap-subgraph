@@ -18,5 +18,7 @@
     "uniswap_factory_address": "0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f",
     "uniswap_weth_usdt_pair_address": "0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852",
     "uniswap_sushi_eth_pair_address": "0xce84867c3c02b05dc570d0135103d3fb9cc19433",
-    "uniswap_sushi_usdt_pair_address": "0xe3ffab89e53422f468be955e7011932efe80aa26"
+    "uniswap_sushi_usdt_pair_address": "0xe3ffab89e53422f468be955e7011932efe80aa26",
+    "bentobox_address": "",
+    "kashi_pair_medium_risk_master_address": ""
 }
