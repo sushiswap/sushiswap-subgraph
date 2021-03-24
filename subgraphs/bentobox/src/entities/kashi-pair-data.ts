@@ -21,8 +21,6 @@ export function updateKashiPairDayData(event: ethereum.Event): KashiPairDayData 
     data.avgExchangeRate = pair.exchangeRate
     data.avgUtilization = pair.utilization
     data.avgInterestPerSecond = pair.interestPerSecond
-    data.avgSupplyInterestPerSecond = pair.interestPerSecond.times(pair.utilization)
-    data.avgBorrowInterestPerSecond = pair.utilization
   }
 
   data.totalAssetElastic = pair.totalAssetElastic
@@ -33,8 +31,6 @@ export function updateKashiPairDayData(event: ethereum.Event): KashiPairDayData 
   data.avgExchangeRate = data.avgExchangeRate.plus(pair.exchangeRate).div(BIG_INT_TWO)
   data.avgUtilization = data.avgUtilization.plus(pair.utilization).div(BIG_INT_TWO)
   data.avgInterestPerSecond = data.avgInterestPerSecond.plus(pair.interestPerSecond).div(BIG_INT_TWO)
-  data.avgSupplyInterestPerSecond = data.avgSupplyInterestPerSecond.plus(pair.interestPerSecond.times(pair.utilization)).div(BIG_INT_TWO)
-  data.avgBorrowInterestPerSecond = data.avgBorrowInterestPerSecond.plus(pair.utilization).div(BIG_INT_TWO)
   data.save()
 
   return data as KashiPairDayData
@@ -58,8 +54,6 @@ export function updateKashiPairHourData(event: ethereum.Event): KashiPairHourDat
     data.avgExchangeRate = pair.exchangeRate
     data.avgUtilization = pair.utilization
     data.avgInterestPerSecond = pair.interestPerSecond
-    data.avgSupplyInterestPerSecond = pair.interestPerSecond.times(pair.utilization)
-    data.avgBorrowInterestPerSecond = pair.utilization
   }
 
   data.totalAssetElastic = pair.totalAssetElastic
@@ -70,8 +64,6 @@ export function updateKashiPairHourData(event: ethereum.Event): KashiPairHourDat
   data.avgExchangeRate = data.avgExchangeRate.plus(pair.exchangeRate).div(BIG_INT_TWO)
   data.avgUtilization = data.avgUtilization.plus(pair.utilization).div(BIG_INT_TWO)
   data.avgInterestPerSecond = data.avgInterestPerSecond.plus(pair.interestPerSecond).div(BIG_INT_TWO)
-  data.avgSupplyInterestPerSecond = data.avgSupplyInterestPerSecond.plus(pair.interestPerSecond.times(pair.utilization)).div(BIG_INT_TWO)
-  data.avgBorrowInterestPerSecond = data.avgBorrowInterestPerSecond.plus(pair.utilization).div(BIG_INT_TWO)
   data.save()
 
   return data as KashiPairHourData

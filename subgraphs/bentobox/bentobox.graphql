@@ -129,6 +129,8 @@ type KashiPair @entity {
   feesEarnedFraction: BigInt!
   totalFeesEarnedFraction: BigInt!
   lastAccrued: BigInt!
+  supplyAPR: BigInt!
+  borrowAPR: BigInt!
   transactions: [KashiPairAction!] @derivedFrom(field: "pair")
   users: [UserKashiPair!] @derivedFrom(field: "pair")
   block: BigInt!
@@ -195,8 +197,8 @@ type KashiPairHourData @entity {
   avgExchangeRate: BigInt!
   avgUtilization: BigInt!
   avgInterestPerSecond: BigInt!
-  avgSupplyInterestPerSecond: BigInt!
-  avgBorrowInterestPerSecond: BigInt!
+  #avgSupplyInterestPerSecond: BigInt!
+  #avgBorrowInterestPerSecond: BigInt!
 }
 
 type KashiPairDayData @entity {
@@ -222,6 +224,6 @@ type KashiPairDayData @entity {
   avgExchangeRate: BigInt!
   avgUtilization: BigInt!
   avgInterestPerSecond: BigInt!
-  avgSupplyInterestPerSecond: BigInt!
-  avgBorrowInterestPerSecond: BigInt!
+  #avgSupplyInterestPerSecond: BigInt!
+  #avgBorrowInterestPerSecond: BigInt!
 }

@@ -1,6 +1,7 @@
 import { Address, ethereum } from '@graphprotocol/graph-ts'
 
 import { BIG_INT_ZERO, BIG_INT_ONE, KASHI_PAIR_MEDIUM_RISK_TYPE } from 'const'
+import { STARTING_INTEREST_PER_YEAR } from '../kashi-constants'
 import { KashiPair } from '../../generated/schema'
 import { KashiPair as KashiPairContract } from '../../generated/BentoBox/KashiPair'
 import { getToken } from './token'
@@ -42,6 +43,8 @@ export function createKashiPair(address: Address, block: ethereum.Block, type: s
   pair.feesEarnedFraction = accrueInfo.value2
   pair.totalFeesEarnedFraction = BIG_INT_ZERO
   pair.lastAccrued = accrueInfo.value1
+  pair.supplyAPR = BIG_INT_ZERO
+  pair.borrowAPR = STARTING_INTEREST_PER_YEAR
   pair.block = block.number
   pair.timestamp = block.timestamp
 

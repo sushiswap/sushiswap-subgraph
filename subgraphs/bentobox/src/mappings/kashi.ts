@@ -36,7 +36,8 @@ import {
   updateKashiPairHourData
 } from '../entities'
 import { createKashiPairAction } from '../entities/kashi-pair-action'
-import { Address, log } from '@graphprotocol/graph-ts'
+import { Address, BigInt, log } from '@graphprotocol/graph-ts'
+import { getInterestPerYear, takeFee } from '../helpers/interest'
 
 // TODO: add callHandler for liquidate function on KashiPairs
 
@@ -80,7 +81,13 @@ export function handleLogAccrue(event: LogAccrue): void {
   pair.feesEarnedFraction = pair.feesEarnedFraction.plus(feeFraction)
   pair.interestPerSecond = event.params.rate
   pair.utilization = event.params.utilization
+
+  const currentInterest = getInterestPerYear(pair.totalBorrowBase, pair.interestPerSecond, pair.lastAccrued, event.block.timestamp, pair.utilization)
+  const currentSupplyAPR = takeFee(currentInterest.times(pair.utilization)).div(BigInt.fromString('1000000000000000000'))
+
   pair.lastAccrued = event.block.timestamp
+  pair.supplyAPR = currentSupplyAPR
+  pair.borrowAPR = currentInterest
   pair.block = event.block.number
   pair.timestamp = event.block.timestamp
   pair.save()
