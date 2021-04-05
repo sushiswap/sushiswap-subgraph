@@ -6,9 +6,9 @@ dataSources:
     name: SushiDistributor
     network: mainnet
     source:
-      address: ''
+      address: '0xcbe6b83e77cdc011cc18f6f0df8444e5783ed982'
       abi: SushiDistributor
-      startBlock: 
+      startBlock: 12181770
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
