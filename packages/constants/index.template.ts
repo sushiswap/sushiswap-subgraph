@@ -71,6 +71,27 @@ export const WHITELIST: string[] = [
   '0xc011a73ee8576fb46f5e1c5751ca3b9fe0af2a6f', //SNX
   '0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e', //YFI
   '0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8', // yCurv
+  '0x514910771af9ca656af840dff83e8264ecf986ca', // LINK
+  '0x960b236a07cf122663c4303350609a66a7b288c0', // ANT
+  '0xc011a73ee8576fb46f5e1c5751ca3b9fe0af2a6f', // SNX
+  '0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e', // YFI
+  '0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8', // yCurv
+  '0x92e187a03b6cd19cb6af293ba17f2745fd2357d5', // DUCK
+  '0x3449fc1cd036255ba1eb19d65ff4ba2b8903a69a', // BAC
+  '0x2ba592f78db6436527729929aaf6c908497cb200', // CREAM
+  '0x3432b6a60d23ca0dfca7761b7ab56459d9c964d0', // FXS
+  '0xa1faa113cbe53436df28ff0aee54275c13b40975', // ALPHA
+  '0xdb0f18081b505a7de20b18ac41856bcb4ba86a1a', // pWING
+  '0x04fa0d235c4abf4bcf4787af4cf447de572ef828', // UMA
+  '0xad32a8e6220741182940c5abf610bde99e737b2d', // PLAY
+  '0x3155ba85d5f96b2d030a4966af206230e46849cb', // RUNE
+  '0x87d73e916d7057945c9bcd8cdd94e42a6f47f776', // NFTX
+  '0xdfe66b14d37c77f4e9b180ceb433d1b164f0281d', // stETH
+  '0xad32A8e6220741182940c5aBF610bDE99E737b2D' // DOUGH
+]
+
+export const BLACKLIST_EXCHANGE_VOLUME: string[] = [
+  '0x9ea3b5b4ec044b70375236a281986106457b20ef' // DELTA
 ]
 
 // minimum liquidity required to count towards tracked volume for pairs with small # of Lps

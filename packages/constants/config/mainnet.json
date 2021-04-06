@@ -7,7 +7,7 @@
     "sushi_usdt_pair_address": "0x680a025da7b1be2c204d7745e809919bce074026",
     "xsushi_usdc_pair_address": "0xd597924b16cc1904d808285bc9044fd51ceeead7",
     "xsushi_weth_pair_address": "0x36e2fcccc59e5747ff63a03ea2e5c0c2c14911e7",
-    "sushi_distributor_address": "",
+    "sushi_distributor_address": "0xcbe6b83e77cdc011cc18f6f0df8444e5783ed982",
     "usdc_weth_pair": "0x397ff1542f962076d0bfe58ea045ffa2d347aca0",
     "dai_weth_pair": "0xc3d03e4f041fd4cd388c549ee2a29a9e5075882f",
     "usdt_weth_pair": "0x06da0fd433c1a5d7a4faa01111c044910a184553",
@@ -21,4 +21,5 @@
     "uniswap_sushi_usdt_pair_address": "0xe3ffab89e53422f468be955e7011932efe80aa26",
     "bentobox_address": "0xf5bce5077908a1b7370b9ae04adc565ebd643966",
     "kashi_pair_medium_risk_master_address": "0x74a81cb5b6996d9347b864b9a1492a6509e51e65"
+    "uniswap_sushi_usdt_pair_address": "0xe3ffab89e53422f468be955e7011932efe80aa26"
 }
