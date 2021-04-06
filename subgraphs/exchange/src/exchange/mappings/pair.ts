@@ -1,4 +1,4 @@
-import { ADDRESS_ZERO, BIG_DECIMAL_ZERO, MASTER_CHEF_ADDRESS, MINIMUM_USD_THRESHOLD_NEW_PAIRS, WHITELIST } from 'const'
+import { ADDRESS_ZERO, BIG_DECIMAL_ZERO, MASTER_CHEF_ADDRESS, MINIMUM_USD_THRESHOLD_NEW_PAIRS, WHITELIST, BLACKLIST_EXCHANGE_VOLUME } from 'const'
 import { Address, BigDecimal, BigInt, log, store } from '@graphprotocol/graph-ts'
 import { Burn, Mint, Pair, Swap, Token, Transaction } from '../../../generated/schema'
 import {
@@ -558,18 +558,22 @@ export function onSwap(event: SwapEvent): void {
   pair.txCount = pair.txCount.plus(BigInt.fromI32(1))
   pair.save()
 
-  // update global values, only used tracked amounts for volume
-  const factory = getFactory()
-  factory.volumeUSD = factory.volumeUSD.plus(trackedAmountUSD)
-  factory.volumeETH = factory.volumeETH.plus(trackedAmountETH)
-  factory.untrackedVolumeUSD = factory.untrackedVolumeUSD.plus(derivedAmountUSD)
-  factory.txCount = factory.txCount.plus(BigInt.fromI32(1))
+
+  // Don't track volume for these tokens in total exchange volume
+  if (!BLACKLIST_EXCHANGE_VOLUME.includes(token0.id) && !BLACKLIST_EXCHANGE_VOLUME.includes(token1.id)) {
+    // update global values, only used tracked amounts for volume
+    const factory = getFactory()
+    factory.volumeUSD = factory.volumeUSD.plus(trackedAmountUSD)
+    factory.volumeETH = factory.volumeETH.plus(trackedAmountETH)
+    factory.untrackedVolumeUSD = factory.untrackedVolumeUSD.plus(derivedAmountUSD)
+    factory.txCount = factory.txCount.plus(BigInt.fromI32(1))
+    factory.save()
+  }
 
   // save entities
   pair.save()
   token0.save()
   token1.save()
-  factory.save()
 
   let transaction = Transaction.load(event.transaction.hash.toHex())
 
@@ -614,11 +618,14 @@ export function onSwap(event: SwapEvent): void {
   const token0DayData = updateTokenDayData(token0 as Token, event)
   const token1DayData = updateTokenDayData(token1 as Token, event)
 
-  // swap specific updating
-  dayData.volumeUSD = dayData.volumeUSD.plus(trackedAmountUSD)
-  dayData.volumeETH = dayData.volumeETH.plus(trackedAmountETH)
-  dayData.untrackedVolume = dayData.untrackedVolume.plus(derivedAmountUSD)
-  dayData.save()
+  // Don't track volume for these tokens in total exchange volume
+  if (!BLACKLIST_EXCHANGE_VOLUME.includes(token0.id) && !BLACKLIST_EXCHANGE_VOLUME.includes(token1.id)) {
+    // swap specific updating
+    dayData.volumeUSD = dayData.volumeUSD.plus(trackedAmountUSD)
+    dayData.volumeETH = dayData.volumeETH.plus(trackedAmountETH)
+    dayData.untrackedVolume = dayData.untrackedVolume.plus(derivedAmountUSD)
+    dayData.save()
+  }
 
   // swap specific updating for pair
   pairDayData.volumeToken0 = pairDayData.volumeToken0.plus(amount0Total)
