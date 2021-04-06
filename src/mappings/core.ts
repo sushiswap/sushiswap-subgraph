@@ -414,6 +414,12 @@ export function handleSwap(event: Swap): void {
     trackedAmountETH = trackedAmountUSD.div(bundle.ethPrice)
   }
 
+  // TODO: probably better to just track volume for tokens like DELTA
+  //       with the untrackedVolumeUSD prop
+  let BLACKLIST_FROM_TOTAL_VOLUME: string[] = [
+    '0x9ea3b5b4ec044b70375236a281986106457b20ef' // DELTA
+  ]
+
   // update token0 global volume and token liquidity stats
   token0.tradeVolume = token0.tradeVolume.plus(amount0In.plus(amount0Out))
   token0.tradeVolumeUSD = token0.tradeVolumeUSD.plus(trackedAmountUSD)
@@ -436,18 +442,21 @@ export function handleSwap(event: Swap): void {
   pair.txCount = pair.txCount.plus(ONE_BI)
   pair.save()
 
-  // update global values, only used tracked amounts for volume
-  let uniswap = UniswapFactory.load(FACTORY_ADDRESS)
-  uniswap.totalVolumeUSD = uniswap.totalVolumeUSD.plus(trackedAmountUSD)
-  uniswap.totalVolumeETH = uniswap.totalVolumeETH.plus(trackedAmountETH)
-  uniswap.untrackedVolumeUSD = uniswap.untrackedVolumeUSD.plus(derivedAmountUSD)
-  uniswap.txCount = uniswap.txCount.plus(ONE_BI)
+  // Don't track volume for these tokens in the total exchange volume
+  if (!BLACKLIST_FROM_TOTAL_VOLUME.includes(token0.id) && !BLACKLIST_FROM_TOTAL_VOLUME.includes(token1.id)) {
+    // update global values, only used tracked amounts for volume
+    let uniswap = UniswapFactory.load(FACTORY_ADDRESS)
+    uniswap.totalVolumeUSD = uniswap.totalVolumeUSD.plus(trackedAmountUSD)
+    uniswap.totalVolumeETH = uniswap.totalVolumeETH.plus(trackedAmountETH)
+    uniswap.untrackedVolumeUSD = uniswap.untrackedVolumeUSD.plus(derivedAmountUSD)
+    uniswap.txCount = uniswap.txCount.plus(ONE_BI)
+    uniswap.save()
+  }
 
   // save entities
   pair.save()
   token0.save()
   token1.save()
-  uniswap.save()
 
   let transaction = Transaction.load(event.transaction.hash.toHexString())
   if (transaction === null) {
@@ -509,12 +518,16 @@ export function handleSwap(event: Swap): void {
     .concat('-')
     .concat(BigInt.fromI32(hourID).toString())
 
-  // swap specific updating
-  let uniswapDayData = UniswapDayData.load(dayID.toString())
-  uniswapDayData.dailyVolumeUSD = uniswapDayData.dailyVolumeUSD.plus(trackedAmountUSD)
-  uniswapDayData.dailyVolumeETH = uniswapDayData.dailyVolumeETH.plus(trackedAmountETH)
-  uniswapDayData.dailyVolumeUntracked = uniswapDayData.dailyVolumeUntracked.plus(derivedAmountUSD)
-  uniswapDayData.save()
+
+  // Don't track volume for these tokens in the total exchange volume
+  if (!BLACKLIST_FROM_TOTAL_VOLUME.includes(token0.id) && !BLACKLIST_FROM_TOTAL_VOLUME.includes(token1.id)) {
+    // swap specific updating
+    let uniswapDayData = UniswapDayData.load(dayID.toString())
+    uniswapDayData.dailyVolumeUSD = uniswapDayData.dailyVolumeUSD.plus(trackedAmountUSD)
+    uniswapDayData.dailyVolumeETH = uniswapDayData.dailyVolumeETH.plus(trackedAmountETH)
+    uniswapDayData.dailyVolumeUntracked = uniswapDayData.dailyVolumeUntracked.plus(derivedAmountUSD)
+    uniswapDayData.save()
+  }
 
   // swap specific updating for pair
   let pairDayData = PairDayData.load(dayPairID)
