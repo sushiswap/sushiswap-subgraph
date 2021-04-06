@@ -50,6 +50,9 @@ export function getSymbol(address: Address): string {
   if (address.toHex() == '0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9') {
     return 'AAVE'
   }
+  if (tokenAddress.toHex() == '0x5dbcf33d8c2e976c6b560249878e6f1491bca25c') {
+    return 'yUSD'
+  }
 
   const contract = ERC20.bind(address)
   const contractSymbolBytes = ERC20SymbolBytes.bind(address)
@@ -78,6 +81,12 @@ export function getName(address: Address): string {
   }
   if (address.toHex() == '0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9') {
     return 'Aave Token'
+  }
+  if (tokenAddress.toHex() == '0x5dbcf33d8c2e976c6b560249878e6f1491bca25c') {
+    return 'yUSD'
+  }
+  if (tokenAddress.toHex() == '0xf94b5c5651c888d928439ab6514b93944eee6f48') {
+    return 'Yield App'
   }
 
   const contract = ERC20.bind(address)
