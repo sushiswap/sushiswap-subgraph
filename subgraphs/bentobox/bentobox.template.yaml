@@ -57,7 +57,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: KashiPair
-    network: ropsten
+    network: {{ network }}
     source:
       abi: KashiPair
     mapping:

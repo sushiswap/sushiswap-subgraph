@@ -6,11 +6,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: BentoBox
-    network: ropsten
+    network: mainnet
     source:
-      address: '0xccb146728f6D94Fe22D1030E7FA369bd33916824'
+      address: '0xF5BCE5077908a1b7370B9ae04AdC565EBd643966'
       abi: BentoBox
-      startBlock: 9851122
+      startBlock: 12094175
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -57,7 +57,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: KashiPair
-    network: ropsten
+    network: mainnet
     source:
       abi: KashiPair
     mapping:
