@@ -68,7 +68,8 @@ let WHITELIST: string[] = [
   '0xad32a8e6220741182940c5abf610bde99e737b2d', // PLAY
   '0x3155ba85d5f96b2d030a4966af206230e46849cb', // RUNE
   '0x87d73e916d7057945c9bcd8cdd94e42a6f47f776', // NFTX
-  '0xdfe66b14d37c77f4e9b180ceb433d1b164f0281d' // stETH
+  '0xdfe66b14d37c77f4e9b180ceb433d1b164f0281d', // stETH
+  '0xad32A8e6220741182940c5aBF610bDE99E737b2D' // DOUGH
 ]
 
 // minimum liquidity required to count towards tracked volume for pairs with small # of Lps
