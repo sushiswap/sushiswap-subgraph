@@ -18,6 +18,8 @@ Current subgraph locations:
 
 6. **SushiSwap-SubGraph-Fork** (on uniswap-fork branch): Indexes the SushiSwap Factory, includes Price Data, Pricing, etc: https://thegraph.com/explorer/subgraph/jiro-ono/sushiswap-v1-exchange
 
+7. **BentoBox**: Index BentoBox and Kashi Lending data: https://thegraph.com/explorer/subgraph/sushiswap/bentobox
+
 ## To setup and deploy
 
 For any of the subgraphs: `sushiswap` or `bar` as `[subgraph]`
