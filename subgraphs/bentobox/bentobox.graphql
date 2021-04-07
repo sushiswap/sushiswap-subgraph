@@ -169,7 +169,6 @@ type UserKashiPair @entity {
   assetFraction: BigInt! #comes from balanceOf on pair contract
   collateralShare: BigInt!
   borrowPart: BigInt!
-  isSolvent: Boolean!
   transactions: [KashiPairAction!] @derivedFrom(field: "root")
   block: BigInt!
   timestamp: BigInt!

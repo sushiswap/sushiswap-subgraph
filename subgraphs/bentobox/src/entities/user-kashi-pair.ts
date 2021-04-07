@@ -14,7 +14,6 @@ export function createUserKashiPair(user: Address, pair: Address, block: ethereu
   userPair.assetFraction = BIG_INT_ZERO
   userPair.collateralShare = BIG_INT_ZERO
   userPair.borrowPart = BIG_INT_ZERO
-  userPair.isSolvent = true
   userPair.block = block.number
   userPair.timestamp = block.timestamp
   userPair.save()
@@ -30,7 +29,6 @@ export function getUserKashiPair(user: Address, pair: Address, block: ethereum.B
   }
 
   const kashiPairContract = KashiPairContract.bind(pair)
-  userPair.isSolvent = kashiPairContract.isSolvent(user, false)
   userPair.block = block.number
   userPair.timestamp = block.timestamp
   userPair.save()
