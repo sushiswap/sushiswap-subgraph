@@ -326,3 +326,7 @@ export function handleLogWithdrawFees(event: LogWithdrawFees): void {
   // TODO: add function within kashi-pair-data to update totalFees for hour and day data
   //       then call those functions here
 }
+
+export function handleTransfer(event: Transfer): void {
+  // TODO: not sure if we should do anything or not for this event
+}
