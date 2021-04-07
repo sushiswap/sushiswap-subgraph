@@ -14,6 +14,10 @@ export const BIG_DECIMAL_ONE = BigDecimal.fromString('1')
 
 export const BIG_INT_ONE = BigInt.fromI32(1)
 
+export const BIG_INT_TWO = BigInt.fromI32(2)
+
+export const BIG_INT_ONE_HUNDRED = BigInt.fromI32(100)
+
 export const BIG_INT_ONE_DAY_SECONDS = BigInt.fromI32(86400)
 
 export const BIG_INT_ZERO = BigInt.fromI32(0)
@@ -113,3 +117,29 @@ export const UNISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString('{{ uniswap_wet
 export const UNISWAP_SUSHI_ETH_PAIR_ADDRESS = Address.fromString('{{ uniswap_sushi_eth_pair_address }}')
 
 export const UNISWAP_SUSHI_USDT_PAIR_ADDRESS = Address.fromString('{{ uniswap_sushi_usdt_pair_address }}')
+
+
+// Bentobox constants
+export const BENTOBOX_ADDRESS = Address.fromString('{{ bentobox_address }}')
+
+export const KASHI_PAIR_MEDIUM_RISK_MASTER_ADDRESS = Address.fromString('{{ kashi_pair_medium_risk_master_address }}')
+
+export const BENTOBOX_DEPOSIT = 'deposit'
+
+export const BENTOBOX_TRANSFER = 'transfer'
+
+export const BENTOBOX_WITHDRAW = 'withdraw'
+
+export const KASHI_PAIR_MEDIUM_RISK_TYPE = 'medium'
+
+export const PAIR_ADD_COLLATERAL = 'addCollateral'
+
+export const PAIR_REMOVE_COLLATERAL = 'removeCollateral'
+
+export const PAIR_ADD_ASSET = 'addAsset'
+
+export const PAIR_REMOVE_ASSET = 'removeAsset'
+
+export const PAIR_BORROW = 'borrow'
+
+export const PAIR_REPAY = 'repay'
