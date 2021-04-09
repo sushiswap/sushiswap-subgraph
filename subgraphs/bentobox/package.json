@@ -17,6 +17,13 @@
     "deploy:ropsten": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ jiro-ono/bento bentobox.yaml",
 
     "prepare:mainnet": "mustache config/mainnet.json bentobox.template.yaml > bentobox.yaml",
-    "prepare:ropsten": "mustache config/ropsten.json bentobox.template.yaml > bentobox.yaml"
+    "prepare:ropsten": "mustache config/ropsten.json bentobox.template.yaml > bentobox.yaml",
+    "prepare:bsc": ".",
+    "prepare:fantom": ".",
+    "prepare:goerli": ".",
+    "prepare:kovan": ".",
+    "prepare:matic": ".",
+    "prepare:rinkeby": ".",
+    "prepare:xdai": "."
   }
 }
