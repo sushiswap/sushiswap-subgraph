@@ -34,7 +34,7 @@ export const SUSHI_BAR_ADDRESS = Address.fromString('0x0000000000000000000000000
 
 export const SUSHI_MAKER_ADDRESS = Address.fromString('0x0000000000000000000000000000000000000000')
 
-export const SUSHI_TOKEN_ADDRESS = Address.fromString('0xae75a438b2e0cb8bb01ec1e1e376de11d44477cc')
+export const SUSHI_TOKEN_ADDRESS = Address.fromString('0x947950bcc74888a40ffa2593c5798f11fc9124c4')
 
 export const SUSHI_USDT_PAIR_ADDRESS = Address.fromString('0x0000000000000000000000000000000000000000')
 
@@ -46,29 +46,13 @@ export const SUSHI_DISTRIBUTOR_ADDRESS = Address.fromString('0x00000000000000000
 
 export const NULL_CALL_RESULT_VALUE = '0x0000000000000000000000000000000000000000000000000000000000000001'
 
-export const USDC_WETH_PAIR = '0xa48869049e36f8bfe0cc5cf655632626988c0140'
+export const USDC_WETH_PAIR = '0xc7632b7b2d768bbb30a404e13e1de48d1439ec21'
 
-export const DAI_WETH_PAIR = '0xd32f2eb49e91aa160946f3538564118388d6246a'
+export const DAI_WETH_PAIR = '0xdc558d64c29721d74c4456cfb4363a6e6660a9bb'
 
-export const USDT_WETH_PAIR = '0x9555cbdfe51d1619fc199ba0b623516fbd02b0a3'
+export const USDT_WETH_PAIR = '0x2905817b020fD35d9d09672946362b62766f0d69'
 
 export const SUSHI_USDT_PAIR = '0x0000000000000000000000000000000000000000'
-
-const mainnet = [
-  '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-  '0x6b175474e89094c44da98b954eedeac495271d0f'
-]
-
-const fantom = [
-  '0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83',
-  '0xad84341756bf337f5a0164515b1f6f993d194e1f'
-]
-
-export const WHITELIST = { mainnet, fantom }
-
-export const BLACKLIST_EXCHANGE_VOLUME: string[] = [
-  '0x9ea3b5b4ec044b70375236a281986106457b20ef' // DELTA
-]
 
 // minimum liquidity required to count towards tracked volume for pairs with small # of Lps
 export const MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString('0')
@@ -76,11 +60,11 @@ export const MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString('0')
 // minimum liquidity for price to get tracked
 export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString('0')
 
-export const WETH_ADDRESS = Address.fromString('0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83')
+export const WETH_ADDRESS = Address.fromString('0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c')
 
-export const SUSHISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString('0x9555cbdfe51d1619fc199ba0b623516fbd02b0a3')
+export const SUSHISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString('0x2905817b020fd35d9d09672946362b62766f0d69')
 
-export const USDT_ADDRESS = Address.fromString('0x1b27a9de6a775f98aaa5b90b62a4e2a0b84dbdd9')
+export const USDT_ADDRESS = Address.fromString('0x55d398326f99059ff775485246999027b3197955')
 
 export const MASTER_CHEF_START_BLOCK = BigInt.fromI32(10750000)
 

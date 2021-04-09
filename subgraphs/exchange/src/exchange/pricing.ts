@@ -10,8 +10,8 @@ import {
   USDC_WETH_PAIR,
   USDT_WETH_PAIR,
   WETH_ADDRESS,
-  WHITELIST,
 } from 'const'
+import { WHITELIST } from './exchange-constants'
 import { Address, BigDecimal, BigInt, dataSource, ethereum, log } from '@graphprotocol/graph-ts'
 import { Pair, Token } from '../../generated/schema'
 
@@ -101,9 +101,9 @@ export function findEthPerToken(token: Token): BigDecimal {
 
   // TODO: This is slow, and this function is called quite often.
   // What could we do to improve this?
-  for (let i = 0; i < WHITELIST[network].length; ++i) {
+  for (let i = 0; i < WHITELIST.length; ++i) {
     // TODO: Cont. This would be a good start, by avoiding multiple calls to getPair...
-    const pairAddress = factoryContract.getPair(Address.fromString(token.id), Address.fromString(WHITELIST[network][i]))
+    const pairAddress = factoryContract.getPair(Address.fromString(token.id), Address.fromString(WHITELIST[i]))
     if (pairAddress != ADDRESS_ZERO) {
       const pair = Pair.load(pairAddress.toHex())
       if (pair.token0 == token.id) {
