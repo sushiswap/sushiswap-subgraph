@@ -6,7 +6,7 @@ The Graph exposes a GraphQL endpoint to query the events and entities within the
 
 Current subgraph locations:
 
-1. **Exchange**: Includes all SushiSwap Exchange data with Price Data, Volume, Users, etc (deployed on multiple chains):
+1. **Exchange**: Includes all SushiSwap Exchange data with Price Data, Volume, Users, etc:
    + https://thegraph.com/explorer/subgraph/sushiswap/exchange (mainnet)
    + https://thegraph.com/explorer/subgraph/sushiswap/fantom-exchange (ftm)
    + https://thegraph.com/explorer/subgraph/sushiswap/matic-exchange (matic)
