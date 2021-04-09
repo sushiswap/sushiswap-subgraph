@@ -38,6 +38,9 @@ export const BLACKLIST_EXCHANGE_VOLUME: string[] = [
   '0x9ea3b5b4ec044b70375236a281986106457b20ef' // DELTA
 ]
 
+// TODO: For the WHITELIST I just swap it out based on the network
+//       that we are deploying to. Def a better way to do this.
+
 // FTM WHITELIST
 /*export const WHITELIST: string[] = [
   '0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83', // WFTM
