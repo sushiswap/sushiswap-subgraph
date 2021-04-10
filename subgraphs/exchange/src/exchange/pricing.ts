@@ -96,9 +96,6 @@ export function findEthPerToken(token: Token): BigDecimal {
   }
 
   // loop through whitelist and check if paired with any
-
-  const network = dataSource.network()
-
   // TODO: This is slow, and this function is called quite often.
   // What could we do to improve this?
   for (let i = 0; i < WHITELIST.length; ++i) {
