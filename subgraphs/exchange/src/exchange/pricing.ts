@@ -10,9 +10,9 @@ import {
   USDC_WETH_PAIR,
   USDT_WETH_PAIR,
   WETH_ADDRESS,
-  WHITELIST,
 } from 'const'
-import { Address, BigDecimal, BigInt, ethereum, log } from '@graphprotocol/graph-ts'
+import { WHITELIST } from './exchange-constants'
+import { Address, BigDecimal, BigInt, dataSource, ethereum, log } from '@graphprotocol/graph-ts'
 import { Pair, Token } from '../../generated/schema'
 
 import { Factory as FactoryContract } from '../../generated/templates/Pair/Factory'
@@ -36,7 +36,7 @@ export function getEthPrice(block: ethereum.Block = null): BigDecimal {
   // TODO: We can can get weighted averages, but this will do for now.
   // If block number is less than or equal to the last stablecoin migration (ETH-USDT), use uniswap eth price.
   // After this last migration, we can use sushiswap pricing.
-  if (block !== null && block.number.le(BigInt.fromI32(10829344))) {
+  /*if (block !== null && block.number.le(BigInt.fromI32(10829344))) {
     // Uniswap Factory
     const uniswapFactory = FactoryContract.bind(Address.fromString('0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f'))
 
@@ -58,7 +58,7 @@ export function getEthPrice(block: ethereum.Block = null): BigDecimal {
       .div(BigDecimal.fromString('1000000'))
 
     return ethPrice
-  }
+  }*/
 
   // fetch eth prices for each stablecoin
   const daiPair = Pair.load(DAI_WETH_PAIR) // dai is token0
@@ -96,7 +96,6 @@ export function findEthPerToken(token: Token): BigDecimal {
   }
 
   // loop through whitelist and check if paired with any
-
   // TODO: This is slow, and this function is called quite often.
   // What could we do to improve this?
   for (let i = 0; i < WHITELIST.length; ++i) {

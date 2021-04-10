@@ -1,5 +1,6 @@
-import { ADDRESS_ZERO, BIG_DECIMAL_ZERO, MASTER_CHEF_ADDRESS, MINIMUM_USD_THRESHOLD_NEW_PAIRS, WHITELIST, BLACKLIST_EXCHANGE_VOLUME } from 'const'
-import { Address, BigDecimal, BigInt, log, store } from '@graphprotocol/graph-ts'
+import { ADDRESS_ZERO, BIG_DECIMAL_ZERO, MASTER_CHEF_ADDRESS, MINIMUM_USD_THRESHOLD_NEW_PAIRS } from 'const'
+import { WHITELIST, BLACKLIST_EXCHANGE_VOLUME } from '../exchange-constants'
+import { Address, BigDecimal, BigInt, log, store, dataSource } from '@graphprotocol/graph-ts'
 import { Burn, Mint, Pair, Swap, Token, Transaction } from '../../../generated/schema'
 import {
   Burn as BurnEvent,
@@ -40,6 +41,8 @@ export function getTrackedVolumeUSD(
   const bundle = getBundle()
   const price0 = token0.derivedETH.times(bundle.ethPrice)
   const price1 = token1.derivedETH.times(bundle.ethPrice)
+
+  const network = dataSource.network()
 
   // if less than 5 LPs, require high minimum reserve amount amount or return 0
   if (pair.liquidityProviderCount.lt(BigInt.fromI32(5))) {
@@ -96,6 +99,8 @@ export function getTrackedLiquidityUSD(
   const bundle = getBundle()
   const price0 = token0.derivedETH.times(bundle.ethPrice)
   const price1 = token1.derivedETH.times(bundle.ethPrice)
+
+  const network = dataSource.network()
 
   // both are whitelist tokens, take average of both amounts
   if (WHITELIST.includes(token0.id) && WHITELIST.includes(token1.id)) {
@@ -430,11 +435,38 @@ export function onMint(event: MintEvent): void {
 }
 
 export function onBurn(event: BurnEvent): void {
-  const transaction = Transaction.load(event.transaction.hash.toHex())
-  const burns = transaction.burns
-  const burn = Burn.load(burns[burns.length - 1])
-
+  const transactionHash = event.transaction.hash.toHex()
+  const transaction = Transaction.load(transactionHash)
   const pair = getPair(event.address)
+
+  if (transaction === null) {
+    transaction = new Transaction(transactionHash)
+    transaction.blockNumber = event.block.number
+    transaction.timestamp = event.block.timestamp
+    transaction.mints = new Array<string>()
+    transaction.burns = new Array<string>()
+    transaction.swaps = new Array<string>()
+    transaction.save()
+  }
+
+  const burns = transaction.burns
+  let burn: Burn | null = null
+
+  // If transaction has burns
+  if (transaction.burns.length) {
+    burn = Burn.load(burns[burns.length - 1])
+  }
+
+  // If no burn or burn complete, create new burn
+  if (burn === null || burn.complete) {
+    burn = new Burn(event.transaction.hash.toHex().concat('-').concat(BigInt.fromI32(burns.length).toString()))
+    burn.complete = true
+    burn.pair = pair.id
+    burn.liquidity = BIG_DECIMAL_ZERO
+    burn.transaction = transaction.id
+    burn.timestamp = transaction.timestamp
+  }
+
   const factory = getFactory()
 
   //update token info
