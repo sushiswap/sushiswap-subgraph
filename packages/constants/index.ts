@@ -34,7 +34,7 @@ export const SUSHI_BAR_ADDRESS = Address.fromString('0x0000000000000000000000000
 
 export const SUSHI_MAKER_ADDRESS = Address.fromString('0x0000000000000000000000000000000000000000')
 
-export const SUSHI_TOKEN_ADDRESS = Address.fromString('0x2995d1317dcd4f0ab89f4ae60f3f020a4f17c7ce')
+export const SUSHI_TOKEN_ADDRESS = Address.fromString('0x947950bcc74888a40ffa2593c5798f11fc9124c4')
 
 export const SUSHI_USDT_PAIR_ADDRESS = Address.fromString('0x0000000000000000000000000000000000000000')
 
@@ -46,11 +46,11 @@ export const SUSHI_DISTRIBUTOR_ADDRESS = Address.fromString('0x00000000000000000
 
 export const NULL_CALL_RESULT_VALUE = '0x0000000000000000000000000000000000000000000000000000000000000001'
 
-export const USDC_WETH_PAIR = '0xa227c72a4055a9dc949cae24f54535fe890d3663'
+export const USDC_WETH_PAIR = '0xc7632b7b2d768bbb30a404e13e1de48d1439ec21'
 
-export const DAI_WETH_PAIR = '0x7661feeea97179244b8343e0db044f9f1765e4d2'
+export const DAI_WETH_PAIR = '0xdc558d64c29721d74c4456cfb4363a6e6660a9bb'
 
-export const USDT_WETH_PAIR = '0x6685c047eab042297e659bfaa7423e94b4a14b9e'
+export const USDT_WETH_PAIR = '0x2905817b020fD35d9d09672946362b62766f0d69'
 
 export const SUSHI_USDT_PAIR = '0x0000000000000000000000000000000000000000'
 
@@ -60,11 +60,11 @@ export const MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString('0')
 // minimum liquidity for price to get tracked
 export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString('0')
 
-export const WETH_ADDRESS = Address.fromString('0xe91d153e0b41518a2ce8dd3d7944fa863463a97d')
+export const WETH_ADDRESS = Address.fromString('0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c')
 
-export const SUSHISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString('0x6685c047eab042297e659bfaa7423e94b4a14b9e')
+export const SUSHISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString('0x2905817b020fd35d9d09672946362b62766f0d69')
 
-export const USDT_ADDRESS = Address.fromString('0x4ecaba5870353805a9f068101a40e0f32ed605c6')
+export const USDT_ADDRESS = Address.fromString('0x55d398326f99059ff775485246999027b3197955')
 
 export const MASTER_CHEF_START_BLOCK = BigInt.fromI32(10750000)
 

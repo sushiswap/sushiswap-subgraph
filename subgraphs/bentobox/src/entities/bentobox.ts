@@ -7,9 +7,6 @@ export function getBentoBox(block: ethereum.Block): BentoBox {
 
   if (bentoBox === null) {
     bentoBox = new BentoBox(dataSource.address().toHex())
-    bentoBox.totalTokens = BIG_INT_ZERO
-    bentoBox.totalUsers = BIG_INT_ZERO
-    bentoBox.totalKashiPairs = BIG_INT_ZERO
   }
 
   bentoBox.block = block.number
