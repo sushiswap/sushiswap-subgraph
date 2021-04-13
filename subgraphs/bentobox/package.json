@@ -14,16 +14,20 @@
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 /sushiswap/bentobox",
 
     "deploy:mainnet": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/bentobox bentobox.yaml",
-    "deploy:ropsten": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ jiro-ono/bento bentobox.yaml",
+    "deploy:ropsten": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/ropsten-bentobox bentobox.yaml",
+    "deploy:bsc": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/bsc-bentobox bentobox.yaml",
+    "deploy:fantom": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/fantom-bentobox bentobox.yaml",
+    "deploy:matic": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/matic-bentobox bentobox.yaml",
+    "deploy:xdai": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/xdai-bentobox bentobox.yaml",
 
     "prepare:mainnet": "mustache config/mainnet.json bentobox.template.yaml > bentobox.yaml",
     "prepare:ropsten": "mustache config/ropsten.json bentobox.template.yaml > bentobox.yaml",
-    "prepare:bsc": ".",
-    "prepare:fantom": ".",
+    "prepare:bsc": "mustache config/bsc.json bentobox.template.yaml > bentobox.yaml",
+    "prepare:fantom": "mustache config/fantom.json bentobox.template.yaml > bentobox.yaml",
     "prepare:goerli": ".",
     "prepare:kovan": ".",
-    "prepare:matic": ".",
+    "prepare:matic": "mustache config/matic.json bentobox.template.yaml > bentobox.yaml",
     "prepare:rinkeby": ".",
-    "prepare:xdai": "."
+    "prepare:xdai": "mustache config/xdai.json bentobox.template.yaml > bentobox.yaml"
   }
 }

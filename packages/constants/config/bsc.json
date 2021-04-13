@@ -19,6 +19,6 @@
     "uniswap_weth_usdt_pair_address": "0x0000000000000000000000000000000000000000",
     "uniswap_sushi_eth_pair_address": "0x0000000000000000000000000000000000000000",
     "uniswap_sushi_usdt_pair_address": "0x0000000000000000000000000000000000000000",
-    "bentobox_address": "0x0000000000000000000000000000000000000000",
-    "kashi_pair_medium_risk_master_address": "0x0000000000000000000000000000000000000000"
+    "bentobox_address": "0xf5bce5077908a1b7370b9ae04adc565ebd643966",
+    "kashi_pair_medium_risk_master_address": "0x2cba6ab6574646badc84f0544d05059e57a5dc42"
 }

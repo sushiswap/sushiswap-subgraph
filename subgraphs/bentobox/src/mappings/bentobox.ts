@@ -15,7 +15,7 @@ import {
   LogSetMasterContractApproval,
   LogRegisterProtocol,
 } from '../../generated/BentoBox/BentoBox'
-import { Token, User, FlashLoan, Protocol } from '../../generated/schema'
+import { Token, User, FlashLoan, Protocol, Clone } from '../../generated/schema'
 import {
   getToken,
   getUser,
@@ -36,6 +36,14 @@ export function handleLogDeploy(event: LogDeploy): void {
     event.params.data.toHex(),
     event.params.cloneAddress.toHex()
   ])
+
+  let clone = new Clone(event.params.cloneAddress.toHex())
+  clone.bentoBox = event.address.toHex()
+  clone.masterContract = event.params.masterContract.toHex()
+  clone.data = event.params.data.toHex()
+  clone.block = event.block.number
+  clone.timestamp = event.block.timestamp
+  clone.save()
 
   if (event.params.masterContract == KASHI_PAIR_MEDIUM_RISK_MASTER_ADDRESS) {
     createKashiPair(event.params.cloneAddress, event.block, KASHI_PAIR_MEDIUM_RISK_TYPE)

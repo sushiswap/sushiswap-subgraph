@@ -52,7 +52,17 @@ type FlashLoan @entity {
 type MasterContract @entity {
   id: ID!
   bentoBox: BentoBox!
+  clones: [Clone!] @derivedFrom(field: "masterContract")
   masterContractApprovals: [MasterContractApproval!] @derivedFrom(field: "masterContract")
+}
+
+type Clone @entity {
+  id: ID!
+  bentoBox: BentoBox!
+  masterContract: MasterContract!
+  data: String!
+  block: BigInt!
+  timestamp: BigInt!
 }
 
 type MasterContractApproval @entity {
