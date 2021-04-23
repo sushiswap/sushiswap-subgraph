@@ -58,7 +58,7 @@ export const SUSHI_USDT_PAIR = '{{ sushi_usdt_pair }}'
 export const MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString('0')
 
 // minimum liquidity for price to get tracked
-export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString('0')
+export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString('5')
 
 export const WETH_ADDRESS = Address.fromString('{{ weth_address }}')
 
