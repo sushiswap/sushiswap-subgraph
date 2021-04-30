@@ -1,9 +1,9 @@
-import { Pool } from '../generated/schema'
+import { Pool } from '../../generated/schema'
 import { BigInt, Address, dataSource, ethereum } from '@graphprotocol/graph-ts'
 import { BIG_INT_ZERO, ADDRESS_ZERO } from 'const'
 import { getMiniChef } from './minichef'
 
-export function getPool(pid: BigInt, lpToken: Address, block: ethereum.Block): Pool {
+export function getPool(pid: BigInt, block: ethereum.Block): Pool {
   const miniChef = getMiniChef(block)
 
   let pool = Pool.load(pid.toString())

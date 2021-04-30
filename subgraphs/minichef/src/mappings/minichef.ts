@@ -6,11 +6,11 @@ import {
   LogPoolAddition,
   LogSetPool,
   LogUpdatePool,
-  LogRewardPerSecond,
+  LogSushiPerSecond,
   MiniChef as MiniChefContract
-} from '../generated/MiniChef/MiniChef'
+} from '../../generated/MiniChef/MiniChef'
 
-import { Address, BigDecimal, BigInt, dataSource, ethereum, log } from '@graphprotocol'
+import { Address, BigDecimal, BigInt, dataSource, ethereum, log } from '@graphprotocol/graph-ts'
 import {
   BIG_DECIMAL_1E12,
   BIG_DECIMAL_1E18,
@@ -21,7 +21,7 @@ import {
   MINI_CHEF_ADDRESS,
   ACC_SUSHI_PRECISION
 } from 'const'
-import { MiniChef, Pool, User } from '../generated/schema'
+import { MiniChef, Pool, User } from '../../generated/schema'
 
 import {
   getMiniChef,
@@ -29,8 +29,8 @@ import {
   getUser,
 } from '../entities'
 
-import { ERC20 as ERC20Contract } from '../generated/MiniChef/ERC20'
-import { Pair as PairContract } from '../generated/MiniChef/Pair'
+import { ERC20 as ERC20Contract } from '../../generated/MiniChef/ERC20'
+import { Pair as PairContract } from '../../generated/MiniChef/Pair'
 
 export function logPoolAddition(event: LogPoolAddition): void {
   log.info('[MiniChef] Log Pool Addition {} {} {} {}', [
@@ -64,7 +64,7 @@ export function logSetPool(event: LogSetPool): void {
   const miniChef = getMiniChef(event.block)
   const pool = getPool(event.params.pid, event.block)
 
-  if (event.params.overwrite == true) { pool.rewarder = rewarder }
+  if (event.params.overwrite == true) { pool.rewarder = event.params.rewarder }
   pool.allocPoint = event.params.allocPoint
   pool.save()
 
@@ -90,7 +90,7 @@ export function logUpdatePool(event: LogUpdatePool): void {
 }
 
 export function logSushiPerSecond(event: LogSushiPerSecond): void {
-  log.info('[MiniChef] Log Sushi Per Second {} {}', [
+  log.info('[MiniChef] Log Sushi Per Second {}', [
     event.params.sushiPerSecond.toString()
   ])
 

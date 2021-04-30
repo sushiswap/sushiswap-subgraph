@@ -1,10 +1,10 @@
-import { User } from '../generated/schema'
+import { User } from '../../generated/schema'
 import { BigInt, Address, ethereum } from '@graphprotocol/graph-ts'
 import { BIG_INT_ZERO, BIG_INT_ONE, MINI_CHEF_ADDRESS } from 'const'
 import { getMiniChef } from './minichef'
 import { getPool } from './pool'
 
-export function getUser(address: Address, pid: BigInt, block: ethereum.Block): Pool {
+export function getUser(address: Address, pid: BigInt, block: ethereum.Block): User {
   const miniChef = getMiniChef(block)
   const pool = getPool(pid, block)
 
@@ -20,12 +20,12 @@ export function getUser(address: Address, pid: BigInt, block: ethereum.Block): P
     user.rewardDebt = BIG_INT_ZERO
     user.sushiHarvested = BIG_INT_ZERO
 
-    miniChef.userCount = miniChef.userCount.plus(BIG_INT_ONE)
-    miniChef.save()
+    pool.userCount = pool.userCount.plus(BIG_INT_ONE)
+    pool.save()
   }
 
   user.timestamp = block.timestamp
-  user.block = block.numer
+  user.block = block.number
   user.save()
 
   return user as User
