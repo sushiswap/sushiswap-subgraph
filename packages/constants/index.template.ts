@@ -103,3 +103,9 @@ export const PAIR_REMOVE_ASSET = 'removeAsset'
 export const PAIR_BORROW = 'borrow'
 
 export const PAIR_REPAY = 'repay'
+
+
+// MiniChef
+export const MINI_CHEF_ADDRESS = Address.fromString('{{ minichef_address }}')
+
+export const ACC_SUSHI_PRECISION = BigDecimal.fromString('1e12')
