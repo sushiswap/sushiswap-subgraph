@@ -8,7 +8,6 @@
   "scripts": {
     "build": "yarn workspaces run build",
     "codegen": "yarn workspaces run codegen",
-
     "prepare:bsc": "yarn workspaces run prepare:bsc",
     "prepare:fantom": "yarn workspaces run prepare:fantom",
     "prepare:goerli": "yarn workspaces run prepare:goerli",
@@ -27,8 +26,8 @@
     "@typescript-eslint/parser": "^4.0.0",
     "eslint": "^7.0.0",
     "eslint-config-prettier": "^6.0.0",
+    "mustache": "^4.1.0",
     "prettier": "^2.0.0",
-    "typescript": "^4.0.0",
-    "mustache": "^4.1.0"
+    "typescript": "^4.0.0"
   }
 }

@@ -10,7 +10,6 @@
     "scripts": {
         "codegen": ".",
         "build": ".",
-
         "prepare:bsc": ".",
         "prepare:fantom": ".",
         "prepare:goerli": ".",

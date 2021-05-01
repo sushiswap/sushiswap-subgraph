@@ -8,7 +8,6 @@
   "scripts": {
     "codegen": ".",
     "build": ".",
-
     "prepare:bsc": "mustache config/bsc.json index.template.ts > index.ts",
     "prepare:fantom": "mustache config/fantom.json index.template.ts > index.ts",
     "prepare:goerli": "mustache config/goerli.json index.template.ts > index.ts",
