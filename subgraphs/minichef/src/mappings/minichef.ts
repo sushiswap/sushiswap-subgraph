@@ -27,10 +27,10 @@ import {
   getMiniChef,
   getPool,
   getUser,
+  getRewarder
 } from '../entities'
 
 import { ERC20 as ERC20Contract } from '../../generated/MiniChef/ERC20'
-import { Pair as PairContract } from '../../generated/MiniChef/Pair'
 
 export function logPoolAddition(event: LogPoolAddition): void {
   log.info('[MiniChef] Log Pool Addition {} {} {} {}', [
@@ -42,9 +42,10 @@ export function logPoolAddition(event: LogPoolAddition): void {
 
   const miniChef = getMiniChef(event.block)
   const pool = getPool(event.params.pid, event.block)
+  const rewarder = getRewarder(event.params.rewarder, event.block)
 
   pool.pair = event.params.lpToken
-  pool.rewarder = event.params.rewarder
+  pool.rewarder = rewarder.id
   pool.allocPoint = event.params.allocPoint
   pool.save()
 
@@ -64,7 +65,10 @@ export function logSetPool(event: LogSetPool): void {
   const miniChef = getMiniChef(event.block)
   const pool = getPool(event.params.pid, event.block)
 
-  if (event.params.overwrite == true) { pool.rewarder = event.params.rewarder }
+  if (event.params.overwrite == true) {
+     const rewarder = getRewarder(event.params.rewarder, event.block)
+     pool.rewarder = rewarder.id
+  }
   pool.allocPoint = event.params.allocPoint
   pool.save()
 

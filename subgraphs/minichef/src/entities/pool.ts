@@ -12,7 +12,6 @@ export function getPool(pid: BigInt, block: ethereum.Block): Pool {
     pool = new Pool(pid.toString())
     pool.miniChef = miniChef.id
     pool.pair = ADDRESS_ZERO
-    pool.rewarder = ADDRESS_ZERO
     pool.allocPoint = BIG_INT_ZERO
     pool.lastRewardTime = BIG_INT_ZERO
     pool.accSushiPerShare = BIG_INT_ZERO

@@ -20,6 +20,7 @@ dataSources:
         - MiniChef
         - Pool
         - User
+        - Rewarder
       abis:
         - name: MiniChef
           file: ./packages/abis/MiniChef.json
@@ -46,3 +47,22 @@ dataSources:
           handler: logUpdatePool
         - event: LogSushiPerSecond(uint256)
           handler: logSushiPerSecond
+templates:
+  - kind: ethereum/contract
+    name: ComplexRewarderTime
+    network: matic
+    source:
+      abi: ComplexRewarderTime
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappings/rewarder.ts
+      entities:
+        - Rewarder
+      abis:
+        - name: ComplexRewarderTime
+          file: ./packages/abis/ComplexRewarderTime.json
+      eventHandlers:
+        - event: LogRewardPerSecond(uint256)
+          handler: logRewardPerSecond

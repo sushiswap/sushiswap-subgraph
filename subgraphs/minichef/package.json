@@ -10,8 +10,8 @@
         "remove-local": "graph remove --node http://localhost:8020/ /sushiswap/sushiswap",
         "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 /sushiswap/sushiswap",
 
-        "deploy-matic": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/matic-minichef minichef.yaml",
-        
+        "deploy:matic": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/matic-minichef minichef.yaml",
+
         "prepare:matic": "mustache config/matic.json minichef.template.yaml > minichef.yaml"
     }
 }
