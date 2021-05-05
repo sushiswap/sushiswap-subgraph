@@ -1,4 +1,4 @@
-export const WHITELIST: string[] = [
+/*export const WHITELIST: string[] = [
     '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH
     '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599', // WBTC
     '0x6b175474e89094c44da98b954eedeac495271d0f', // DAI
@@ -21,7 +21,7 @@ export const WHITELIST: string[] = [
     '0x87d73e916d7057945c9bcd8cdd94e42a6f47f776', // NFTX
     '0xdfe66b14d37c77f4e9b180ceb433d1b164f0281d', // stETH
     '0xad32a8e6220741182940c5abf610bde99e737b2d' // DOUGH
-]
+]*/
 
 export const BLACKLIST_EXCHANGE_VOLUME: string[] = [
   '0x9ea3b5b4ec044b70375236a281986106457b20ef' // DELTA
@@ -40,14 +40,14 @@ export const BLACKLIST_EXCHANGE_VOLUME: string[] = [
 ]*/
 
 // Matic WHITELIST
-/*export const WHITELIST: string[] = [
+export const WHITELIST: string[] = [
   '0x7ceb23fd6bC0add59e62ac25578270cff1b9f619', // WETH
   '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270', // WMATIC
   '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174', // USDC
   '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063', // DAI
   '0xc2132d05d31c914a87c6611c10748aeb04b58e8f', // USDT
-
-]*/
+  '0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6', // WBTC
+]
 
 // xDAI WHITELIST
 /*export const WHITELIST: string[] = [

@@ -18,5 +18,6 @@
     "uniswap_factory_address": "0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f",
     "uniswap_weth_usdt_pair_address": "",
     "uniswap_sushi_eth_pair_address": "",
-    "uniswap_sushi_usdt_pair_address": ""
+    "uniswap_sushi_usdt_pair_address": "",
+    "min_liquidity_threshold": "0"
 }

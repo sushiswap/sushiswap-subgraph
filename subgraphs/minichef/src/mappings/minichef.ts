@@ -87,7 +87,7 @@ export function logUpdatePool(event: LogUpdatePool): void {
   const miniChef = getMiniChef(event.block)
   const pool = getPool(event.params.pid, event.block)
 
-  pool.slpBalance = event.params.lpSupply
+  //pool.slpBalance = event.params.lpSupply
   pool.accSushiPerShare = event.params.accSushiPerShare
   pool.lastRewardTime = event.params.lastRewardTime
   pool.save()
@@ -116,6 +116,9 @@ export function deposit(event: Deposit): void {
   const pool = getPool(event.params.pid, event.block)
   const user = getUser(event.params.to, event.params.pid, event.block)
 
+  pool.slpBalance = pool.slpBalance.plus(event.params.amount)
+  pool.save()
+
   user.amount = user.amount.plus(event.params.amount)
   user.rewardDebt = user.rewardDebt.plus(event.params.amount.times(pool.accSushiPerShare).div(ACC_SUSHI_PRECISION))
   user.save()
@@ -132,6 +135,9 @@ export function withdraw(event: Withdraw): void {
   const miniChef = getMiniChef(event.block)
   const pool = getPool(event.params.pid, event.block)
   const user = getUser(event.params.user, event.params.pid, event.block)
+
+  pool.slpBalance = pool.slpBalance.minus(event.params.amount)
+  pool.save()
 
   user.amount = user.amount.minus(event.params.amount)
   user.rewardDebt = user.rewardDebt.minus(event.params.amount.times(pool.accSushiPerShare).div(ACC_SUSHI_PRECISION))
