@@ -41,7 +41,7 @@ export const BLACKLIST_EXCHANGE_VOLUME: string[] = [
 
 // Matic WHITELIST
 export const WHITELIST: string[] = [
-  '0x7ceb23fd6bC0add59e62ac25578270cff1b9f619', // WETH
+  '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619', // WETH
   '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270', // WMATIC
   '0x2791bca1f2de4661ed88a30c99a7a9449aa84174', // USDC
   '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063', // DAI
