@@ -23,7 +23,10 @@ Current subgraph locations:
 
 6. **SushiSwap-SubGraph-Fork** (on uniswap-fork branch): Indexes the SushiSwap Factory, includes Price Data, Pricing, etc: https://thegraph.com/explorer/subgraph/jiro-ono/sushiswap-v1-exchange
 
-7. **BentoBox**: Index BentoBox and Kashi Lending data: https://thegraph.com/explorer/subgraph/sushiswap/bentobox
+7. **BentoBox**: Indexes BentoBox and Kashi Lending data: https://thegraph.com/explorer/subgraph/sushiswap/bentobox
+
+8. **MiniChef**: Indexes MiniChef contracts that are used in place of MasterChefs for alternate networks:
+  + https://thegraph.com/explorer/subgraph/sushiswap/matic-minichef
 
 ## To setup and deploy
 

@@ -1,0 +1,17 @@
+{
+    "name": "minichef",
+    "license": "MIT",
+    "version": "1.0.0",
+    "author": "SushiSwap",
+    "scripts": {
+        "codegen": "graph codegen minichef.yaml",
+        "build": "graph build minichef.yaml",
+        "create-local": "graph create --node http://localhost:8020/ /sushiswap/sushiswap",
+        "remove-local": "graph remove --node http://localhost:8020/ /sushiswap/sushiswap",
+        "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 /sushiswap/sushiswap",
+
+        "deploy:matic": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/matic-minichef minichef.yaml",
+
+        "prepare:matic": "mustache config/matic.json minichef.template.yaml > minichef.yaml"
+    }
+}
