@@ -1,0 +1,57 @@
+specVersion: 0.0.1
+description: TopDog
+repository: https://github.com/kaaldhairya/shibaswap-subgraph
+schema:
+  file: ./topdog.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: TopDog
+    network: {{ network }}
+    source:
+      address: '{{ address }}'
+      abi: TopDog
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - TopDog
+        - History
+        - Pool
+        - PoolHistory
+        - User
+      abis:
+        - name: TopDog
+          file: ../../packages/ssabis/TopDog.json
+        - name: Factory
+          file: ../../packages/ssabis/UniswapV2Factory.json
+        - name: Pair
+          file: ../../packages/ssabis/UniswapV2Pair.json
+        - name: ERC20
+          file: ../../packages/ssabis/ERC20.json
+      eventHandlers:
+        - event: Deposit(indexed address,indexed uint256,uint256)
+          handler: deposit
+        - event: EmergencyWithdraw(indexed address,indexed uint256,uint256)
+          handler: emergencyWithdraw
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: ownershipTransferred
+        - event: Withdraw(indexed address,indexed uint256,uint256)
+          handler: withdraw
+      callHandlers:
+        - function: add(uint256,address,bool)
+          handler: add
+        - function: set(uint256,uint256,bool)
+          handler: set
+        - function: massUpdatePools()
+          handler: massUpdatePools
+        - function: updatePool(uint256)
+          handler: updatePool
+        - function: setMigrator(address)
+          handler: setMigrator
+        - function: migrate(uint256)
+          handler: migrate
+        - function: dev(address)
+          handler: dev
+      file: ./src/topdog.ts

@@ -1,0 +1,243 @@
+# TopDog
+type TopDog @entity {
+  # Contract address
+  id: ID!
+
+  # Bonus multiplier
+  bonusMultiplier: BigInt!
+
+  # Bonus end block
+  bonusEndBlock: BigInt!
+
+  # Dev fund address
+  devaddr: Bytes!
+
+  # Migrator
+  migrator: Bytes!
+
+  # Owner
+  owner: Bytes!
+
+  # Start block
+  startBlock: BigInt!
+
+  # Bone
+  bone: Bytes!
+
+  # Bone per block
+  bonePerBlock: BigInt!
+
+  # Total allocation point
+  totalAllocPoint: BigInt!
+
+  # Pools
+  pools: [Pool!]! @derivedFrom(field: "owner")
+
+  # Pool count
+  poolCount: BigInt!
+
+  # SSLP Balance
+  sslpBalance: BigDecimal!
+
+  # SLP Age
+  sslpAge: BigDecimal!
+
+  # SLP Removed
+  sslpAgeRemoved: BigDecimal!
+
+  # SLP Deposited
+  sslpDeposited: BigDecimal!
+
+  # SLP Withdrawn
+  sslpWithdrawn: BigDecimal!
+
+  # History
+  history: [History!]! @derivedFrom(field: "owner")
+
+  # Upated at
+  updatedAt: BigInt!
+}
+
+type History @entity {
+  # TopDog id concatenated with timestamp
+  id: ID!
+
+  # Owner (TopDog, Pool, or User).
+  owner: TopDog!
+
+  # SLP Balance
+  sslpBalance: BigDecimal!
+
+  # SLP Age
+  sslpAge: BigDecimal!
+
+  # SLP Removed
+  sslpAgeRemoved: BigDecimal!
+
+  # SLP Deposited
+  sslpDeposited: BigDecimal!
+
+  # SLP Withdrawn
+  sslpWithdrawn: BigDecimal!
+
+  # Timestamp
+  timestamp: BigInt!
+
+  # Block
+  block: BigInt!
+}
+
+# Pool
+type Pool @entity {
+  # Index of pool in poolInfo on TopDog contract
+  id: ID!
+
+  # Owner
+  owner: TopDog!
+
+  # Pair Liquidity Token Address
+  pair: Bytes!
+
+  # Allocation point
+  allocPoint: BigInt!
+
+  # Last reward block
+  lastRewardBlock: BigInt!
+
+  # Accumulated bone per share
+  accBonePerShare: BigInt!
+
+  # SSLP token balance
+  balance: BigInt!
+
+  # Pool users
+  users: [User!]! @derivedFrom(field: "pool")
+
+  # User count
+  userCount: BigInt!
+
+  # SSLP Balance
+  sslpBalance: BigDecimal!
+
+  # SSLP Age
+  sslpAge: BigDecimal!
+
+  # SSLP Removed
+  sslpAgeRemoved: BigDecimal!
+
+  # SSLP Deposited
+  sslpDeposited: BigDecimal!
+
+  # SSLP Withdrawn
+  sslpWithdrawn: BigDecimal!
+
+  # Timestamp
+  timestamp: BigInt!
+
+  # Block
+  block: BigInt!
+
+  # Upated at
+  updatedAt: BigInt!
+
+  # Entry USD
+  entryUSD: BigDecimal!
+
+  # Exit USD
+  exitUSD: BigDecimal!
+
+  # Bone harvested
+  boneHarvested: BigDecimal!
+
+  # Bone harvested
+  boneHarvestedUSD: BigDecimal!
+}
+
+type PoolHistory @entity {
+  # Pool id concatenated with timestamp
+  id: ID!
+
+  # Pool
+  pool: Pool!
+
+  # SSLP Balance
+  sslpBalance: BigDecimal!
+
+  # SSLP Age
+  sslpAge: BigDecimal!
+
+  # SSLP Removed
+  sslpAgeRemoved: BigDecimal!
+
+  # SLP Deposited
+  sslpDeposited: BigDecimal!
+
+  # SLP Withdrawn
+  sslpWithdrawn: BigDecimal!
+
+  # User Count
+  userCount: BigInt!
+
+  # Timestamp
+  timestamp: BigInt!
+
+  # Block
+  block: BigInt!
+
+  # Entry USD
+  entryUSD: BigDecimal!
+
+  # Exit USD
+  exitUSD: BigDecimal!
+
+  # Bone harvested
+  boneHarvested: BigDecimal!
+
+  # Bone harvested
+  boneHarvestedUSD: BigDecimal!
+}
+
+type User @entity {
+  # Pool id concatenated with user address
+  id: ID!
+
+  # User address
+  address: Bytes!
+
+  # Related pool
+  pool: Pool
+
+#   BELOW NEEDS TO BE CHANGED TO FROM SHIBA REPO
+#   We do some fancy math here. Basically, any point in time, the amount of SUSHIs
+#   entitled to a user but is pending to be distributed is:
+#   pending reward = (user.amount * pool.accSushiPerShare) - user.rewardDebt
+#   Whenever a user deposits or withdraws LP tokens to a pool. Here's what happens:
+#   1. The pool's `accSushiPerShare` (and `lastRewardBlock`) gets updated.
+#   2. User receives the pending reward sent to his/her address.
+#   3. User's `amount` gets updated.
+#   4. User's `rewardDebt` gets updated.
+
+  # Amount
+  amount: BigInt!
+
+  # Reward debt
+  rewardDebt: BigInt!
+
+  # Entry USD
+  entryUSD: BigDecimal!
+
+  # Exit USD
+  exitUSD: BigDecimal!
+
+  # Bone harvested
+  boneHarvested: BigDecimal!
+
+  # Bone harvested
+  boneHarvestedUSD: BigDecimal!
+
+  # Timestamp
+  timestamp: BigInt!
+
+  # Block
+  block: BigInt!
+}

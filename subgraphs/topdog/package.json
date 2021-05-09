@@ -1,0 +1,23 @@
+{
+    "name": "topdog",
+    "license": "MIT",
+    "version": "1.0.0",
+    "author": "ShibaSwap",
+    "scripts": {
+        "codegen": "graph codegen topdog.yaml",
+        "build": "graph build topdog.yaml",
+        "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ shibaswap/topdog topdog.yaml",
+        "create-local": "graph create --node http://localhost:8020/ /shibaswap/shibaswap",
+        "remove-local": "graph remove --node http://localhost:8020/ /shibaswap/shibaswap",
+        "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 /shibaswap/shibaswap",
+        "prepare:bsc": "mustache config/bsc.json topdog.template.yaml > topdog.yaml",
+        "prepare:fantom": "mustache config/fantom.json topdog.template.yaml > topdog.yaml",
+        "prepare:goerli": "mustache config/goerli.json topdog.template.yaml > topdog.yaml",
+        "prepare:kovan": "mustache config/kovan.json topdog.template.yaml > topdog.yaml",
+        "prepare:mainnet": "mustache config/mainnet.json topdog.template.yaml > topdog.yaml",
+        "prepare:matic": "mustache config/matic.json topdog.template.yaml > topdog.yaml",
+        "prepare:rinkeby": "mustache config/rinkeby.json topdog.template.yaml > topdog.yaml",
+        "prepare:ropsten": "mustache config/ropsten.json topdog.template.yaml > topdog.yaml",
+        "prepare:xdai": "mustache config/xdai.json topdog.template.yaml > topdog.yaml"
+    }
+}
