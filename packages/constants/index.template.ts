@@ -78,6 +78,10 @@ export const UNISWAP_SUSHI_ETH_PAIR_ADDRESS = Address.fromString('{{ uniswap_sus
 
 export const UNISWAP_SUSHI_USDT_PAIR_ADDRESS = Address.fromString('{{ uniswap_sushi_usdt_pair_address }}')
 
+// Need to put address according to the network
+export const SHIBASWAP_TOPDOG_ADDRESS = Address.fromString("0x3107713B76193C2648ddf20E3206f753b66e3553")
+export const SHIBASWAP_TOPDOG_START_BLOCK = BigInt.fromI32(24302209)
+
 
 // Bentobox constants
 export const BENTOBOX_ADDRESS = Address.fromString('{{ bentobox_address }}')

@@ -1,6 +1,6 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 description: TopDog
-repository: https://github.com/shibaswap/shibaswap-subgraph
+repository: https://github.com/kaaldhairya/shibaswap-subgraph
 schema:
   file: ./topdog.graphql
 dataSources:
@@ -10,7 +10,7 @@ dataSources:
     source:
       address: '0x3107713B76193C2648ddf20E3206f753b66e3553'
       abi: TopDog
-      startBlock: 10736242
+      startBlock: 24302209
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4

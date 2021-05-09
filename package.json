@@ -1,5 +1,5 @@
 {
-  "name": "@sushiswap/subgraphs",
+  "name": "@shibaswap/subgraphs",
   "private": true,
   "workspaces": [
     "packages/*",
