@@ -53,6 +53,12 @@ export function getSymbol(address: Address): string {
   if (address.toHex() == '0x5dbcf33d8c2e976c6b560249878e6f1491bca25c') {
     return 'yUSD'
   }
+  if (address.toHex() == '0x0309c98b1bffa350bcb3f9fb9780970ca32a5060') {
+    return 'BDI'
+  }
+  if (address.toHex() == '0x3fa729b4548becbad4eab6ef18413470e6d5324c') {
+    return 'MOVE'
+  }
 
   const contract = ERC20.bind(address)
   const contractSymbolBytes = ERC20SymbolBytes.bind(address)
@@ -87,6 +93,12 @@ export function getName(address: Address): string {
   }
   if (address.toHex() == '0xf94b5c5651c888d928439ab6514b93944eee6f48') {
     return 'Yield App'
+  }
+  if (address.toHex() == '0x0309c98b1bffa350bcb3f9fb9780970ca32a5060') {
+    return 'BasketDAO DeFi Index'
+  }
+  if (address.toHex() == '0x3fa729b4548becbad4eab6ef18413470e6d5324c') {
+    return 'Mover'
   }
 
   const contract = ERC20.bind(address)

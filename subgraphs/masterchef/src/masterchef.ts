@@ -69,6 +69,11 @@ export function getPool(id: BigInt, block: ethereum.Block): Pool {
     const masterChef = getMasterChef(block)
 
     const masterChefContract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
+    const poolLength = masterChefContract.poolLength()
+
+    if (id >= poolLength) {
+      return null
+    }
 
     // Create new pool.
     pool = new Pool(id.toString())
@@ -186,6 +191,11 @@ export function add(event: AddCall): void {
 
   const pool = getPool(masterChef.poolCount, event.block)
 
+  if (pool === null) {
+    log.error('Pool added with id greater than poolLength, pool #{}', [masterChef.poolCount.toString()])
+    return
+  }
+
   // Update MasterChef.
   masterChef.totalAllocPoint = masterChef.totalAllocPoint.plus(pool.allocPoint)
   masterChef.poolCount = masterChef.poolCount.plus(BIG_INT_ONE)
@@ -277,11 +287,11 @@ export function deposit(event: Deposit): void {
 
   const amount = event.params.amount.divDecimal(BIG_DECIMAL_1E18)
 
-  // log.info('{} has deposited {} slp tokens to pool #{}', [
-  //   event.params.user.toHex(),
-  //   event.params.amount.toString(),
-  //   event.params.pid.toString(),
-  // ])
+  /*log.info('{} has deposited {} slp tokens to pool #{}', [
+    event.params.user.toHex(),
+    event.params.amount.toString(),
+    event.params.pid.toString(),
+  ])*/
 
   const masterChefContract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
 

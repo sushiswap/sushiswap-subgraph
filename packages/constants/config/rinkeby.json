@@ -19,5 +19,8 @@
     "uniswap_weth_usdt_pair_address": "",
     "uniswap_sushi_eth_pair_address": "",
     "uniswap_sushi_usdt_pair_address": "",
-    "min_liquidity_threshold": "0"
+    "bentobox_address": "",
+    "kashi_pair_medium_risk_master_address": "",
+    "minichef_address": "0x0000000000000000000000000000000000000000",
+    "min_liquidity_threshold": "0",
 }
