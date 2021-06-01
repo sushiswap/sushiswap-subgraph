@@ -30,6 +30,8 @@ export const LOCKUP_BLOCK_NUMBER = BigInt.fromI32(10959148)
 
 export const MASTER_CHEF_ADDRESS = Address.fromString('{{ masterchef_address }}')
 
+export const MASTER_CHEF_V2_ADDRESS = Address.fromString('0xef0881ec094552b2e128cf945ef17a6752b4ec5d')
+
 export const SUSHI_BAR_ADDRESS = Address.fromString('{{ sushi_bar_address }}')
 
 export const SUSHI_MAKER_ADDRESS = Address.fromString('{{ sushi_maker_address }}')
