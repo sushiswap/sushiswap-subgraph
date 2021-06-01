@@ -30,6 +30,8 @@ export const LOCKUP_BLOCK_NUMBER = BigInt.fromI32(10959148)
 
 export const MASTER_CHEF_ADDRESS = Address.fromString('0xc2edad668740f1aa35e4d8f227fb8e17dca888cd')
 
+export const MASTER_CHEF_V2_ADDRESS = Address.fromString('0xEF0881eC094552b2e128Cf945EF17a6752B4Ec5d')
+
 export const SUSHI_BAR_ADDRESS = Address.fromString('0x8798249c2e607446efb7ad49ec89dd1865ff4272')
 
 export const SUSHI_MAKER_ADDRESS = Address.fromString('0xe11fc0b43ab98eb91e9836129d1ee7c3bc95df50')
