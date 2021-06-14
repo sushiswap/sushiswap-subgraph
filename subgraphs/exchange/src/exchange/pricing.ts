@@ -96,6 +96,34 @@ export function getEthPrice(block: ethereum.Block = null): BigDecimal {
     return BIG_DECIMAL_ZERO
   }
 
+  // FTM version
+  // DAI -> token0
+  // USDT -> token0
+  // USDC -> token0
+  // all 3 have been created, get the weighted average of them
+  /*if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
+    const totalLiquidityETH = daiPair.reserve1.plus(usdcPair.reserve1).plus(usdtPair.reserve1)
+    const daiWeight = daiPair.reserve1.div(totalLiquidityETH)
+    const usdcWeight = usdcPair.reserve1.div(totalLiquidityETH)
+    const usdtWeight = usdtPair.reserve1.div(totalLiquidityETH)
+    return daiPair.token0Price
+      .times(daiWeight)
+      .plus(usdcPair.token0Price.times(usdcWeight))
+      .plus(usdtPair.token0Price.times(usdtWeight))
+    // dai and USDC have been created
+  } else if (daiPair !== null && usdcPair !== null) {
+    const totalLiquidityETH = daiPair.reserve1.plus(usdcPair.reserve1)
+    const daiWeight = daiPair.reserve1.div(totalLiquidityETH)
+    const usdcWeight = usdcPair.reserve1.div(totalLiquidityETH)
+    return daiPair.token0Price.times(daiWeight).plus(usdcPair.token0Price.times(usdcWeight))
+    // USDC is the only pair so far
+  } else if (usdcPair !== null) {
+    return usdcPair.token0Price
+  } else {
+    log.warning('No eth pair...', [])
+    return BIG_DECIMAL_ZERO
+  }*/
+
   // Matic version
   // DAI -> token1
   // USDT -> token1

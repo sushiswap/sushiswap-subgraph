@@ -10,7 +10,7 @@
     "sushi_distributor_address": "0x0000000000000000000000000000000000000000",
     "usdc_weth_pair": "0xa48869049e36f8bfe0cc5cf655632626988c0140",
     "dai_weth_pair": "0xd32f2eb49e91aa160946f3538564118388d6246a",
-    "usdt_weth_pair": "0x9555cbdfe51d1619fc199ba0b623516fbd02b0a3",
+    "usdt_weth_pair": "0xd019dd7c760c6431797d6ed170bffb8faee11f99",
     "sushi_usdt_pair": "0x0000000000000000000000000000000000000000",
     "weth_address": "0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83",
     "sushiswap_weth_usdt_pair_address": "0x9555cbdfe51d1619fc199ba0b623516fbd02b0a3",
