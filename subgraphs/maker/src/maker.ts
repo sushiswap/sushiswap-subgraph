@@ -51,8 +51,8 @@ export function served(event: SwapEvent): void {
   const token1 = Address.fromString(ByteArray.fromHexString(input.substring(98, 138)).toHexString())
 
   const factoryContract = FactoryContract.bind(FACTORY_ADDRESS)
-  const token0Contract = ERC20Contract.bind(token0)
-  const token1Contract = ERC20Contract.bind(token1)
+  ERC20Contract.bind(token0)
+  ERC20Contract.bind(token1)
 
   const pair = factoryContract.getPair(token0, token1)
 
