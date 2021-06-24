@@ -27,7 +27,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: Pair
-    network: {{ startBlock }}
+    network: {{ network }}
     source:
       abi: Pair
     mapping:
