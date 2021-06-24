@@ -2,7 +2,7 @@ specVersion: 0.0.3
 description: Timelock
 repository: https://github.com/sushiswap/sushiswap-subgraph
 schema:
-  file: ./timelock.graphql
+  file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: Timelock

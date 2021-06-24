@@ -2,7 +2,7 @@ specVersion: 0.0.2
 description: DEX trades candles (5m/15m/1h/4h/1d/1w)
 repository: https://github.com/sushiswap/sushiswap-subgraph
 schema:
-  file: ./dexcandles.graphql
+  file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: Factory

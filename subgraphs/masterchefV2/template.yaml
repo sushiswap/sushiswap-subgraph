@@ -2,7 +2,7 @@ specVersion: 0.0.3
 description: MasterChefV2
 repository: https://github.com/sushiswap/sushiswap-subgraph
 schema:
-  file: ./masterchefV2.graphql
+  file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: MasterChefV2

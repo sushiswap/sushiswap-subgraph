@@ -2,7 +2,7 @@ specVersion: 0.0.3
 description: MiniChef
 repository: https://github.com/sushiswap/sushiswap-subgraph
 schema:
-  file: ./minichef.graphql
+  file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: MiniChef
