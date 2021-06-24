@@ -113,6 +113,8 @@ export const MINI_CHEF_ADDRESS = Address.fromString('{{ minichef_address }}')
 export const ACC_SUSHI_PRECISION = BigInt.fromString('1000000000000')
 
 // Matic Complex Rewarder (note: putting here for now since we don't need to fill in every config file with this address)
-export const MATIC_COMPLEX_REWARDER = Address.fromString('0xa3378ca78633b3b9b2255eaa26748770211163ae')
+export const MATIC_COMPLEX_REWARDER = Address.fromString('{{ complex_rewarder_address }}')
 
 export const WMATIC_ADDRESS = Address.fromString('0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270')
+
+export const WNATIVE_ADDRESS = Address.fromString('{{ wrapped_native_address }}')

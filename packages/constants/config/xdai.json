@@ -21,6 +21,8 @@
     "uniswap_sushi_usdt_pair_address": "0x0000000000000000000000000000000000000000",
     "bentobox_address": "0xf5bce5077908a1b7370b9ae04adc565ebd643966",
     "kashi_pair_medium_risk_master_address": "0x2cba6ab6574646badc84f0544d05059e57a5dc42",
-      "minichef_address": "0x0000000000000000000000000000000000000000",
+    "minichef_address": "0xddcbf776df3de60163066a5dddf2277cb445e0f3",
+    "complex_rewarder_address": "0x4864984234195a1a97fba52038e3ad61a1dd16e4",
+    "wrapped_native_address": "0xe91d153e0b41518a2ce8dd3d7944fa863463a97d",
     "min_liquidity_threshold": "1000"
 }
