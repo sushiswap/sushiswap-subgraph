@@ -4,20 +4,20 @@
   "version": "1.0.0",
   "author": "SushiSwap",
   "scripts": {
-    "codegen": "graph codegen lockup.yaml",
-    "build": "graph build lockup.yaml",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/lockup lockup.yaml",
+    "codegen": "graph codegen subgraph.yaml",
+    "build": "graph build subgraph.yaml",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/lockup subgraph.yaml",
     "create-local": "graph create --node http://localhost:8020/ /sushiswap/sushiswap",
     "remove-local": "graph remove --node http://localhost:8020/ /sushiswap/sushiswap",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 /sushiswap/sushiswap",
-    "prepare:bsc": "mustache config/bsc.json lockup.template.yaml > lockup.yaml",
-    "prepare:fantom": "mustache config/fantom.json lockup.template.yaml > lockup.yaml",
-    "prepare:goerli": "mustache config/goerli.json lockup.template.yaml > lockup.yaml",
-    "prepare:kovan": "mustache config/kovan.json lockup.template.yaml > lockup.yaml",
-    "prepare:mainnet": "mustache config/mainnet.json lockup.template.yaml > lockup.yaml",
-    "prepare:matic": "mustache config/matic.json lockup.template.yaml > lockup.yaml",
-    "prepare:rinkeby": "mustache config/rinkeby.json lockup.template.yaml > lockup.yaml",
-    "prepare:ropsten": "mustache config/ropsten.json lockup.template.yaml > lockup.yaml",
-    "prepare:xdai": "mustache config/xdai.json lockup.template.yaml > lockup.yaml"
+    "prepare:bsc": "mustache config/bsc.json template.yaml > subgraph.yaml",
+    "prepare:fantom": "mustache config/fantom.json template.yaml > subgraph.yaml",
+    "prepare:goerli": "mustache config/goerli.json template.yaml > subgraph.yaml",
+    "prepare:kovan": "mustache config/kovan.json template.yaml > subgraph.yaml",
+    "prepare:mainnet": "mustache config/mainnet.json template.yaml > subgraph.yaml",
+    "prepare:matic": "mustache config/matic.json template.yaml > subgraph.yaml",
+    "prepare:rinkeby": "mustache config/rinkeby.json template.yaml > subgraph.yaml",
+    "prepare:ropsten": "mustache config/ropsten.json template.yaml > subgraph.yaml",
+    "prepare:xdai": "mustache config/xdai.json template.yaml > subgraph.yaml"
   }
 }
