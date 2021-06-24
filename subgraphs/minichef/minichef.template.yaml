@@ -50,7 +50,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: ComplexRewarderTime
-    network: matic
+    network: {{ network }}
     source:
       abi: ComplexRewarderTime
     mapping:
