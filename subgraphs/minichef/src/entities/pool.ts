@@ -1,6 +1,7 @@
+import { ADDRESS_ZERO, BIG_INT_ZERO } from 'const'
+import { Address, BigInt, dataSource, ethereum } from '@graphprotocol/graph-ts'
+
 import { Pool } from '../../generated/schema'
-import { BigInt, Address, dataSource, ethereum } from '@graphprotocol/graph-ts'
-import { BIG_INT_ZERO, ADDRESS_ZERO } from 'const'
 import { getMiniChef } from './minichef'
 
 export function getPool(pid: BigInt, block: ethereum.Block): Pool {
@@ -10,7 +11,7 @@ export function getPool(pid: BigInt, block: ethereum.Block): Pool {
 
   if (pool === null) {
     pool = new Pool(pid.toString())
-    pool.miniChef = miniChef.id
+    pool.owner = miniChef.id
     pool.pair = ADDRESS_ZERO
     pool.allocPoint = BIG_INT_ZERO
     pool.lastRewardTime = BIG_INT_ZERO
