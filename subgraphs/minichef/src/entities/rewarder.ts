@@ -1,13 +1,13 @@
-import { Rewarder } from '../../generated/schema'
-import { ComplexRewarderTime as ComplexRewarderTemplate } from '../../generated/templates'
-import { ComplexRewarderTime as ComplexRewarderContract } from '../../generated/templates/ComplexRewarderTime/ComplexRewarderTime'
-import { BigInt, Address, dataSource, ethereum, log } from '@graphprotocol/graph-ts'
 import {
-  BIG_INT_ZERO,
   ADDRESS_ZERO,
+  BIG_INT_ZERO,
   MATIC_COMPLEX_REWARDER,
-  WMATIC_ADDRESS
+  WNATIVE_ADDRESS
 } from 'const'
+import { Address, ethereum } from '@graphprotocol/graph-ts'
+
+import { ComplexRewarderTime as ComplexRewarderTemplate } from '../../generated/templates'
+import { Rewarder } from '../../generated/schema'
 
 export function getRewarder(address: Address, block: ethereum.Block): Rewarder {
   let rewarder = Rewarder.load(address.toHex())
@@ -19,7 +19,7 @@ export function getRewarder(address: Address, block: ethereum.Block): Rewarder {
 
     if (address == MATIC_COMPLEX_REWARDER) {
         rewarder.rewardPerSecond = BIG_INT_ZERO
-        rewarder.rewardToken = WMATIC_ADDRESS
+        rewarder.rewardToken = WNATIVE_ADDRESS
         ComplexRewarderTemplate.create(address)
     }
   }
