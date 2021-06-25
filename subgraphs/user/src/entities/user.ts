@@ -13,11 +13,10 @@ export function getUser(address: Address, block: ethereum.Block): User {
     user.eoa = false
     user.createdAtTimestamp = block.timestamp
     user.createdAtBlock = block.number
-  } else {
-    user.updatedAtTimestamp = block.timestamp
-    user.updatedAtBlock = block.number
   }
 
+  user.updatedAtTimestamp = block.timestamp
+  user.updatedAtBlock = block.number
 
   user.save()
 
