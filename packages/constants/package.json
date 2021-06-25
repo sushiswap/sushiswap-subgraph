@@ -16,6 +16,7 @@
     "prepare:matic": "mustache config/matic.json index.template.ts > index.ts",
     "prepare:rinkeby": "mustache config/rinkeby.json index.template.ts > index.ts",
     "prepare:ropsten": "mustache config/ropsten.json index.template.ts > index.ts",
-    "prepare:xdai": "mustache config/xdai.json index.template.ts > index.ts"
+    "prepare:xdai": "mustache config/xdai.json index.template.ts > index.ts",
+    "prepare:okex": "mustache config/okex.json index.template.ts > index.ts"
   }
 }
