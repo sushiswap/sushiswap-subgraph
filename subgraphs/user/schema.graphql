@@ -1,0 +1,8 @@
+type User @entity {
+  id: ID!
+  eoa: Boolean!
+  createdAtTimestamp: BigInt!
+  createdAtBlock: BigInt!
+  updatedAtTimestamp: BigInt!
+  updatedAtBlock: BigInt!
+}

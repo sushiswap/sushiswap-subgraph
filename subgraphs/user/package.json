@@ -1,0 +1,12 @@
+{
+    "name": "user",
+    "license": "MIT",
+    "version": "1.0.0",
+    "author": "SushiSwap",
+    "scripts": {
+        "codegen": "graph codegen subgraph.yaml",
+        "build": "graph build subgraph.yaml",
+        "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/user subgraph.yaml",
+        "prepare": "mustache config/mainnet.json template.yaml > subgraph.yaml"
+    }
+}
