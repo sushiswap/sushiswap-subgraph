@@ -1,5 +1,5 @@
 import { Address, log } from '@graphprotocol/graph-ts'
-import { BIG_DECIMAL_ZERO, FACTORY_ADDRESS, SUSHI_MAKER_ADDRESS } from 'const'
+import { BIG_DECIMAL_ZERO, FACTORY_ADDRESS, SUSHI_MAKER_ADDRESS } from '../../../packages/constants'
 import { Maker, Server, Serving } from '../generated/schema'
 import { Factory as FactoryContract } from '../generated/Maker/Factory'
 import { LogConvert as LogConvertEvent } from '../generated/Maker/Maker'
@@ -60,7 +60,7 @@ export function handleLogConvert(event: LogConvertEvent): void {
   serving.amountSUSHI = event.params.amountSUSHI
   serving.save()
 
-  log.debug('sushiServed amount0 tx  ; {} {} {}', [serving.amountSUSHI.toString(), event.params.amount0.toString(), serving.tx.toHexString()])
+  // log.debug('sushiServed amount0 tx  ; {} {} {}', [serving.amountSUSHI.toString(), event.params.amount0.toString(), serving.tx.toHexString()])
 
   server.sushiServed = server.sushiServed.plus(amountSUSHI)
   server.save()
