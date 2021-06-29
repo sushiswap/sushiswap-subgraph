@@ -6,7 +6,7 @@ dataSources:
     name: Maker
     network: mainnet
     source:
-      address: '0xE11fc0B43ab98Eb91e9836129d1ee7c3Bc95df50'
+      address: "0xE11fc0B43ab98Eb91e9836129d1ee7c3Bc95df50"
       abi: Maker
       startBlock: 11626958
     mapping:
@@ -29,4 +29,4 @@ dataSources:
       eventHandlers:
         - event: LogConvert(indexed address,indexed address,indexed address,uint256,uint256,uint256)
           handler: handleLogConvert
-      file: ./src/mapping.ts
+      file: ./src/maker.ts
