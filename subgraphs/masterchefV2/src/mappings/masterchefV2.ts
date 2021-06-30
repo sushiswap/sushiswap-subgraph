@@ -65,11 +65,12 @@ export function logSetPool(event: LogSetPool): void {
      //const rewarder = getRewarder(event.params.rewarder, event.block)
      pool.rewarder = event.params.rewarder
   }
-  pool.allocPoint = event.params.allocPoint
-  pool.save()
 
   masterChef.totalAllocPoint = masterChef.totalAllocPoint.plus(event.params.allocPoint.minus(pool.allocPoint))
   masterChef.save()
+
+  pool.allocPoint = event.params.allocPoint
+  pool.save()
 }
 
 export function logUpdatePool(event: LogUpdatePool): void {

@@ -30,8 +30,6 @@ export const LOCKUP_BLOCK_NUMBER = BigInt.fromI32(10959148)
 
 export const MASTER_CHEF_ADDRESS = Address.fromString('{{ masterchef_address }}')
 
-export const MASTER_CHEF_V2_ADDRESS = Address.fromString('0xef0881ec094552b2e128cf945ef17a6752b4ec5d')
-
 export const SUSHI_BAR_ADDRESS = Address.fromString('{{ sushi_bar_address }}')
 
 export const SUSHI_MAKER_ADDRESS = Address.fromString('{{ sushi_maker_address }}')
@@ -80,6 +78,11 @@ export const UNISWAP_SUSHI_ETH_PAIR_ADDRESS = Address.fromString('{{ uniswap_sus
 
 export const UNISWAP_SUSHI_USDT_PAIR_ADDRESS = Address.fromString('{{ uniswap_sushi_usdt_pair_address }}')
 
+
+// MasterChefV2 Constants
+export const MASTER_CHEF_V2_ADDRESS = Address.fromString('0xef0881ec094552b2e128cf945ef17a6752b4ec5d')
+
+export const CONVEX_REWARDERS = [Address.fromString('0x9e01aac4b3e8781a85b21d9d9f848e72af77b362'), Address.fromString('0x1fd97b5e5a257b0b9b9a42a96bb8870cbdd1eb79')]
 
 // Bentobox constants
 export const BENTOBOX_ADDRESS = Address.fromString('{{ bentobox_address }}')
