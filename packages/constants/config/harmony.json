@@ -21,7 +21,7 @@
     "bentobox_address": "0x0000000000000000000000000000000000000000",
     "kashi_pair_medium_risk_master_address": "0x0000000000000000000000000000000000000000",
     "minichef_address": "0x67da5f2ffaddff067ab9d5f025f8810634d84287",
-    "complex_rewarder_address": "0x0000000000000000000000000000000000000000",
+    "complex_rewarder_address": "0x25836011bbc0d5b6db96b20361a474cbc5245b45",
     "wrapped_native_address": "0xcf664087a5bb0237a0bad6742852ec6c8d69a27a",
     "min_liquidity_threshold": "1000",
     "dai_address": "0xef977d2f931c1978db5f6747666fa1eacb0d0339",

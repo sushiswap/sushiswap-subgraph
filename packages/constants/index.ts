@@ -144,7 +144,7 @@ export const ACC_SUSHI_PRECISION = BigInt.fromString("1000000000000");
 
 // Matic Complex Rewarder (note: putting here for now since we don't need to fill in every config file with this address)
 export const MATIC_COMPLEX_REWARDER = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
+  "0x25836011bbc0d5b6db96b20361a474cbc5245b45"
 );
 
 export const WMATIC_ADDRESS = Address.fromString(
@@ -156,7 +156,7 @@ export const WNATIVE_ADDRESS = Address.fromString(
 );
 
 export const COMPLEX_REWARDER = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
+  "0x25836011bbc0d5b6db96b20361a474cbc5245b45"
 );
 
 export const USDC = "0x985458e523db3d53125813ed68c274899e9dfab4";
