@@ -1,6 +1,6 @@
 specVersion: 0.0.2
 schema:
-  file: schema.graphql
+  file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: Maker
@@ -19,14 +19,14 @@ dataSources:
         - Serving
       abis:
         - name: Maker
-          file: Maker/node_modules/@sushiswap/core/build/abi/Maker.json
+          file: ./node_modules/@sushiswap/core/build/abi/Maker.json
         - name: Pair
-          file: Maker/node_modules/@sushiswap/core/build/abi/UniswapV2Pair.json
+          file: ./node_modules/@sushiswap/core/build/abi/UniswapV2Pair.json
         - name: ERC20
-          file: Maker/node_modules/@sushiswap/core/build/abi/ERC20.json
+          file: ./node_modules/@sushiswap/core/build/abi/ERC20.json
         - name: Factory
-          file: Maker/node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
+          file: ./node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
       eventHandlers:
         - event: LogConvert(indexed address,indexed address,indexed address,uint256,uint256,uint256)
           handler: handleLogConvert
-      file: Maker/Maker.wasm
+      file: ./src/maker.ts
