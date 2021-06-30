@@ -1,7 +1,7 @@
 import {
   ADDRESS_ZERO,
   BIG_INT_ZERO,
-  MATIC_COMPLEX_REWARDER,
+  COMPLEX_REWARDER,
   WNATIVE_ADDRESS
 } from 'const'
 import { Address, ethereum } from '@graphprotocol/graph-ts'
@@ -17,7 +17,7 @@ export function getRewarder(address: Address, block: ethereum.Block): Rewarder {
     rewarder.rewardToken = ADDRESS_ZERO
     rewarder.rewardPerSecond = BIG_INT_ZERO
 
-    if (address == MATIC_COMPLEX_REWARDER) {
+    if (address == COMPLEX_REWARDER) {
         rewarder.rewardPerSecond = BIG_INT_ZERO
         rewarder.rewardToken = WNATIVE_ADDRESS
         ComplexRewarderTemplate.create(address)

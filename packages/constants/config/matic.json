@@ -14,7 +14,7 @@
     "sushi_usdt_pair": "0x0000000000000000000000000000000000000000",
     "weth_address": "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
     "sushiswap_weth_usdt_pair_address": "0x0000000000000000000000000000000000000000",
-    "usdt_address": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+
     "uniswap_factory_address": "0x0000000000000000000000000000000000000000",
     "uniswap_weth_usdt_pair_address": "0x0000000000000000000000000000000000000000",
     "uniswap_sushi_eth_pair_address": "0x0000000000000000000000000000000000000000",
@@ -22,6 +22,9 @@
     "bentobox_address": "0xf5bce5077908a1b7370b9ae04adc565ebd643966",
     "kashi_pair_medium_risk_master_address": "0x2cba6ab6574646badc84f0544d05059e57a5dc42",
     "minichef_address": "0x0769fd68dfb93167989c6f7254cd0d766fb2841f",
-    "wrapped_native_address": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270", // WMATIC
-    "min_liquidity_threshold": "5"
+    "wrapped_native_address": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+    "min_liquidity_threshold": "5",
+    "dai_address": "",
+    "usdt_address": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+    "usdc_address": ""
 }

@@ -1,33 +1,31 @@
 import {
-  Deposit,
-  Withdraw,
-  EmergencyWithdraw,
-  Harvest,
-  LogPoolAddition,
-  LogSetPool,
-  LogUpdatePool,
-  LogSushiPerSecond,
-  MiniChef as MiniChefContract
-} from '../../generated/MiniChef/MiniChef'
-
-import { Address, BigDecimal, BigInt, dataSource, ethereum, log } from '@graphprotocol/graph-ts'
-import {
+  ACC_SUSHI_PRECISION,
   BIG_DECIMAL_1E12,
   BIG_DECIMAL_1E18,
   BIG_DECIMAL_ZERO,
   BIG_INT_ONE,
   BIG_INT_ONE_DAY_SECONDS,
   BIG_INT_ZERO,
-  MINI_CHEF_ADDRESS,
-  ACC_SUSHI_PRECISION
+  MINI_CHEF_ADDRESS
 } from 'const'
+import { Address, BigDecimal, BigInt, dataSource, ethereum, log } from '@graphprotocol/graph-ts'
+import {
+  Deposit,
+  EmergencyWithdraw,
+  Harvest,
+  LogPoolAddition,
+  LogSetPool,
+  LogSushiPerSecond,
+  LogUpdatePool,
+  MiniChef as MiniChefContract,
+  Withdraw
+} from '../../generated/MiniChef/MiniChef'
 import { MiniChef, Pool, User } from '../../generated/schema'
-
 import {
   getMiniChef,
   getPool,
-  getUser,
-  getRewarder
+  getRewarder,
+  getUser
 } from '../entities'
 
 import { ERC20 as ERC20Contract } from '../../generated/MiniChef/ERC20'
@@ -47,6 +45,7 @@ export function logPoolAddition(event: LogPoolAddition): void {
   pool.pair = event.params.lpToken
   pool.rewarder = rewarder.id
   pool.allocPoint = event.params.allocPoint
+  
   pool.save()
 
   miniChef.totalAllocPoint = miniChef.totalAllocPoint.plus(pool.allocPoint)

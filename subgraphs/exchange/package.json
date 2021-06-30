@@ -29,6 +29,7 @@
         "prepare:rinkeby": "mustache config/rinkeby.json template.yaml > subgraph.yaml",
         "prepare:ropsten": "mustache config/ropsten.json template.yaml > subgraph.yaml",
         "prepare:xdai": "mustache config/xdai.json template.yaml > subgraph.yaml",
-        "prepare:okex": "mustache config/okex.json template.yaml > subgraph.yaml"
+        "prepare:okex": "mustache config/okex.json template.yaml > subgraph.yaml",
+        "prepare:harmony": "mustache config/harmony.json template.yaml > subgraph.yaml"
     }
 }
