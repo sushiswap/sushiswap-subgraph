@@ -76,10 +76,10 @@ export const USDT_WETH_PAIR = "{{ usdt_weth_pair }}";
 export const SUSHI_USDT_PAIR = "{{ sushi_usdt_pair }}";
 
 // minimum liquidity required to count towards tracked volume for pairs with small # of Lps
-export const MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString("0");
+export const MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString("1000");
 
 // minimum liquidity for price to get tracked
-export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString("5");
+export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString("8000");
 
 export const WETH_ADDRESS = Address.fromString("{{ weth_address }}");
 

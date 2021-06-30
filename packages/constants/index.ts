@@ -76,10 +76,10 @@ export const USDT_WETH_PAIR = "0x2c7862b408bb3dbff277110ffde1b4eaa45c692a";
 export const SUSHI_USDT_PAIR = "0x0000000000000000000000000000000000000000";
 
 // minimum liquidity required to count towards tracked volume for pairs with small # of Lps
-export const MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString("0");
+export const MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString("1000");
 
 // minimum liquidity for price to get tracked
-export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString("5");
+export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString("8000");
 
 export const WETH_ADDRESS = Address.fromString("0x6983d1e6def3690c4d616b13597a09e6193ea013");
 
