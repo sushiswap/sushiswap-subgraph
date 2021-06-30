@@ -68,11 +68,12 @@ export function logSetPool(event: LogSetPool): void {
      const rewarder = getRewarder(event.params.rewarder, event.block)
      pool.rewarder = rewarder.id
   }
-  pool.allocPoint = event.params.allocPoint
-  pool.save()
 
   miniChef.totalAllocPoint = miniChef.totalAllocPoint.plus(event.params.allocPoint.minus(pool.allocPoint))
   miniChef.save()
+  
+  pool.allocPoint = event.params.allocPoint
+  pool.save()
 }
 
 export function logUpdatePool(event: LogUpdatePool): void {
