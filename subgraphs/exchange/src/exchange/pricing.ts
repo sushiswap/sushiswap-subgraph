@@ -108,8 +108,8 @@ export function getEthPrice(block: ethereum.Block = null): BigDecimal {
 
   if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
     const isDaiFirst = daiPair.token0 == DAI;
-    const isUsdcFirst = daiPair.token0 == USDC;
-    const isUsdtFirst = daiPair.token0 == USDT;
+    const isUsdcFirst = usdcPair.token0 == USDC;
+    const isUsdtFirst = usdtPair.token0 == USDT;
 
     const daiPairEth = isDaiFirst ? daiPair.reserve1 : daiPair.reserve0;
 
@@ -145,7 +145,7 @@ export function getEthPrice(block: ethereum.Block = null): BigDecimal {
     // dai and USDC have been created
   } else if (daiPair !== null && usdcPair !== null) {
     const isDaiFirst = daiPair.token0 == DAI;
-    const isUsdcFirst = daiPair.token0 == USDC;
+    const isUsdcFirst = usdcPair.token0 == USDC;
 
     const daiPairEth = isDaiFirst ? daiPair.reserve1 : daiPair.reserve0;
 
@@ -168,7 +168,7 @@ export function getEthPrice(block: ethereum.Block = null): BigDecimal {
     return daiPrice.times(daiWeight).plus(usdcPrice.times(usdcWeight));
     // USDC is the only pair so far
   } else if (usdcPair !== null) {
-    const isUsdcFirst = daiPair.token0 == USDC;
+    const isUsdcFirst = usdcPair.token0 == USDC;
     return isUsdcFirst ? usdcPair.token0Price : usdcPair.token1Price;
   } else {
     log.warning("No eth pair...", []);
@@ -242,10 +242,17 @@ export function findEthPerToken(token: Token): BigDecimal {
   // What could we do to improve this?
   for (let i = 0; i < WHITELIST.length; ++i) {
     // TODO: Cont. This would be a good start, by avoiding multiple calls to getPair...
-    const pairAddress = factoryContract.getPair(
+    const result = factoryContract.try_getPair(
       Address.fromString(token.id),
       Address.fromString(WHITELIST[i])
     );
+
+    if (result.reverted) {
+      continue;
+    }
+
+    const pairAddress = result.value
+
     if (pairAddress != ADDRESS_ZERO) {
       const pair = Pair.load(pairAddress.toHex());
       if (
