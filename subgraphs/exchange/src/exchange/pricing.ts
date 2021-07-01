@@ -76,37 +76,14 @@ export function getEthPrice(block: ethereum.Block = null): BigDecimal {
   const usdcPair = Pair.load(USDC_WETH_PAIR);
   const usdtPair = Pair.load(USDT_WETH_PAIR);
 
-  // TODO: the order can be wrong for the pairs above depending on the network
-  //       commented out section below can be used when dai is token1 on the first pair
-
-  // Mainnet version
-  // DAI -> token0
-  // USDT -> token1
-  // USDC -> token0
-  // all 3 have been created, get the weighted average of them
-
-  // const daiReserve =
-  //   daiPair !== null
-  //     ? daiPair.token0 == DAI
-  //       ? daiPair.reserve1
-  //       : daiPair.reserve0
-  //     : null;
-
-  // const usdcReserve =
-  //   usdcPair !== null
-  //     ? usdcPair.token0 == USDC
-  //       ? usdcPair.reserve1
-  //       : usdcPair.reserve0
-  //     : null;
-
-  // const usdtReserve =
-  //   usdtPair !== null
-  //     ? usdtPair.token0 == USDT
-  //       ? usdtPair.reserve1
-  //       : usdtPair.reserve0
-  //     : null;
-
-  if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
+  if (
+    daiPair !== null &&
+    daiPair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH) &&
+    usdcPair !== null &&
+    usdcPair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH) &&
+    usdtPair !== null &&
+    usdtPair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH)
+  ) {
     const isDaiFirst = daiPair.token0 == DAI;
     const isUsdcFirst = usdcPair.token0 == USDC;
     const isUsdtFirst = usdtPair.token0 == USDT;
@@ -143,7 +120,12 @@ export function getEthPrice(block: ethereum.Block = null): BigDecimal {
       .plus(usdtPrice.times(usdtWeight));
 
     // dai and USDC have been created
-  } else if (daiPair !== null && usdcPair !== null) {
+  } else if (
+    daiPair !== null &&
+    daiPair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH) &&
+    usdcPair !== null &&
+    usdcPair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH)
+  ) {
     const isDaiFirst = daiPair.token0 == DAI;
     const isUsdcFirst = usdcPair.token0 == USDC;
 
@@ -167,69 +149,16 @@ export function getEthPrice(block: ethereum.Block = null): BigDecimal {
 
     return daiPrice.times(daiWeight).plus(usdcPrice.times(usdcWeight));
     // USDC is the only pair so far
-  } else if (usdcPair !== null) {
+  } else if (
+    usdcPair !== null &&
+    usdcPair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH)
+  ) {
     const isUsdcFirst = usdcPair.token0 == USDC;
     return isUsdcFirst ? usdcPair.token0Price : usdcPair.token1Price;
   } else {
     log.warning("No eth pair...", []);
     return BIG_DECIMAL_ZERO;
   }
-
-  // FTM version
-  // DAI -> token0
-  // USDT -> token0
-  // USDC -> token0
-  // all 3 have been created, get the weighted average of them
-  /*if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
-    const totalLiquidityETH = daiPair.reserve1.plus(usdcPair.reserve1).plus(usdtPair.reserve1)
-    const daiWeight = daiPair.reserve1.div(totalLiquidityETH)
-    const usdcWeight = usdcPair.reserve1.div(totalLiquidityETH)
-    const usdtWeight = usdtPair.reserve1.div(totalLiquidityETH)
-    return daiPair.token0Price
-      .times(daiWeight)
-      .plus(usdcPair.token0Price.times(usdcWeight))
-      .plus(usdtPair.token0Price.times(usdtWeight))
-    // dai and USDC have been created
-  } else if (daiPair !== null && usdcPair !== null) {
-    const totalLiquidityETH = daiPair.reserve1.plus(usdcPair.reserve1)
-    const daiWeight = daiPair.reserve1.div(totalLiquidityETH)
-    const usdcWeight = usdcPair.reserve1.div(totalLiquidityETH)
-    return daiPair.token0Price.times(daiWeight).plus(usdcPair.token0Price.times(usdcWeight))
-    // USDC is the only pair so far
-  } else if (usdcPair !== null) {
-    return usdcPair.token0Price
-  } else {
-    log.warning('No eth pair...', [])
-    return BIG_DECIMAL_ZERO
-  }*/
-
-  // Matic version
-  // DAI -> token1
-  // USDT -> token1
-  // USDC -> token0
-  /*if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
-   let totalLiquidityETH = daiPair.reserve0.plus(usdcPair.reserve1).plus(usdtPair.reserve0)
-   let daiWeight = daiPair.reserve0.div(totalLiquidityETH)
-   let usdcWeight = usdcPair.reserve1.div(totalLiquidityETH)
-   let usdtWeight = usdtPair.reserve0.div(totalLiquidityETH)
-   return daiPair.token1Price
-     .times(daiWeight)
-     .plus(usdcPair.token0Price.times(usdcWeight))
-     .plus(usdtPair.token1Price.times(usdtWeight))
-   // dai and USDC have been created
- } else if (daiPair !== null && usdcPair !== null) {
-   let totalLiquidityETH = daiPair.reserve0.plus(usdcPair.reserve1)
-   let daiWeight = daiPair.reserve0.div(totalLiquidityETH)
-   let usdcWeight = usdcPair.reserve1.div(totalLiquidityETH)
-   return daiPair.token1Price.times(daiWeight).plus(usdcPair.token0Price.times(usdcWeight))
-   // USDC is the only pair so far
- } else if (usdcPair !== null) {
-   return usdcPair.token0Price
- } else {
-   log.warning('No eth pair...', [])
-   return BIG_DECIMAL_ZERO
- }
-}*/
 }
 
 export function findEthPerToken(token: Token): BigDecimal {
@@ -251,7 +180,7 @@ export function findEthPerToken(token: Token): BigDecimal {
       continue;
     }
 
-    const pairAddress = result.value
+    const pairAddress = result.value;
 
     if (pairAddress != ADDRESS_ZERO) {
       const pair = Pair.load(pairAddress.toHex());
