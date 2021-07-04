@@ -20,16 +20,18 @@
         "deploy:bsc": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/bsc-exchange subgraph.yaml",
         "deploy:okex": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/okex-exchange subgraph.yaml",
 
-        "prepare:bsc": "mustache config/bsc.json template.yaml > subgraph.yaml",
-        "prepare:fantom": "mustache config/fantom.json template.yaml > subgraph.yaml",
-        "prepare:goerli": "mustache config/goerli.json template.yaml > subgraph.yaml",
-        "prepare:kovan": "mustache config/kovan.json template.yaml > subgraph.yaml",
-        "prepare:mainnet": "mustache config/mainnet.json template.yaml > subgraph.yaml",
-        "prepare:matic": "mustache config/matic.json template.yaml > subgraph.yaml",
-        "prepare:rinkeby": "mustache config/rinkeby.json template.yaml > subgraph.yaml",
-        "prepare:ropsten": "mustache config/ropsten.json template.yaml > subgraph.yaml",
-        "prepare:xdai": "mustache config/xdai.json template.yaml > subgraph.yaml",
-        "prepare:okex": "mustache config/okex.json template.yaml > subgraph.yaml",
-        "prepare:harmony": "mustache config/harmony.json template.yaml > subgraph.yaml"
+        "prepare:bsc": "mustache ../../config/bsc.json template.yaml > subgraph.yaml",
+        "prepare:fantom": "mustache ../../config/fantom.json template.yaml > subgraph.yaml",
+        "prepare:goerli": "mustache ../../config/goerli.json template.yaml > subgraph.yaml",
+        "prepare:kovan": "mustache ../../config/kovan.json template.yaml > subgraph.yaml",
+        "prepare:mainnet": "mustache ../../config/mainnet.json template.yaml > subgraph.yaml",
+        "prepare:matic": "mustache ../../config/matic.json template.yaml > subgraph.yaml",
+        "prepare:rinkeby": "mustache ../../config/rinkeby.json template.yaml > subgraph.yaml",
+        "prepare:ropsten": "mustache ../../config/ropsten.json template.yaml > subgraph.yaml",
+        "prepare:xdai": "mustache ../../config/xdai.json template.yaml > subgraph.yaml",
+        "prepare:okex": "mustache ../../config/okex.json template.yaml > subgraph.yaml",
+        "prepare:harmony": "mustache ../../config/harmony.json template.yaml > subgraph.yaml",
+        "prepare:celo": "mustache ../../config/celo.json template.yaml > subgraph.yaml",
+        "prepare:avalanche": "mustache ../../config/avalanche.json template.yaml > subgraph.yaml"
     }
 }

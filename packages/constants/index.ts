@@ -1,5 +1,8 @@
 import { Address, BigDecimal, BigInt } from "@graphprotocol/graph-ts";
 
+export const NULL_CALL_RESULT_VALUE =
+  "0x0000000000000000000000000000000000000000000000000000000000000001";
+
 export const ADDRESS_ZERO = Address.fromString(
   "0x0000000000000000000000000000000000000000"
 );
@@ -26,96 +29,11 @@ export const BIG_INT_ZERO = BigInt.fromI32(0);
 
 export const LOCKUP_POOL_NUMBER = BigInt.fromI32(29);
 
-export const FACTORY_ADDRESS = Address.fromString("0xc35dadb65012ec5796536bd9864ed8773abc74c4");
-
 export const LOCKUP_BLOCK_NUMBER = BigInt.fromI32(10959148);
-
-export const MASTER_CHEF_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
-
-export const MASTER_CHEF_V2_ADDRESS = Address.fromString(
-  "0xef0881ec094552b2e128cf945ef17a6752b4ec5d"
-);
-
-export const SUSHI_BAR_ADDRESS = Address.fromString("0x0000000000000000000000000000000000000000");
-
-export const SUSHI_MAKER_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
-
-export const SUSHI_TOKEN_ADDRESS = Address.fromString(
-  "0xbec775cb42abfa4288de81f387a9b1a3c4bc552a"
-);
-
-export const SUSHI_USDT_PAIR_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
-
-export const XSUSHI_USDC_PAIR_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
-
-export const XSUSHI_WETH_PAIR_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
-
-export const SUSHI_DISTRIBUTOR_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
-
-export const NULL_CALL_RESULT_VALUE =
-  "0x0000000000000000000000000000000000000000000000000000000000000001";
-
-export const USDC_WETH_PAIR = "0xbf255d8c30dbab84ea42110ea7dc870f01c0013a";
-
-export const DAI_WETH_PAIR = "0x194f4a320cbda15a0910d1ae20e0049cdc50916e";
-
-export const USDT_WETH_PAIR = "0x2c7862b408bb3dbff277110ffde1b4eaa45c692a";
-
-export const SUSHI_USDT_PAIR = "0x0000000000000000000000000000000000000000";
-
-// minimum liquidity required to count towards tracked volume for pairs with small # of Lps
-export const MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString("1000");
-
-// minimum liquidity for price to get tracked
-export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString("8000");
-
-export const WETH_ADDRESS = Address.fromString("0x6983d1e6def3690c4d616b13597a09e6193ea013");
-
-export const SUSHISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString(
-  "0x5ef7622cf0d40bde750987031f614a9032911152"
-);
-
-export const USDT_ADDRESS = Address.fromString("0x3c2b8be99c50593081eaa2a724f0b8285f5aba8f");
 
 export const MASTER_CHEF_START_BLOCK = BigInt.fromI32(10750000);
 
-export const UNISWAP_FACTORY_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
-
-export const UNISWAP_SUSHI_ETH_PAIR_FIRST_LIQUDITY_BLOCK =
-  BigInt.fromI32(10750005);
-
-export const UNISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
-
-export const UNISWAP_SUSHI_ETH_PAIR_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
-
-export const UNISWAP_SUSHI_USDT_PAIR_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
-
-// Bentobox constants
-export const BENTOBOX_ADDRESS = Address.fromString("0x0000000000000000000000000000000000000000");
-
-export const KASHI_PAIR_MEDIUM_RISK_MASTER_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
+export const ACC_SUSHI_PRECISION = BigInt.fromString("1000000000000");
 
 export const BENTOBOX_DEPOSIT = "deposit";
 
@@ -137,30 +55,114 @@ export const PAIR_BORROW = "borrow";
 
 export const PAIR_REPAY = "repay";
 
+export const FACTORY_ADDRESS = Address.fromString("0xc35DADB65012eC5796536bD9864eD8773aBc74C4");
+
+export const MASTER_CHEF_ADDRESS = Address.fromString(
+  "" || ADDRESS_ZERO.toString()
+);
+
+export const MASTER_CHEF_V2_ADDRESS = Address.fromString(
+  "0xef0881ec094552b2e128cf945ef17a6752b4ec5d" || ADDRESS_ZERO.toString()
+);
+
+export const SUSHI_BAR_ADDRESS = Address.fromString("" || ADDRESS_ZERO.toString());
+
+export const SUSHI_MAKER_ADDRESS = Address.fromString(
+  "" || ADDRESS_ZERO.toString()
+);
+
+export const SUSHI_TOKEN_ADDRESS = Address.fromString(
+  "0x39cf1bd5f15fb22ec3d9ff86b0727afc203427cc" || ADDRESS_ZERO.toString()
+);
+
+export const SUSHI_USDT_PAIR_ADDRESS = Address.fromString(
+  "" || ADDRESS_ZERO.toString()
+);
+
+export const XSUSHI_USDC_PAIR_ADDRESS = Address.fromString(
+  "" || ADDRESS_ZERO.toString()
+);
+
+export const XSUSHI_WETH_PAIR_ADDRESS = Address.fromString(
+  ""
+);
+
+export const SUSHI_DISTRIBUTOR_ADDRESS = Address.fromString(
+  "" || ADDRESS_ZERO.toString()
+);
+
+export const USDC_WETH_PAIR = "0x0000000000000000000000000000000000000000";
+
+export const DAI_WETH_PAIR = "0x034c1b19dab61b5de448efc1e10a2e592725c893";
+
+export const USDT_WETH_PAIR = "0x47f1c2a9c9027a10c3b13d1c40dd976c5014339b";
+
+export const SUSHI_USDT_PAIR = "";
+
+// minimum liquidity required to count towards tracked volume for pairs with small # of Lps
+export const MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString(
+  "3000" || ADDRESS_ZERO.toString()
+);
+
+// minimum liquidity for price to get tracked
+export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString(
+  "1000" || ADDRESS_ZERO.toString()
+);
+
+export const WETH_ADDRESS = Address.fromString("0xf20d962a6c8f70c731bd838a3a388d7d48fa6e15");
+
+export const SUSHISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString(
+  "" || ADDRESS_ZERO.toString()
+);
+
+export const USDT_ADDRESS = Address.fromString("0xde3a24028580884448a5397872046a019649b084" || ADDRESS_ZERO.toString());
+
+export const UNISWAP_FACTORY_ADDRESS = Address.fromString(
+  "" || ADDRESS_ZERO.toString()
+);
+
+export const UNISWAP_SUSHI_ETH_PAIR_FIRST_LIQUDITY_BLOCK =
+  BigInt.fromI32(10750005);
+
+export const UNISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString(
+  "" || ADDRESS_ZERO.toString()
+);
+
+export const UNISWAP_SUSHI_ETH_PAIR_ADDRESS = Address.fromString(
+  "" || ADDRESS_ZERO.toString()
+);
+
+export const UNISWAP_SUSHI_USDT_PAIR_ADDRESS = Address.fromString(
+  "" || ADDRESS_ZERO.toString()
+);
+
+// Bentobox constants
+export const BENTOBOX_ADDRESS = Address.fromString("");
+
+export const KASHI_PAIR_MEDIUM_RISK_MASTER_ADDRESS = Address.fromString(
+  "" || ADDRESS_ZERO.toString()
+);
+
 // MiniChef
-export const MINI_CHEF_ADDRESS = Address.fromString("0x67da5f2ffaddff067ab9d5f025f8810634d84287");
-
-export const ACC_SUSHI_PRECISION = BigInt.fromString("1000000000000");
-
-// Matic Complex Rewarder (note: putting here for now since we don't need to fill in every config file with this address)
-export const MATIC_COMPLEX_REWARDER = Address.fromString(
-  "0x25836011bbc0d5b6db96b20361a474cbc5245b45"
-);
-
-export const WMATIC_ADDRESS = Address.fromString(
-  "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270"
-);
-
-export const WNATIVE_ADDRESS = Address.fromString(
-  "0xcf664087a5bb0237a0bad6742852ec6c8d69a27a"
-);
+export const MINI_CHEF_ADDRESS = Address.fromString("0x0000000000000000000000000000000000000000" || ADDRESS_ZERO.toString());
 
 export const COMPLEX_REWARDER = Address.fromString(
-  "0x25836011bbc0d5b6db96b20361a474cbc5245b45"
+  "0x0000000000000000000000000000000000000000"  || ADDRESS_ZERO.toString()
 );
 
-export const USDC = "0x985458e523db3d53125813ed68c274899e9dfab4";
+export const NATIVE = Address.fromString("0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7" || ADDRESS_ZERO.toString());
 
-export const USDT = "0x3c2b8be99c50593081eaa2a724f0b8285f5aba8f";
+export const USDC = "0x0000000000000000000000000000000000000000";
 
-export const DAI = "0xef977d2f931c1978db5f6747666fa1eacb0d0339";
+export const USDT = "0xde3a24028580884448a5397872046a019649b084";
+
+export const DAI = "0xba7deebbfc5fa1100fb055a87773e1e99cd3507a";
+
+export const WHITELIST: string[] = "0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7,0x408d4cd0adb7cebd1f1a1c33a0ba2098e1295bab,0xf20d962a6c8f70c731bd838a3a388d7d48fa6e15,0xde3a24028580884448a5397872046a019649b084,0xba7deebbfc5fa1100fb055a87773e1e99cd3507a".split(",");
+
+// export const WHITELIST: string[] = [
+//   "0x471ece3750da237f93b8e339c536989b8978a438",
+//   "0xd629eb00deced2a080b7ec630ef6ac117e614f1b",
+//   "0x765de816845861e75a25fca122bb6898b8b1282a",
+//   "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73"
+// ];

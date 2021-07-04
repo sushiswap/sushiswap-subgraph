@@ -6,18 +6,20 @@
   "private": true,
   "main": "index.ts",
   "scripts": {
-    "codegen": ".",
-    "build": ".",
-    "prepare:bsc": "mustache config/bsc.json index.template.ts > index.ts",
-    "prepare:fantom": "mustache config/fantom.json index.template.ts > index.ts",
-    "prepare:goerli": "mustache config/goerli.json index.template.ts > index.ts",
-    "prepare:kovan": "mustache config/kovan.json index.template.ts > index.ts",
-    "prepare:mainnet": "mustache config/mainnet.json index.template.ts > index.ts",
-    "prepare:matic": "mustache config/matic.json index.template.ts > index.ts",
-    "prepare:rinkeby": "mustache config/rinkeby.json index.template.ts > index.ts",
-    "prepare:ropsten": "mustache config/ropsten.json index.template.ts > index.ts",
-    "prepare:xdai": "mustache config/xdai.json index.template.ts > index.ts",
-    "prepare:okex": "mustache config/okex.json index.template.ts > index.ts",
-    "prepare:harmony": "mustache config/harmony.json index.template.ts > index.ts"
+    "codegen": "true",
+    "build": "true",
+    "prepare:bsc": "mustache ../../config/bsc.json index.template.ts > index.ts",
+    "prepare:fantom": "mustache ../../config/fantom.json index.template.ts > index.ts",
+    "prepare:goerli": "mustache ../../config/goerli.json index.template.ts > index.ts",
+    "prepare:kovan": "mustache ../../config/kovan.json index.template.ts > index.ts",
+    "prepare:mainnet": "mustache ../../config/mainnet.json index.template.ts > index.ts",
+    "prepare:matic": "mustache ../../config/matic.json index.template.ts > index.ts",
+    "prepare:rinkeby": "mustache ../../config/rinkeby.json index.template.ts > index.ts",
+    "prepare:ropsten": "mustache ../../config/ropsten.json index.template.ts > index.ts",
+    "prepare:xdai": "mustache ../../config/xdai.json index.template.ts > index.ts",
+    "prepare:okex": "mustache ../../config/okex.json index.template.ts > index.ts",
+    "prepare:harmony": "mustache ../../config/harmony.json index.template.ts > index.ts",
+    "prepare:celo": "mustache ../../config/celo.json index.template.ts > index.ts",
+    "prepare:avalanche": "mustache ../../config/avalanche.json index.template.ts > index.ts"
   }
 }

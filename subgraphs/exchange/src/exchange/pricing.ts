@@ -7,13 +7,14 @@ import {
   DAI_WETH_PAIR,
   FACTORY_ADDRESS,
   MINIMUM_LIQUIDITY_THRESHOLD_ETH,
+  NATIVE,
   SUSHI_USDT_PAIR,
   USDC,
   USDC_WETH_PAIR,
   USDT,
   USDT_WETH_PAIR,
   WETH_ADDRESS,
-  WNATIVE_ADDRESS,
+  WHITELIST,
 } from "const";
 import {
   Address,
@@ -27,7 +28,6 @@ import { Pair, Token } from "../../generated/schema";
 
 import { Factory as FactoryContract } from "../../generated/templates/Pair/Factory";
 import { Pair as PairContract } from "../../generated/templates/Pair/Pair";
-import { WHITELIST } from "./exchange-constants";
 
 // export const uniswapFactoryContract = FactoryContract.bind(Address.fromString("0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f"))
 
@@ -162,7 +162,7 @@ export function getEthPrice(block: ethereum.Block = null): BigDecimal {
 }
 
 export function findEthPerToken(token: Token): BigDecimal {
-  if (Address.fromString(token.id) == WNATIVE_ADDRESS) {
+  if (Address.fromString(token.id) == NATIVE) {
     return BIG_DECIMAL_ONE;
   }
 
@@ -177,6 +177,10 @@ export function findEthPerToken(token: Token): BigDecimal {
     );
 
     if (result.reverted) {
+      log.info("factory get pair reverted  tokens: {} {}", [
+        token.id,
+        WHITELIST[i],
+      ]);
       continue;
     }
 
