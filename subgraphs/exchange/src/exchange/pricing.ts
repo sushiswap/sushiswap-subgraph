@@ -13,7 +13,6 @@ import {
   USDC_WETH_PAIR,
   USDT,
   USDT_WETH_PAIR,
-  WETH_ADDRESS,
   WHITELIST,
 } from "const";
 import {
@@ -155,6 +154,18 @@ export function getEthPrice(block: ethereum.Block = null): BigDecimal {
   ) {
     const isUsdcFirst = usdcPair.token0 == USDC;
     return isUsdcFirst ? usdcPair.token0Price : usdcPair.token1Price;
+  } else if (
+    usdtPair !== null &&
+    usdtPair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH)
+  ) {
+    const isUsdtFirst = usdtPair.token0 == USDT;
+    return isUsdtFirst ? usdtPair.token0Price : usdtPair.token1Price;
+  } else if (
+    daiPair !== null &&
+    daiPair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH)
+  ) {
+    const isDaiFirst = daiPair.token0 == DAI;
+    return isDaiFirst ? daiPair.token0Price : daiPair.token1Price;
   } else {
     log.warning("No eth pair...", []);
     return BIG_DECIMAL_ZERO;
