@@ -95,15 +95,15 @@ export function getEthPrice(block: ethereum.Block = null): BigDecimal {
 
     const totalLiquidityETH = daiPairEth.plus(usdcPairEth).plus(usdtPairEth);
 
-    const daiWeight = isDaiFirst
+    const daiWeight = !isDaiFirst
       ? daiPair.reserve0.div(totalLiquidityETH)
       : daiPair.reserve1.div(totalLiquidityETH);
 
-    const usdcWeight = isUsdcFirst
+    const usdcWeight = !isUsdcFirst
       ? usdcPair.reserve0.div(totalLiquidityETH)
       : usdcPair.reserve1.div(totalLiquidityETH);
 
-    const usdtWeight = isUsdtFirst
+    const usdtWeight = !isUsdtFirst
       ? usdtPair.reserve0.div(totalLiquidityETH)
       : usdtPair.reserve1.div(totalLiquidityETH);
 
@@ -134,11 +134,11 @@ export function getEthPrice(block: ethereum.Block = null): BigDecimal {
 
     const totalLiquidityETH = daiPairEth.plus(usdcPairEth);
 
-    const daiWeight = isDaiFirst
+    const daiWeight = !isDaiFirst
       ? daiPair.reserve0.div(totalLiquidityETH)
       : daiPair.reserve1.div(totalLiquidityETH);
 
-    const usdcWeight = isUsdcFirst
+    const usdcWeight = !isUsdcFirst
       ? usdcPair.reserve0.div(totalLiquidityETH)
       : usdcPair.reserve1.div(totalLiquidityETH);
 

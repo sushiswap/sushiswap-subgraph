@@ -100,7 +100,7 @@ export const DAI_WETH_PAIR = "0x194f4a320cbda15a0910d1ae20e0049cdc50916e";
 
 export const USDT_WETH_PAIR = "0x2c7862b408bb3dbff277110ffde1b4eaa45c692a";
 
-export const SUSHI_USDT_PAIR = "}0x0000000000000000000000000000000000000000";
+export const SUSHI_USDT_PAIR = "0x0000000000000000000000000000000000000000";
 
 // minimum liquidity required to count towards tracked volume for pairs with small # of Lps
 export const MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString(
@@ -175,3 +175,5 @@ export const WHITELIST: string[] = [
 //   "0x765de816845861e75a25fca122bb6898b8b1282a",
 //   "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73"
 // ];
+
+const CUSTOM_BASES = new Map<string,string>();
