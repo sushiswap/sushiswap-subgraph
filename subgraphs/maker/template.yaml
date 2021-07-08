@@ -20,6 +20,8 @@ dataSources:
         - Server
         - Serving
       abis:
+        - name: Maker
+          file: ../../node_modules/@sushiswap/core/build/abi/Maker.json
         - name: Pair
           file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Pair.json
         - name: ERC20
@@ -27,6 +29,6 @@ dataSources:
         - name: Factory
           file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
       eventHandlers:
-        - event: Swap(indexed address,uint256,uint256,uint256,uint256,indexed address)
-          handler: served
+        - event: LogConvert(indexed address,indexed address,indexed address,uint256,uint256,uint256)
+          handler: handleLogConvert
       file: ./src/maker.ts
