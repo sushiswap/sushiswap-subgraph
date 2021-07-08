@@ -158,16 +158,16 @@ export const USDT = "{{ usdt_address }}{{^usdt_address}}0x0000000000000000000000
 
 export const DAI = "{{ dai_address }}{{^dai_address}}0x0000000000000000000000000000000000000000{{/dai_address}}";
 
-// export const WHITELIST: string[] = "{{ whitelist }}".split(",");
+export const WHITELIST: string[] = "{{ whitelist }}".split(",");
 
-export const WHITELIST: string[] = [
-  "0xcf664087a5bb0237a0bad6742852ec6c8d69a27a", 
-  "0x6983d1e6def3690c4d616b13597a09e6193ea013", 
-  "0x3095c7557bcb296ccc6e363de01b760ba031f2d9", 
-  "0x985458e523db3d53125813ed68c274899e9dfab4", 
-  "0x3c2b8be99c50593081eaa2a724f0b8285f5aba8f", 
-  "0xe176ebe47d621b984a73036b9da5d834411ef734",
-]
+// export const WHITELIST: string[] = [
+//   "0xcf664087a5bb0237a0bad6742852ec6c8d69a27a", 
+//   "0x6983d1e6def3690c4d616b13597a09e6193ea013", 
+//   "0x3095c7557bcb296ccc6e363de01b760ba031f2d9", 
+//   "0x985458e523db3d53125813ed68c274899e9dfab4", 
+//   "0x3c2b8be99c50593081eaa2a724f0b8285f5aba8f", 
+//   "0xe176ebe47d621b984a73036b9da5d834411ef734",
+// ]
 
 // export const WHITELIST: string[] = [
 //   "0x471ece3750da237f93b8e339c536989b8978a438",

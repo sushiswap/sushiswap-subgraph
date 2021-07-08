@@ -75,7 +75,7 @@ export const SUSHI_MAKER_ADDRESS = Address.fromString(
 );
 
 export const SUSHI_TOKEN_ADDRESS = Address.fromString(
-  "0xbec775cb42abfa4288de81f387a9b1a3c4bc552a"
+  "0x947950bcc74888a40ffa2593c5798f11fc9124c4"
 );
 
 export const SUSHI_USDT_PAIR_ADDRESS = Address.fromString(
@@ -94,11 +94,11 @@ export const SUSHI_DISTRIBUTOR_ADDRESS = Address.fromString(
   "0x0000000000000000000000000000000000000000"
 );
 
-export const USDC_WETH_PAIR = "0xbf255d8c30dbab84ea42110ea7dc870f01c0013a";
+export const USDC_WETH_PAIR = "0xc7632b7b2d768bbb30a404e13e1de48d1439ec21";
 
-export const DAI_WETH_PAIR = "0x194f4a320cbda15a0910d1ae20e0049cdc50916e";
+export const DAI_WETH_PAIR = "0xe6cf29055e747e95c058f64423d984546540ede5";
 
-export const USDT_WETH_PAIR = "0x2c7862b408bb3dbff277110ffde1b4eaa45c692a";
+export const USDT_WETH_PAIR = "0x2905817b020fd35d9d09672946362b62766f0d69";
 
 export const SUSHI_USDT_PAIR = "0x0000000000000000000000000000000000000000";
 
@@ -109,16 +109,16 @@ export const MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString(
 
 // minimum liquidity for price to get tracked
 export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString(
-  "50000"
+  "30"
 );
 
-export const WETH_ADDRESS = Address.fromString("0x6983d1e6def3690c4d616b13597a09e6193ea013");
+export const WETH_ADDRESS = Address.fromString("0x2170ed0880ac9a755fd29b2688956bd959f933f8");
 
 export const SUSHISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString(
-  "0x5ef7622cf0d40bde750987031f614a9032911152"
+  "0x0000000000000000000000000000000000000000"
 );
 
-export const USDT_ADDRESS = Address.fromString("0x3c2b8be99c50593081eaa2a724f0b8285f5aba8f");
+export const USDT_ADDRESS = Address.fromString("0x55d398326f99059ff775485246999027b3197955");
 
 export const UNISWAP_FACTORY_ADDRESS = Address.fromString(
   "0x0000000000000000000000000000000000000000"
@@ -137,37 +137,37 @@ export const UNISWAP_SUSHI_USDT_PAIR_ADDRESS = Address.fromString(
 );
 
 // Bentobox constants
-export const BENTOBOX_ADDRESS = Address.fromString("0x0000000000000000000000000000000000000000");
+export const BENTOBOX_ADDRESS = Address.fromString("0xf5bce5077908a1b7370b9ae04adc565ebd643966");
 
 export const KASHI_PAIR_MEDIUM_RISK_MASTER_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
+  "0x2cba6ab6574646badc84f0544d05059e57a5dc42"
 );
 
 // MiniChef
-export const MINI_CHEF_ADDRESS = Address.fromString("0x67da5f2ffaddff067ab9d5f025f8810634d84287");
+export const MINI_CHEF_ADDRESS = Address.fromString("0x0000000000000000000000000000000000000000");
 
 export const COMPLEX_REWARDER = Address.fromString(
-  "0x25836011bbc0d5b6db96b20361a474cbc5245b45"
+  "0x0000000000000000000000000000000000000000"
 );
 
-export const NATIVE = Address.fromString("0xcf664087a5bb0237a0bad6742852ec6c8d69a27a");
+export const NATIVE = Address.fromString("0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c");
 
-export const USDC = "0x985458e523db3d53125813ed68c274899e9dfab4";
+export const USDC = "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d";
 
-export const USDT = "0x3c2b8be99c50593081eaa2a724f0b8285f5aba8f";
+export const USDT = "0x55d398326f99059ff775485246999027b3197955";
 
-export const DAI = "0xef977d2f931c1978db5f6747666fa1eacb0d0339";
+export const DAI = "0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3";
 
-// export const WHITELIST: string[] = "0xcf664087a5bb0237a0bad6742852ec6c8d69a27a,0x6983d1e6def3690c4d616b13597a09e6193ea013,0x3095c7557bcb296ccc6e363de01b760ba031f2d9,0x985458e523db3d53125813ed68c274899e9dfab4,0x3c2b8be99c50593081eaa2a724f0b8285f5aba8f,0xe176ebe47d621b984a73036b9da5d834411ef734,0xef977d2f931c1978db5f6747666fa1eacb0d0339,0x218532a12a389a4a92fc0c5fb22901d1c19198aa".split(",");
+export const WHITELIST: string[] = "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c,0x2170ed0880ac9a755fd29b2688956bd959f933f8,0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c,0x55d398326f99059ff775485246999027b3197955,0xe9e7cea3dedca5984780bafc599bd69add087d56,0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3".split(",");
 
-export const WHITELIST: string[] = [
-  "0xcf664087a5bb0237a0bad6742852ec6c8d69a27a", 
-  "0x6983d1e6def3690c4d616b13597a09e6193ea013", 
-  "0x3095c7557bcb296ccc6e363de01b760ba031f2d9", 
-  "0x985458e523db3d53125813ed68c274899e9dfab4", 
-  "0x3c2b8be99c50593081eaa2a724f0b8285f5aba8f", 
-  "0xe176ebe47d621b984a73036b9da5d834411ef734",
-]
+// export const WHITELIST: string[] = [
+//   "0xcf664087a5bb0237a0bad6742852ec6c8d69a27a", 
+//   "0x6983d1e6def3690c4d616b13597a09e6193ea013", 
+//   "0x3095c7557bcb296ccc6e363de01b760ba031f2d9", 
+//   "0x985458e523db3d53125813ed68c274899e9dfab4", 
+//   "0x3c2b8be99c50593081eaa2a724f0b8285f5aba8f", 
+//   "0xe176ebe47d621b984a73036b9da5d834411ef734",
+// ]
 
 // export const WHITELIST: string[] = [
 //   "0x471ece3750da237f93b8e339c536989b8978a438",
