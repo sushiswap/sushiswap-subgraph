@@ -71,7 +71,6 @@ export function logSetPool(event: LogSetPool): void {
 
   miniChef.totalAllocPoint = miniChef.totalAllocPoint.plus(event.params.allocPoint.minus(pool.allocPoint))
   miniChef.save()
-  
   pool.allocPoint = event.params.allocPoint
   pool.save()
 }
