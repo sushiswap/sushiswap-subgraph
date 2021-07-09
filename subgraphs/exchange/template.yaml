@@ -8,9 +8,9 @@ dataSources:
     name: Factory
     network: {{ network }}
     source:
-      address: '{{ address }}'
+      address: '{{ factory.address }}'
       abi: Factory
-      startBlock: {{ startBlock }}
+      startBlock: {{ factory.startBlock }}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4

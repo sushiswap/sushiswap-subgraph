@@ -1,9 +1,10 @@
 import { BigInt, Bytes } from '@graphprotocol/graph-ts'
-import { concat } from '@graphprotocol/graph-ts/helper-functions'
-import { Swap } from '../generated/templates/Pair/Pair'
+import { Candle, Pair } from '../generated/schema'
+
 import { PairCreated } from '../generated/Factory/Factory'
 import { Pair as PairTemplate } from '../generated/templates'
-import { Pair, Candle } from '../generated/schema'
+import { Swap } from '../generated/templates/Pair/Pair'
+import { concat } from '@graphprotocol/graph-ts/helper-functions'
 
 export function handleNewPair(event: PairCreated): void {
     let pair = new Pair(event.params.pair.toHex());
@@ -15,8 +16,11 @@ export function handleNewPair(event: PairCreated): void {
 }
 
 export function handleSwap(event: Swap): void {
+    
     let token0Amount: BigInt = event.params.amount0In.minus(event.params.amount0Out).abs();
+
     let token1Amount: BigInt = event.params.amount1Out.minus(event.params.amount1In).abs();
+    
     if (token0Amount.isZero() || token1Amount.isZero()) {
         return;
     }
@@ -53,9 +57,13 @@ export function handleSwap(event: Swap): void {
         }
 
         candle.close = price;
+        
         candle.lastBlock = event.block.number.toI32();
+
         candle.token0TotalAmount = candle.token0TotalAmount.plus(token0Amount);
+
         candle.token1TotalAmount = candle.token1TotalAmount.plus(token1Amount);
+
         candle.save();
     }
 }

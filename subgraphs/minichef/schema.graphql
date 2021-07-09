@@ -11,7 +11,7 @@ type MiniChef @entity {
   #acc_sushi_precision prob better as constant
   #startBlock idk if we need this
 
-  pools: [Pool!] @derivedFrom(field: "owner")
+  pools: [Pool!] @derivedFrom(field: "miniChef")
   poolCount: BigInt!
 
   #history: [History!]! @derivedFrom(field: "miniChef")
@@ -23,7 +23,7 @@ type MiniChef @entity {
 type Pool @entity {
   # Index of pool in poolInfo on MasterChef contract
   id: ID!
-  owner: MiniChef!
+  miniChef: MiniChef!
   pair: Bytes!
 
   rewarder: Rewarder

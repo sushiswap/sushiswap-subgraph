@@ -1,0 +1,16 @@
+{
+    "network": "mainnet",
+    "factory_address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
+    "sushi_token_address": "0x2218e0d5e0173769f5b4939a3ae423f7e5e4eab7",
+    "weth_address": "0x8f8526dbfd6e38e3d8307702ca8469bae6c56c15",
+    "native_address": "0x8f8526dbfd6e38e3d8307702ca8469bae6c56c15",
+    "dai_address": "",
+    "usdt_address": "0x382bb369d343125bfb2117af9c149795c6c65c50",
+    "usdc_address": "",
+    "minimum_usd_threshold_new_pairs": "3000",
+    "minimum_liquidity_threshold_eth": "1000",
+    "factory": {
+        "address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
+        "startBlock": "2678488"
+    }
+}

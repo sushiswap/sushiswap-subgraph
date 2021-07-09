@@ -33,7 +33,6 @@ function getServer(address: Address): Server {
 }
 
 export function handleLogConvert(event: LogConvertEvent): void {
-  
 
   const maker = getMaker()
   const server = getServer(event.params.server)
@@ -41,9 +40,9 @@ export function handleLogConvert(event: LogConvertEvent): void {
   const factoryContract = FactoryContract.bind(FACTORY_ADDRESS)
 
   const pair = factoryContract.getPair(event.params.token0, event.params.token1)
- 
+
   const amountSUSHI = event.params.amountSUSHI.toBigDecimal()
-  
+
   // log.debug('server amount0 amount1 token0 token1 ; {} {} {} {} {}', [event.params.server.toHex(), event.params.amount0.toString(), event.params.amount1.toString(), event.params.token0.toHex(), event.params.token1.toHex()])
 
   const id = pair.toHex().concat('-').concat(event.block.number.toString())
