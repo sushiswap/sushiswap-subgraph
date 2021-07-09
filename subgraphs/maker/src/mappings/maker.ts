@@ -1,36 +1,11 @@
 import { Address, log } from '@graphprotocol/graph-ts'
-import { BIG_DECIMAL_ZERO, FACTORY_ADDRESS, SUSHI_MAKER_ADDRESS } from '../../../packages/constants'
-import { Maker, Server, Serving } from '../generated/schema'
+import { FACTORY_ADDRESS } from '../../../../packages/constants'
+import { getMaker } from '../entities/maker'
+import { getServer } from '../entities/server'
+import { Serving } from '../generated/schema'
 import { Factory as FactoryContract } from '../generated/Maker/Factory'
 import { LogConvert as LogConvertEvent } from '../generated/Maker/Maker'
 
-
-function getMaker(): Maker {
-  const id = SUSHI_MAKER_ADDRESS.toHex()
-  let maker = Maker.load(id)
-
-  if (maker === null) {
-    maker = new Maker(id)
-    maker.sushiServed = BIG_DECIMAL_ZERO
-    maker.save()
-  }
-
-  return maker as Maker
-}
-
-function getServer(address: Address): Server {
-  const id = address.toHex()
-  let server = Server.load(id)
-
-  if (server === null) {
-    server = new Server(id)
-    server.maker = SUSHI_MAKER_ADDRESS.toHex()
-    server.sushiServed = BIG_DECIMAL_ZERO
-    server.save()
-  }
-
-  return server as Server
-}
 
 export function handleLogConvert(event: LogConvertEvent): void {
 
