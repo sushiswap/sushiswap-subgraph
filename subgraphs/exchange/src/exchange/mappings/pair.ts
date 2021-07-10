@@ -1,7 +1,6 @@
 import {
   ADDRESS_ZERO,
   BIG_DECIMAL_ZERO,
-  MASTER_CHEF_ADDRESS,
   MINIMUM_USD_THRESHOLD_NEW_PAIRS,
   WHITELIST,
 } from "const";
@@ -9,7 +8,6 @@ import {
   Address,
   BigDecimal,
   BigInt,
-  dataSource,
   log,
   store,
 } from "@graphprotocol/graph-ts";
@@ -64,8 +62,6 @@ export function getTrackedVolumeUSD(
   const bundle = getBundle();
   const price0 = token0.derivedETH.times(bundle.ethPrice);
   const price1 = token1.derivedETH.times(bundle.ethPrice);
-
-  const network = dataSource.network();
 
   // if less than 5 LPs, require high minimum reserve amount amount or return 0
   if (pair.liquidityProviderCount.lt(BigInt.fromI32(5))) {
@@ -133,8 +129,6 @@ export function getTrackedLiquidityUSD(
   const bundle = getBundle();
   const price0 = token0.derivedETH.times(bundle.ethPrice);
   const price1 = token1.derivedETH.times(bundle.ethPrice);
-
-  const network = dataSource.network();
 
   // both are whitelist tokens, take average of both amounts
   if (WHITELIST.includes(token0.id) && WHITELIST.includes(token1.id)) {
