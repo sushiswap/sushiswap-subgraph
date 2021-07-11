@@ -13,6 +13,6 @@
 
         "prepare:mainnet": "mustache config/mainnet.json template.yaml > subgraph.yaml",
 
-        "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/maker subgraph.yaml",
+        "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/maker subgraph.yaml"
     }
 }
