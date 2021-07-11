@@ -19,7 +19,7 @@ dataSources:
         - Serving
       abis:
         - name: Maker
-          file: ../../node_modules/@sushiswap/core/build/abi/Maker.json
+          file: ./node_modules/@sushiswap/core/build/abi/Maker.json
         - name: Pair
           file: ./node_modules/@sushiswap/core/build/abi/UniswapV2Pair.json
         - name: ERC20

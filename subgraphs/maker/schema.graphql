@@ -1,60 +1,63 @@
 # The Global Maker (Smart Contract)
 type Maker @entity {
-  # Maker address
-  id: ID!
+	# Maker address
+	id: ID!
 
-  # Sushi served
-  sushiServed: BigDecimal!
+	# Sushi served
+	sushiServed: BigDecimal!
 
-  # Servers
-  servers: [Server!]! @derivedFrom(field: "maker")
+	# Servers
+	servers: [Server!]! @derivedFrom(field: "maker")
 
-  # Servings
-  servings: [Serving!]! @derivedFrom(field: "maker")
+	# Servings
+	servings: [Serving!]! @derivedFrom(field: "maker")
 }
 
 type Server @entity {
-  # Server address
-  id: ID!
+	# Server address
+	id: ID!
 
-  # Relation to maker
-  maker: Maker!
+	# Relation to maker
+	maker: Maker!
 
-  # Sushi served
-  sushiServed: BigDecimal!
+	# Sushi served
+	sushiServed: BigDecimal!
 
-  # Servings related to the server
-  servings: [Serving!]! @derivedFrom(field: "server")
+	# Servings related to the server
+	servings: [Serving!]! @derivedFrom(field: "server")
 }
 
 type Serving @entity {
-  # Pair address concatinated with block number
-  id: ID!
+	# Pair address concatinated with block number
+	id: ID!
 
-  # Maker
-  maker: Maker!
+	# Maker
+	maker: Maker!
 
-  # Server
-  server: Server!
+	# Server
+	server: Server!
 
-  # Transaction
-  tx: Bytes!
+	# Transaction
+	tx: Bytes!
 
-  # Pair
-  pair: Bytes!
+	# Token 0
+	token0: Bytes!
 
-  # Token 0
-  token0: Bytes!
+	# Token 1
+	token1: Bytes!
 
-  # Token 1
-  token1: Bytes!
+	# Amount 0
+	amount0: BigInt!
 
-  # Sushi served
-  sushiServed: BigDecimal!
+	# Amount 1
+	amount1: BigInt!
 
-  # Block
-  block: BigInt!
+	# Sushi served
+	amountSUSHI: BigInt!
 
-  # Timestamp
-  timestamp: BigInt!
+	# Block
+	block: BigInt!
+
+	# Timestamp
+	timestamp: BigInt!
 }
