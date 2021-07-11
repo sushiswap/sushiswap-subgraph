@@ -20,9 +20,14 @@ dataSources:
         - MasterChefV2
         - Pool
         - User
+        - Rewarder
       abis:
         - name: MasterChefV2
           file: ./packages/abis/MasterChefV2.json
+        - name: ConvexRewarder
+          file: ./packages/abis/ConvexRewarder.json
+        - name: ComplexRewarder
+          file: ./packages/abis/ComplexRewarder.json
         - name: Factory
           file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
         - name: Pair

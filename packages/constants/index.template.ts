@@ -150,6 +150,10 @@ export const COMPLEX_REWARDER = Address.fromString(
   "{{ complex_rewarder_address }}{{^complex_rewarder_address}}0x0000000000000000000000000000000000000000{{/complex_rewarder_address}}"
 );
 
+export const CONVEX_REWARDERS: Array<Address> = [Address.fromString('0x9e01aac4b3e8781a85b21d9d9f848e72af77b362'), Address.fromString('0x1fd97b5e5a257b0b9b9a42a96bb8870cbdd1eb79')]
+
+export const ALCX_REWARDER = Address.fromString('0x7519c93fc5073e15d89131fd38118d73a72370f8')
+
 export const NATIVE = Address.fromString("{{ native_address }}{{^native_address}}0x0000000000000000000000000000000000000000{{/native_address}}");
 
 export const USDC = "{{ usdc_address }}{{^usdc_address}}0x0000000000000000000000000000000000000000{{/usdc_address}}";
