@@ -1,0 +1,16 @@
+{
+    "network": "rinkeby",
+    "factory_address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
+    "masterchef_address": "0x80c7dd17b01855a6d2347444a0fcc36136a314de",
+    "sushi_bar_address": "0x1be211d8da40bc0ae8719c6663307bfc987b1d6c",
+    "sushi_maker_address": "0x1b9d177ccdea3c79b6c8f40761fc8dc9d0500eaa",
+    "sushi_token_address": "0x0769fd68dfb93167989c6f7254cd0d766fb2841f",
+    "weth_address": "0xc778417e063141139fce010982780140aa0cd5ab",
+    "uniswap_factory_address": "0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f",
+    "minimum_usd_threshold_new_pairs": "3000",
+    "minimum_liquidity_threshold_eth": "1000",
+    "factory": {
+        "address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
+        "startBlock": "8135772"
+    }
+}

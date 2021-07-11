@@ -14,6 +14,7 @@
         "deploy:xdai": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/xdai-minichef subgraph.yaml",
 
         "prepare:matic": "mustache config/matic.json template.yaml > subgraph.yaml",
-        "prepare:xdai": "mustache config/xdai.json template.yaml > subgraph.yaml"
+        "prepare:xdai": "mustache config/xdai.json template.yaml > subgraph.yaml",
+        "prepare:harmony": "mustache config/harmony.json template.yaml > subgraph.yaml"
     }
 }
