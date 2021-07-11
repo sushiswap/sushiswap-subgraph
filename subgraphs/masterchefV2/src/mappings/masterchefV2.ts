@@ -19,12 +19,14 @@ import {
   MASTER_CHEF_V2_ADDRESS,
   ACC_SUSHI_PRECISION
 } from 'const'
-import { MasterChef, Pool, User } from '../../generated/schema'
+import { MasterChef, Pool, User, Rewarder } from '../../generated/schema'
 
 import {
   getMasterChef,
   getPool,
-  getUser
+  getRewarder,
+  getUser,
+  updateRewarder
 } from '../entities'
 
 import { ERC20 as ERC20Contract } from '../../generated/MasterChefV2/ERC20'
@@ -39,9 +41,10 @@ export function logPoolAddition(event: LogPoolAddition): void {
 
   const masterChef = getMasterChef(event.block)
   const pool = getPool(event.params.pid, event.block)
+  const rewarder = getRewarder(event.params.rewarder, event.block)
 
   pool.pair = event.params.lpToken
-  pool.rewarder = event.params.rewarder
+  pool.rewarder = rewarder.id
   pool.allocPoint = event.params.allocPoint
   pool.save()
 
@@ -62,8 +65,8 @@ export function logSetPool(event: LogSetPool): void {
   const pool = getPool(event.params.pid, event.block)
 
   if (event.params.overwrite == true) {
-     //const rewarder = getRewarder(event.params.rewarder, event.block)
-     pool.rewarder = event.params.rewarder
+     const rewarder = getRewarder(event.params.rewarder, event.block)
+     pool.rewarder = rewarder.id
   }
 
   masterChef.totalAllocPoint = masterChef.totalAllocPoint.plus(event.params.allocPoint.minus(pool.allocPoint))
@@ -83,6 +86,7 @@ export function logUpdatePool(event: LogUpdatePool): void {
 
   const masterChef = getMasterChef(event.block)
   const pool = getPool(event.params.pid, event.block)
+  updateRewarder(Address.fromString(pool.rewarder))
 
   pool.accSushiPerShare = event.params.accSushiPerShare
   pool.lastRewardBlock = event.params.lastRewardBlock

@@ -23,7 +23,7 @@ type Pool @entity {
   masterChef: MasterChef!
   pair: Bytes!
 
-  rewarder: Bytes!
+  rewarder: Rewarder
 
   allocPoint: BigInt!
   lastRewardBlock: BigInt!
@@ -33,6 +33,16 @@ type Pool @entity {
 
   users: [User!]! @derivedFrom(field: "pool")
   userCount: BigInt!
+
+  timestamp: BigInt!
+  block: BigInt!
+}
+
+type Rewarder @entity {
+  # address
+  id: ID!
+  rewardToken: Bytes!
+  rewardPerBlock: BigInt!
 
   timestamp: BigInt!
   block: BigInt!
