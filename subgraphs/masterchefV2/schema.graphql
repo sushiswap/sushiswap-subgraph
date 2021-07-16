@@ -42,7 +42,7 @@ type Rewarder @entity {
   # address
   id: ID!
   rewardToken: Bytes!
-  rewardPerBlock: BigInt!
+  rewardPerSecond: BigInt!
 
   timestamp: BigInt!
   block: BigInt!
