@@ -24,6 +24,8 @@ dataSources:
       abis:
         - name: MiniChef
           file: ./packages/abis/MiniChef.json
+        - name: CloneRewarderTime
+          file: ./packages/abis/CloneRewarderTime.json
         - name: Factory
           file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
         - name: Pair
@@ -57,12 +59,30 @@ templates:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
-      file: ./src/mappings/rewarder.ts
+      file: ./src/mappings/complex-rewarder.ts
       entities:
         - Rewarder
       abis:
         - name: ComplexRewarderTime
           file: ./packages/abis/ComplexRewarderTime.json
+      eventHandlers:
+        - event: LogRewardPerSecond(uint256)
+          handler: logRewardPerSecond
+  - kind: ethereum/contract
+    name: CloneRewarderTime
+    network: {{ network }}
+    source:
+      abi: CloneRewarderTime
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappings/clone-rewarder.ts
+      entities:
+        - Rewarder
+      abis:
+        - name: CloneRewarderTime
+          file: ./packages/abis/CloneRewarderTime.json
       eventHandlers:
         - event: LogRewardPerSecond(uint256)
           handler: logRewardPerSecond
