@@ -14,6 +14,7 @@
         "prepare:kovan": "mustache config/kovan.json template.yaml > subgraph.yaml",
         "prepare:mainnet": "mustache config/mainnet.json template.yaml > subgraph.yaml",
         "prepare:rinkeby": "mustache config/rinkeby.json template.yaml > subgraph.yaml",
-        "prepare:ropsten": "mustache config/ropsten.json template.yaml > subgraph.yaml"
+        "prepare:ropsten": "mustache config/ropsten.json template.yaml > subgraph.yaml",
+        "prepare:matic": "mustache config/matic.json template.yaml > subgraph.yaml"
     }
 }

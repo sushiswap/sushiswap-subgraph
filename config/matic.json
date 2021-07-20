@@ -1,10 +1,10 @@
 {
     "network": "matic",
-    "factory_address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
-    "masterchef_address": "0x0000000000000000000000000000000000000000",
+    "factory_address": "0x7Ff9B69a7b6F11780C3D5d7D04B078ae5e4c219A",
+    "masterchef_address": "0xecDdE55E1E766436aDDAf6AEA3C47473Fb7BaC33",
     "sushi_bar_address": "0x0000000000000000000000000000000000000000",
     "sushi_maker_address": "0x0000000000000000000000000000000000000000",
-    "sushi_token_address": "0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a",
+    "sushi_token_address": "0x2e4b0fb46a46c90cb410fe676f24e466753b469f",
     "sushi_usdt_pair_address": "0x0000000000000000000000000000000000000000",
     "xsushi_usdc_pair_address": "0x0000000000000000000000000000000000000000",
     "xsushi_weth_pair_address": "0x0000000000000000000000000000000000000000",
@@ -29,7 +29,7 @@
     "minimum_usd_threshold_new_pairs": "3000",
     "minimum_liquidity_threshold_eth": "1000",
     "factory": {
-        "address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
+        "address": "0x7Ff9B69a7b6F11780C3D5d7D04B078ae5e4c219A",
         "startBlock": "11333218"
     },
     "whitelist": [

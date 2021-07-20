@@ -7,6 +7,7 @@
         "codegen": "graph codegen subgraph.yaml",
         "build": "graph build subgraph.yaml",
         "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/user subgraph.yaml",
-        "prepare": "mustache config/mainnet.json template.yaml > subgraph.yaml"
+        "prepare": "mustache config/matic.json template.yaml > subgraph.yaml",
+	"prepare:matic": "mustache config/matic.json template.yaml > subgraph.yaml"
     }
 }

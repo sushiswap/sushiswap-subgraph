@@ -15,7 +15,7 @@
         "prepare:goerli": ".",
         "prepare:kovan": ".",
         "prepare:mainnet": "mustache config/mainnet.json template.yaml > subgraph.yaml",
-        "prepare:matic": ".",
+        "prepare:matic": "mustache config/matic.json template.yaml > subgraph.yaml",
         "prepare:rinkeby": ".",
         "prepare:ropsten": "mustache config/ropsten.json template.yaml > subgraph.yaml",
         "prepare:xdai": "."
