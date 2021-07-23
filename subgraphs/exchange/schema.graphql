@@ -17,6 +17,12 @@
 #   # User
 #   @fulltext(name: "userSearch", language: en, algorithm: rank, include: [{ entity: "User", fields: [{ name: "id" }] }])
 
+# WhitelistPair
+type WhitelistPair @entity {
+  id: ID!
+  pairAddress: String
+}
+
 # User
 type User @entity {
   # Address
