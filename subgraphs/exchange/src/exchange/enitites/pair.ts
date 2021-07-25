@@ -3,25 +3,28 @@ import { BIG_DECIMAL_ZERO, BIG_INT_ZERO, FACTORY_ADDRESS } from "const";
 
 import { Pair } from "../../../generated/schema";
 import { Pair as PairContract } from "../../../generated/templates/Pair/Pair";
-import { Pair as PairTemplate } from "../../../generated/templates";
 import { getToken } from ".";
 
 export function getPair(
   address: Address,
-  block: ethereum.Block = null
+  block: ethereum.Block = null,
+  token0FromParams: Address = null,
+  token1FromParams: Address = null
 ): Pair | null {
   let pair = Pair.load(address.toHex());
 
   if (pair === null) {
     const pairContract = PairContract.bind(address);
 
-    const token0 = getToken(pairContract.token0());
+    const token0Address = token0FromParams || pairContract.token0();
+    const token0 = getToken(token0Address);
 
     if (token0 === null) {
       return null;
     }
 
-    const token1 = getToken(pairContract.token1());
+    const token1Address = token1FromParams || pairContract.token1();
+    const token1 = getToken(token1Address);
 
     if (token1 === null) {
       return null;
