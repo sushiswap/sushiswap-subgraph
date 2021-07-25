@@ -182,7 +182,10 @@ export function findEthPerToken(token: Token): BigDecimal {
   for (let i = 0; i < WHITELIST.length; ++i) {
     const whitelistPair = createOrLoadWhitelistPair(WHITELIST[i], token.id);
 
-    if (whitelistPair.pairAddress === null) {
+    if (
+      whitelistPair.pairAddress === null ||
+      whitelistPair.pairAddress === ADDRESS_ZERO.toHex()
+    ) {
       const pairFromContract = factoryContract.try_getPair(
         Address.fromString(token.id),
         Address.fromString(WHITELIST[i])
