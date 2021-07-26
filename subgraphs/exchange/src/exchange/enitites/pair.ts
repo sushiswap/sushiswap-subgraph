@@ -1,5 +1,10 @@
 import { Address, ethereum } from "@graphprotocol/graph-ts";
-import { BIG_DECIMAL_ZERO, BIG_INT_ZERO, FACTORY_ADDRESS } from "const";
+import {
+  BIG_DECIMAL_ZERO,
+  BIG_INT_ZERO,
+  FACTORY_ADDRESS,
+  WHITELIST,
+} from "const";
 
 import { Pair } from "../../../generated/schema";
 import { Pair as PairContract } from "../../../generated/templates/Pair/Pair";
@@ -31,6 +36,21 @@ export function getPair(
     }
 
     pair = new Pair(address.toHex());
+
+    if (WHITELIST.includes(token0.id)) {
+      const newPairs = token1.whitelistPairs;
+      newPairs.push(pair.id);
+      token1.whitelistPairs = newPairs;
+    }
+    if (WHITELIST.includes(token1.id)) {
+      const newPairs = token0.whitelistPairs;
+      newPairs.push(pair.id);
+      token0.whitelistPairs = newPairs;
+    }
+
+    token0.save();
+    token1.save();
+
     pair.factory = FACTORY_ADDRESS.toHex();
 
     pair.name = token0.symbol.concat("-").concat(token1.symbol);

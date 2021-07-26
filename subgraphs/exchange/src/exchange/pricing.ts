@@ -28,7 +28,6 @@ import { Pair, Token } from "../../generated/schema";
 
 import { Factory as FactoryContract } from "../../generated/templates/Pair/Factory";
 import { Pair as PairContract } from "../../generated/templates/Pair/Pair";
-import { createOrLoadWhitelistPair } from "./enitites/whitelist-pair";
 
 // export const uniswapFactoryContract = FactoryContract.bind(Address.fromString("0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f"))
 
@@ -179,50 +178,27 @@ export function findEthPerToken(token: Token): BigDecimal {
     return BIG_DECIMAL_ONE;
   }
 
-  for (let i = 0; i < WHITELIST.length; ++i) {
-    const whitelistPair = createOrLoadWhitelistPair(WHITELIST[i], token.id);
+  const whitelist = token.whitelistPairs;
+
+  for (let i = 0; i < whitelist.length; ++i) {
+    const pairAddress = whitelist[i];
+    const pair = Pair.load(pairAddress);
 
     if (
-      whitelistPair.pairAddress === null ||
-      whitelistPair.pairAddress === ADDRESS_ZERO.toHex()
+      pair.token0 == token.id &&
+      pair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH)
     ) {
-      const pairFromContract = factoryContract.try_getPair(
-        Address.fromString(token.id),
-        Address.fromString(WHITELIST[i])
-      );
+      const token1 = Token.load(pair.token1);
 
-      if (pairFromContract.reverted) {
-        log.warning("factory get pair reverted  tokens: {} {}", [
-          token.id,
-          WHITELIST[i],
-        ]);
-      }
-
-      whitelistPair.pairAddress = pairFromContract.value.toHex();
-      whitelistPair.save();
+      return pair.token1Price.times(token1.derivedETH as BigDecimal); // return token1 per our token * Eth per token 1
     }
 
-    const pairAddress = Address.fromString(whitelistPair.pairAddress);
-
-    if (pairAddress != ADDRESS_ZERO) {
-      const pair = Pair.load(pairAddress.toHex());
-
-      if (
-        pair.token0 == token.id &&
-        pair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH)
-      ) {
-        const token1 = Token.load(pair.token1);
-
-        return pair.token1Price.times(token1.derivedETH as BigDecimal); // return token1 per our token * Eth per token 1
-      }
-
-      if (
-        pair.token1 == token.id &&
-        pair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH)
-      ) {
-        const token0 = Token.load(pair.token0);
-        return pair.token0Price.times(token0.derivedETH as BigDecimal); // return token0 per our token * ETH per token 0
-      }
+    if (
+      pair.token1 == token.id &&
+      pair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH)
+    ) {
+      const token0 = Token.load(pair.token0);
+      return pair.token0Price.times(token0.derivedETH as BigDecimal); // return token0 per our token * ETH per token 0
     }
   }
 
