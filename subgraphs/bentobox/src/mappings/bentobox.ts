@@ -90,7 +90,8 @@ export function handleLogWithdraw(event: LogWithdraw): void {
   const token = getToken(event.params.token, event.block)
   token.totalSupplyBase = token.totalSupplyBase.minus(event.params.share)
   token.totalSupplyElastic = token.totalSupplyElastic.minus(event.params.amount)
-
+  token.save()
+  
   const userTokenData = getUserToken(from, token as Token, event.block)
   userTokenData.share = userTokenData.share.minus(event.params.share)
   userTokenData.save()
