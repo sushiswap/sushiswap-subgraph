@@ -22,6 +22,7 @@
     "bentobox_address": "0xf5bce5077908a1b7370b9ae04adc565ebd643966",
     "kashi_pair_medium_risk_master_address": "0x2cba6ab6574646badc84f0544d05059e57a5dc42",
     "minichef_address": "0x0769fd68dfb93167989c6f7254cd0d766fb2841f",
+    "complex_rewarder_address": "0xa3378ca78633b3b9b2255eaa26748770211163ae",
     "native_address": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
     "dai_address": "",
     "usdt_address": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",

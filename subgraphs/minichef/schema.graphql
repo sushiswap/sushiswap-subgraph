@@ -8,8 +8,7 @@ type MiniChef @entity {
   sushi: Bytes!
   sushiPerSecond: BigInt!
   totalAllocPoint: BigInt!
-  #acc_sushi_precision prob better as constant
-  #startBlock idk if we need this
+  totalNativeRewarderAp: BigInt!
 
   pools: [Pool!] @derivedFrom(field: "miniChef")
   poolCount: BigInt!

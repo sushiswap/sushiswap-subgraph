@@ -6,7 +6,8 @@ import {
   BIG_INT_ONE,
   BIG_INT_ONE_DAY_SECONDS,
   BIG_INT_ZERO,
-  MINI_CHEF_ADDRESS
+  MINI_CHEF_ADDRESS,
+  COMPLEX_REWARDER,
 } from 'const'
 import { Address, BigDecimal, BigInt, dataSource, ethereum, log } from '@graphprotocol/graph-ts'
 import {
@@ -45,8 +46,12 @@ export function logPoolAddition(event: LogPoolAddition): void {
   pool.pair = event.params.lpToken
   pool.rewarder = rewarder.id
   pool.allocPoint = event.params.allocPoint
-  
+
   pool.save()
+
+  if (pool.rewarder == COMPLEX_REWARDER.toHex()) {
+    miniChef.totalNativeRewarderAp = miniChef.totalNativeRewarderAp.plus(pool.allocPoint)
+  }
 
   miniChef.totalAllocPoint = miniChef.totalAllocPoint.plus(pool.allocPoint)
   miniChef.poolCount = miniChef.poolCount.plus(BIG_INT_ONE)
@@ -67,6 +72,10 @@ export function logSetPool(event: LogSetPool): void {
   if (event.params.overwrite == true) {
      const rewarder = getRewarder(event.params.rewarder, event.block)
      pool.rewarder = rewarder.id
+  }
+
+  if (pool.rewarder == COMPLEX_REWARDER.toHex()) {
+    miniChef.totalNativeRewarderAp = miniChef.totalNativeRewarderAp.plus(event.params.allocPoint.minus(pool.allocPoint))
   }
 
   miniChef.totalAllocPoint = miniChef.totalAllocPoint.plus(event.params.allocPoint.minus(pool.allocPoint))
