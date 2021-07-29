@@ -25,6 +25,12 @@ dataSources:
         - LogWhiteListMasterContract
         - LogSetMasterContractApproval
         - LogRegisterProtocol
+        - LogStrategySet
+        - LogStrategyTargetPercentage
+        - LogStrategyInvest
+        - LogStrategyDivest
+        - LogStrategyProfit
+        - LogStrategyLoss
       abis:
         - name: BentoBox
           file: ./packages/abis/BentoBox.json
@@ -53,6 +59,18 @@ dataSources:
           handler: handleLogMasterContractApproval
         - event: LogRegisterProtocol(indexed address)
           handler: handleLogRegisterProtocol
+        - event: LogStrategySet(indexed address,indexed address)
+          handler: handleLogStrategySet
+        - event: LogStrategyTargetPercentage(indexed address,uint256)
+          handler: handleStrategyTargetPercentage
+        - event: LogStrategyInvest(indexed address,uint256)
+          handler: handleLogStrategyInvest
+        - event: LogStrategyDivest(indexed address,uint256)
+          handler: handleLogStrategyDivest
+        - event: LogStrategyProfit(indexed address,uint256)
+          handler: handleLogStrategyProfit
+        - event: LogStrategyLoss(indexed address,uint256)
+          handler: handleLogStrategyLoss
 
 templates:
   - kind: ethereum/contract

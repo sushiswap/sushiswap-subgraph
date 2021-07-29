@@ -14,6 +14,12 @@ import {
   LogWhiteListMasterContract,
   LogSetMasterContractApproval,
   LogRegisterProtocol,
+  LogStrategySet,
+  LogStrategyTargetPercentage,
+  LogStrategyInvest,
+  LogStrategyDivest,
+  LogStrategyProfit,
+  LogStrategyLoss,
 } from '../../generated/BentoBox/BentoBox'
 import { Token, User, FlashLoan, Protocol, Clone } from '../../generated/schema'
 import {
@@ -22,13 +28,15 @@ import {
   getUserToken,
   getMasterContractApproval,
   getMasterContract,
+  getStrategy,
   createBentoBoxAction,
   createKashiPair,
   createFlashLoan,
+  createStrategy,
 } from '../entities'
 
 import { KashiPair as PairTemplate } from '../../generated/templates'
-import { log } from '@graphprotocol/graph-ts'
+import { Address, log } from '@graphprotocol/graph-ts'
 
 export function handleLogDeploy(event: LogDeploy): void {
   log.info('[BentoBox] Log Deploy {} {} {}', [
@@ -171,4 +179,86 @@ export function handleLogRegisterProtocol(event: LogRegisterProtocol): void {
     registeredProtocol = new Protocol(event.params.protocol.toHex())
     registeredProtocol.save()
   }
+}
+
+export function handleLogStrategySet(event: LogStrategySet): void {
+  log.info('[BentoBox] Log Strategy Set {} {}', [
+    event.params.strategy.toHex(),
+    event.params.token.toHex()
+  ])
+
+  createStrategy(event)
+}
+
+export function handleLogStrategyTargetPercentage(event: LogStrategyTargetPercentage): void {
+  log.info('[BentoBox] Log Strategy Target Percentage {} {}', [
+    event.params.token.toHex(),
+    event.params.targetPercentage.toString()
+  ])
+
+  const token = getToken(event.params.token, event.block)
+  token.strategyTargetPercentage = event.params.targetPercentage
+  token.save()
+
+  const strategy = getStrategy(Address.fromString(token.strategy))
+  if(strategy !== null) {
+    strategy.targetPercentage = event.params.targetPercentage
+    strategy.save()
+  }
+}
+
+export function handleLogStrategyInvest(event: LogStrategyInvest): void {
+  log.info('[BentoBox] Log Strategy Invest {} {}', [
+    event.params.token.toHex(),
+    event.params.amount.toString()
+  ])
+
+  const token = getToken(event.params.token, event.block)
+  
+  const strategy = getStrategy(Address.fromString(token.strategy))
+  strategy.balance = strategy.balance.plus(event.params.amount)
+  strategy.save()
+}
+
+export function handleLogStrategyDivest(event: LogStrategyDivest): void {
+  log.info('[BentoBox] Log Strategy Divest {} {}', [
+    event.params.token.toHex(),
+    event.params.amount.toString()
+  ])
+
+  const token = getToken(event.params.token, event.block)
+  
+  const strategy = getStrategy(Address.fromString(token.strategy))
+  strategy.balance = strategy.balance.minus(event.params.amount)
+  strategy.save()
+}
+
+export function handleLogStrategyProfit(event: LogStrategyProfit): void {
+  log.info('[BentoBox] Log Strategy Profit {} {}', [
+    event.params.token.toHex(),
+    event.params.amount.toString()
+  ])
+
+  const token = getToken(event.params.token, event.block)
+  token.totalSupplyElastic = token.totalSupplyElastic.plus(event.params.amount)
+  token.save()
+
+  const strategy = getStrategy(Address.fromString(token.strategy))
+  strategy.totalProfit = strategy.totalProfit.plus(event.params.amount)
+  strategy.save()
+}
+
+export function handleLogStrategyLoss(event: LogStrategyLoss): void {
+  log.info('[BentoBox] Log Strategy Loss {} {}', [
+    event.params.token.toHex(),
+    event.params.amount.toString()
+  ])
+
+  const token = getToken(event.params.token, event.block)
+  token.totalSupplyElastic = token.totalSupplyElastic.minus(event.params.amount)
+  token.save()
+
+  const strategy = getStrategy(Address.fromString(token.strategy))
+  strategy.totalProfit = strategy.totalProfit.minus(event.params.amount)
+  strategy.save()
 }
