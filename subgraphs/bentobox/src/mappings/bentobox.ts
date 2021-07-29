@@ -130,6 +130,10 @@ export function handleLogFlashLoan(event: LogFlashLoan): void {
     event.params.receiver.toHex()
   ])
 
+  const token = getToken(event.params.token, event.block)
+  token.totalSupplyElastic = token.totalSupplyElastic.plus(event.params.feeAmount)
+  token.save()
+
   createFlashLoan(event)
 }
 
