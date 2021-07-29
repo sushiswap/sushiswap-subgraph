@@ -260,5 +260,6 @@ export function handleLogStrategyLoss(event: LogStrategyLoss): void {
 
   const strategy = getStrategy(Address.fromString(token.strategy))
   strategy.totalProfit = strategy.totalProfit.minus(event.params.amount)
+  strategy.balance = strategy.balance.minus(event.params.amount)
   strategy.save()
 }
