@@ -60,6 +60,9 @@ export function getSymbol(address: Address): string {
   if (address.toHex() == '0x3fa729b4548becbad4eab6ef18413470e6d5324c') {
     return 'MOVE'
   }
+  if (address.toHex() == '0xe95a203b1a91a908f9b9ce46459d101078c2c3cb') {
+    return 'aETHc'
+  }
 
   const contract = ERC20.bind(address)
   const contractSymbolBytes = ERC20SymbolBytes.bind(address)
@@ -100,6 +103,9 @@ export function getName(address: Address): string {
   }
   if (address.toHex() == '0x3fa729b4548becbad4eab6ef18413470e6d5324c') {
     return 'Mover'
+  }
+  if (address.toHex() == '0xe95a203b1a91a908f9b9ce46459d101078c2c3cb') {
+    return 'Ankr Eth2 Reward Bearing Certificate'
   }
 
   const contract = ERC20.bind(address)
