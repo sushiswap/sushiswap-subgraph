@@ -154,6 +154,8 @@ type Token @entity {
 
   derivedETH: BigDecimal!
 
+  whitelistPairs: [Pair!]!
+
   # Token hour data
   hourData: [TokenHourData!]! @derivedFrom(field: "token")
 

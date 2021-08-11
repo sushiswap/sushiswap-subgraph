@@ -23,6 +23,7 @@ import {
   ethereum,
   log,
 } from "@graphprotocol/graph-ts";
+
 import { Pair, Token } from "../../generated/schema";
 
 import { Factory as FactoryContract } from "../../generated/templates/Pair/Factory";
@@ -177,42 +178,27 @@ export function findEthPerToken(token: Token): BigDecimal {
     return BIG_DECIMAL_ONE;
   }
 
-  // loop through whitelist and check if paired with any
-  // TODO: This is slow, and this function is called quite often.
-  // What could we do to improve this?
-  for (let i = 0; i < WHITELIST.length; ++i) {
-    // TODO: Cont. This would be a good start, by avoiding multiple calls to getPair...
-    const result = factoryContract.try_getPair(
-      Address.fromString(token.id),
-      Address.fromString(WHITELIST[i])
-    );
+  const whitelist = token.whitelistPairs;
 
-    if (result.reverted) {
-      log.info("factory get pair reverted  tokens: {} {}", [
-        token.id,
-        WHITELIST[i],
-      ]);
-      continue;
+  for (let i = 0; i < whitelist.length; ++i) {
+    const pairAddress = whitelist[i];
+    const pair = Pair.load(pairAddress);
+
+    if (
+      pair.token0 == token.id &&
+      pair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH)
+    ) {
+      const token1 = Token.load(pair.token1);
+
+      return pair.token1Price.times(token1.derivedETH as BigDecimal); // return token1 per our token * Eth per token 1
     }
 
-    const pairAddress = result.value;
-
-    if (pairAddress != ADDRESS_ZERO) {
-      const pair = Pair.load(pairAddress.toHex());
-      if (
-        pair.token0 == token.id &&
-        pair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH)
-      ) {
-        const token1 = Token.load(pair.token1);
-        return pair.token1Price.times(token1.derivedETH as BigDecimal); // return token1 per our token * Eth per token 1
-      }
-      if (
-        pair.token1 == token.id &&
-        pair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH)
-      ) {
-        const token0 = Token.load(pair.token0);
-        return pair.token0Price.times(token0.derivedETH as BigDecimal); // return token0 per our token * ETH per token 0
-      }
+    if (
+      pair.token1 == token.id &&
+      pair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH)
+    ) {
+      const token0 = Token.load(pair.token0);
+      return pair.token0Price.times(token0.derivedETH as BigDecimal); // return token0 per our token * ETH per token 0
     }
   }
 
