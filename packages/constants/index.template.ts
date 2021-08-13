@@ -61,7 +61,7 @@ export const PAIR_REPAY = "repay";
 export const FACTORY_ADDRESS = Address.fromString("{{ factory_address }}{{^factory_address}}0x0000000000000000000000000000000000000000{{/factory_address}}");
 
 export const MASTER_CHEF_ADDRESS = Address.fromString(
-  "{{ masterchef_address }}{{^masterchef_address}}0x0000000000000000000000000000000000000000{{/masterchef_address}}" 
+  "{{ masterchef_address }}{{^masterchef_address}}0x0000000000000000000000000000000000000000{{/masterchef_address}}"
 );
 
 export const MASTER_CHEF_V2_ADDRESS = Address.fromString(
@@ -154,6 +154,8 @@ export const CONVEX_REWARDERS: Array<Address> = [Address.fromString('0x9e01aac4b
 
 export const ALCX_REWARDER = Address.fromString('0x7519c93fc5073e15d89131fd38118d73a72370f8')
 
+export const LIDO_REWARDER = Address.fromString('0x75ff3dd673ef9fc459a52e1054db5df2a1101212')
+
 export const NATIVE = Address.fromString("{{ native_address }}{{^native_address}}0x0000000000000000000000000000000000000000{{/native_address}}");
 
 export const USDC = "{{ usdc_address }}{{^usdc_address}}0x0000000000000000000000000000000000000000{{/usdc_address}}";
@@ -165,11 +167,11 @@ export const DAI = "{{ dai_address }}{{^dai_address}}0x0000000000000000000000000
 export const WHITELIST: string[] = "{{ whitelist }}".split(",");
 
 // export const WHITELIST: string[] = [
-//   "0xcf664087a5bb0237a0bad6742852ec6c8d69a27a", 
-//   "0x6983d1e6def3690c4d616b13597a09e6193ea013", 
-//   "0x3095c7557bcb296ccc6e363de01b760ba031f2d9", 
-//   "0x985458e523db3d53125813ed68c274899e9dfab4", 
-//   "0x3c2b8be99c50593081eaa2a724f0b8285f5aba8f", 
+//   "0xcf664087a5bb0237a0bad6742852ec6c8d69a27a",
+//   "0x6983d1e6def3690c4d616b13597a09e6193ea013",
+//   "0x3095c7557bcb296ccc6e363de01b760ba031f2d9",
+//   "0x985458e523db3d53125813ed68c274899e9dfab4",
+//   "0x3c2b8be99c50593081eaa2a724f0b8285f5aba8f",
 //   "0xe176ebe47d621b984a73036b9da5d834411ef734",
 // ]
 
