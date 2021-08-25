@@ -30,6 +30,8 @@ dataSources:
           file: ./packages/abis/ComplexRewarder.json
         - name: CloneRewarderTime
           file: ./packages/abis/CloneRewarderTime.json
+        - name: StakingRewardsSushi
+          file: ./packages/abis/StakingRewardsSushi.json
         - name: Factory
           file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
         - name: Pair
