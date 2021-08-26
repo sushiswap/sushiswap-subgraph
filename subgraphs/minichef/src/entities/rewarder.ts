@@ -13,9 +13,9 @@ export function getRewarder(address: Address, block: ethereum.Block): Rewarder {
     rewarder = new Rewarder(address.toHex())
     rewarder.rewardToken = ADDRESS_ZERO
     rewarder.rewardPerSecond = BIG_INT_ZERO
+    rewarder.totalAllocPoint = BIG_INT_ZERO
 
     if (address == COMPLEX_REWARDER) {
-      rewarder.rewardPerSecond = BIG_INT_ZERO
       rewarder.rewardToken = NATIVE
       ComplexRewarderTemplate.create(address)
     }

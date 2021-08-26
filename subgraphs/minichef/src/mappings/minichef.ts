@@ -49,10 +49,6 @@ export function logPoolAddition(event: LogPoolAddition): void {
 
   pool.save()
 
-  if (pool.rewarder == COMPLEX_REWARDER.toHex()) {
-    miniChef.totalNativeRewarderAp = miniChef.totalNativeRewarderAp.plus(pool.allocPoint)
-  }
-
   miniChef.totalAllocPoint = miniChef.totalAllocPoint.plus(pool.allocPoint)
   miniChef.poolCount = miniChef.poolCount.plus(BIG_INT_ONE)
   miniChef.save()
@@ -72,10 +68,6 @@ export function logSetPool(event: LogSetPool): void {
   if (event.params.overwrite == true) {
      const rewarder = getRewarder(event.params.rewarder, event.block)
      pool.rewarder = rewarder.id
-  }
-
-  if (pool.rewarder == COMPLEX_REWARDER.toHex()) {
-    miniChef.totalNativeRewarderAp = miniChef.totalNativeRewarderAp.plus(event.params.allocPoint.minus(pool.allocPoint))
   }
 
   miniChef.totalAllocPoint = miniChef.totalAllocPoint.plus(event.params.allocPoint.minus(pool.allocPoint))

@@ -8,7 +8,6 @@ type MiniChef @entity {
   sushi: Bytes!
   sushiPerSecond: BigInt!
   totalAllocPoint: BigInt!
-  totalNativeRewarderAp: BigInt!
 
   pools: [Pool!] @derivedFrom(field: "miniChef")
   poolCount: BigInt!
@@ -40,11 +39,23 @@ type Pool @entity {
   block: BigInt!
 }
 
+
+type NativeRewardPool @entity {
+  # Index of pool in ComplexRewarder
+  id: ID!
+
+  rewarder: Rewarder!
+  allocPoint: BigInt!
+}
+
 type Rewarder @entity {
   # address
   id: ID!
   rewardToken: Bytes!
   rewardPerSecond: BigInt!
+
+  totalAllocPoint: BigInt!
+  nativeRewardPools: [NativeRewardPool!] @derivedFrom(field: "rewarder")
 
   timestamp: BigInt!
   block: BigInt!

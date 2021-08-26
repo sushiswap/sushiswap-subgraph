@@ -10,7 +10,6 @@ export function getMiniChef(block: ethereum.Block): MiniChef {
     miniChef.sushi = SUSHI_TOKEN_ADDRESS
     miniChef.sushiPerSecond = BIG_INT_ZERO
     miniChef.totalAllocPoint = BIG_INT_ZERO
-    miniChef.totalNativeRewarderAp = BIG_INT_ZERO
     miniChef.poolCount = BIG_INT_ZERO
   }
 
