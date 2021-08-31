@@ -109,7 +109,7 @@ export const MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString(
 
 // minimum liquidity for price to get tracked
 export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString(
-  "10"
+  "3"
 );
 
 export const WETH_ADDRESS = Address.fromString("0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2");

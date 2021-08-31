@@ -20,6 +20,7 @@
     "prepare:okex": "mustache ../../config/okex.json index.template.ts > index.ts",
     "prepare:harmony": "mustache ../../config/harmony.json index.template.ts > index.ts",
     "prepare:celo": "mustache ../../config/celo.json index.template.ts > index.ts",
-    "prepare:avalanche": "mustache ../../config/avalanche.json index.template.ts > index.ts"
+    "prepare:avalanche": "mustache ../../config/avalanche.json index.template.ts > index.ts",
+    "prepare:arbitrum": "mustache ../../config/arbitrum.json index.template.ts > index.ts"
   }
 }

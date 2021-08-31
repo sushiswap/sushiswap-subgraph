@@ -1,0 +1,38 @@
+{
+  "network": "arbitrum-one",
+  "factory_address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
+  "masterchef_address": "",
+  "sushi_bar_address": "",
+  "sushi_maker_address": "",
+  "sushi_token_address": "",
+  "sushi_usdt_pair_address": "",
+  "xsushi_usdc_pair_address": "",
+  "xsushi_weth_pair_address": "",
+  "sushi_distributor_address": "",
+  "usdc_weth_pair": "",
+  "dai_weth_pair": "",
+  "usdt_weth_pair": "",
+  "sushi_usdt_pair": "",
+  "weth_address": "",
+  "sushiswap_weth_usdt_pair_address": "",
+  "uniswap_factory_address": "",
+  "uniswap_weth_usdt_pair_address": "",
+  "uniswap_sushi_eth_pair_address": "",
+  "uniswap_sushi_usdt_pair_address": "",
+  "bentobox_address": "",
+  "kashi_pair_medium_risk_master_address": "",
+  "minichef_address": "0xf4d73326c13a4fc5fd7a064217e12780e9bd62c3",
+  "native_address": "0x0000000000000000000000000000000000000000",
+  "dai_address": "",
+  "usdt_address": "",
+  "usdc_address": "",
+  "minimum_usd_threshold_new_pairs": "10000",
+  "minimum_liquidity_threshold_eth": "5",
+  "factory": {
+    "address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
+    "startBlock": "70"
+  },
+  "whitelist": [
+
+  ]
+}
