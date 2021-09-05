@@ -1,6 +1,6 @@
 import { BIG_DECIMAL_ZERO } from 'const'
 import { BigDecimal } from '@graphprotocol/graph-ts'
-import { Bundle } from '../../../generated/schema'
+import { Bundle } from '../../generated/schema'
 
 export function getBundle(): Bundle {
   let bundle = Bundle.load('1')

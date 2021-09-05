@@ -1,11 +1,11 @@
 import { Address, BigInt, log } from '@graphprotocol/graph-ts'
 import { BIG_DECIMAL_ZERO, BIG_INT_ZERO, NULL_CALL_RESULT_VALUE } from 'const'
 
-import { ERC20 } from '../../../generated/Factory/ERC20'
-import { ERC20NameBytes } from '../../../generated/Factory/ERC20NameBytes'
-import { ERC20SymbolBytes } from '../../../generated/Factory/ERC20SymbolBytes'
-import { Token } from '../../../generated/schema'
-import { getFactory } from '.'
+import { ERC20 } from '../../generated/Factory/ERC20'
+import { ERC20NameBytes } from '../../generated/Factory/ERC20NameBytes'
+import { ERC20SymbolBytes } from '../../generated/Factory/ERC20SymbolBytes'
+import { Token } from '../../generated/schema'
+import { getFactory } from './factory'
 
 export function getToken(address: Address): Token | null {
   let token = Token.load(address.toHex())
