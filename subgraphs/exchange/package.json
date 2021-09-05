@@ -37,6 +37,7 @@
         "prepare:harmony": "mustache ../../config/harmony.json template.yaml > subgraph.yaml",
         "prepare:celo": "mustache ../../config/celo.json template.yaml > subgraph.yaml",
         "prepare:avalanche": "mustache ../../config/avalanche.json template.yaml > subgraph.yaml",
-        "prepare:palm": "mustache ../../config/palm.json template.yaml > subgraph.yaml"
+        "prepare:palm": "mustache ../../config/palm.json template.yaml > subgraph.yaml",
+        "prepare:heco": "mustache ../../config/heco.json template.yaml > subgraph.yaml"
     }
 }
