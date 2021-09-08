@@ -1,5 +1,5 @@
 {
-    "network": "mainnet",
+    "network": "oec",
     "factory_address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
     "dai_weth_pair": "0xfdba79041f9706fa2539452d87f3329d755142ef",
     "usdc_weth_pair": "0x6c78b8edf2f47f9a6836703fad855c8329b856e3",
@@ -20,7 +20,6 @@
         "0x8f8526dbfd6e38e3d8307702ca8469bae6c56c15",
         "0x54e4622dc504176b3bb432dccaf504569699a7ff",
         "0xef71ca2ee68f45b9ad6f72fbdb33d707b872315c",
-        "0x506f731f7656e2fb34b587b912808f2a7ab640bd",
         "0xc946daf81b08146b1c7a8da2a851ddf2b3eaaf85",
         "0x382bb369d343125bfb2117af9c149795c6c65c50",
         "0x21cde7e32a6caf4742d00d44b07279e7596d26b9"
