@@ -25,8 +25,7 @@
     "0x985458e523db3d53125813ed68c274899e9dfab4",
     "0x3c2b8be99c50593081eaa2a724f0b8285f5aba8f",
     "0xe176ebe47d621b984a73036b9da5d834411ef734",
-    "0xef977d2f931c1978db5f6747666fa1eacb0d0339",
-    "0x218532a12a389a4a92fc0c5fb22901d1c19198aa"
+    "0xef977d2f931c1978db5f6747666fa1eacb0d0339"
   ],
   "minimum_usd_threshold_new_pairs": "1000",
   "minimum_liquidity_threshold_eth": "50000"

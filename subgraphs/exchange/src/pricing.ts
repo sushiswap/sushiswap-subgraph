@@ -165,7 +165,7 @@ export function getEthPrice(block: ethereum.Block = null): BigDecimal {
     const isDaiFirst = daiPair.token0 == DAI
     return isDaiFirst ? daiPair.token0Price : daiPair.token1Price
   } else {
-    log.warning('No eth pair...', [])
+    // log.warning('No eth pair...', [])
     return BIG_DECIMAL_ZERO
   }
 }

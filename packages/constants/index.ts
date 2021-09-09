@@ -75,7 +75,7 @@ export const SUSHI_MAKER_ADDRESS = Address.fromString(
 );
 
 export const SUSHI_TOKEN_ADDRESS = Address.fromString(
-  "0x39cf1bd5f15fb22ec3d9ff86b0727afc203427cc"
+  "0xbec775cb42abfa4288de81f387a9b1a3c4bc552a"
 );
 
 export const SUSHI_USDT_PAIR_ADDRESS = Address.fromString(
@@ -94,31 +94,31 @@ export const SUSHI_DISTRIBUTOR_ADDRESS = Address.fromString(
   "0x0000000000000000000000000000000000000000"
 );
 
-export const USDC_WETH_PAIR = "0x0000000000000000000000000000000000000000";
+export const USDC_WETH_PAIR = "0xbf255d8c30dbab84ea42110ea7dc870f01c0013a";
 
-export const DAI_WETH_PAIR = "0x034c1b19dab61b5de448efc1e10a2e592725c893";
+export const DAI_WETH_PAIR = "0x194f4a320cbda15a0910d1ae20e0049cdc50916e";
 
-export const USDT_WETH_PAIR = "0x47f1c2a9c9027a10c3b13d1c40dd976c5014339b";
+export const USDT_WETH_PAIR = "0x2c7862b408bb3dbff277110ffde1b4eaa45c692a";
 
 export const SUSHI_USDT_PAIR = "0x0000000000000000000000000000000000000000";
 
 // minimum liquidity required to count towards tracked volume for pairs with small # of Lps
 export const MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString(
-  "3000"
+  "1000"
 );
 
 // minimum liquidity for price to get tracked
 export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString(
-  "50"
+  "50000"
 );
 
-export const WETH_ADDRESS = Address.fromString("0xf20d962a6c8f70c731bd838a3a388d7d48fa6e15");
+export const WETH_ADDRESS = Address.fromString("0x6983d1e6def3690c4d616b13597a09e6193ea013");
 
 export const SUSHISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
+  "0x5ef7622cf0d40bde750987031f614a9032911152"
 );
 
-export const USDT_ADDRESS = Address.fromString("0xde3a24028580884448a5397872046a019649b084");
+export const USDT_ADDRESS = Address.fromString("0x3c2b8be99c50593081eaa2a724f0b8285f5aba8f");
 
 export const UNISWAP_FACTORY_ADDRESS = Address.fromString(
   "0x0000000000000000000000000000000000000000"
@@ -144,10 +144,10 @@ export const KASHI_PAIR_MEDIUM_RISK_MASTER_ADDRESS = Address.fromString(
 );
 
 // MiniChef
-export const MINI_CHEF_ADDRESS = Address.fromString("0x0000000000000000000000000000000000000000");
+export const MINI_CHEF_ADDRESS = Address.fromString("0x67da5f2ffaddff067ab9d5f025f8810634d84287");
 
 export const COMPLEX_REWARDER = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
+  "0x25836011bbc0d5b6db96b20361a474cbc5245b45"
 );
 
 export const CONVEX_REWARDERS: Array<Address> = [Address.fromString('0x9e01aac4b3e8781a85b21d9d9f848e72af77b362'), Address.fromString('0x1fd97b5e5a257b0b9b9a42a96bb8870cbdd1eb79')]
@@ -156,15 +156,15 @@ export const ALCX_REWARDER = Address.fromString('0x7519c93fc5073e15d89131fd38118
 
 export const LIDO_REWARDER = Address.fromString('0x75ff3dd673ef9fc459a52e1054db5df2a1101212')
 
-export const NATIVE = Address.fromString("0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7");
+export const NATIVE = Address.fromString("0xcf664087a5bb0237a0bad6742852ec6c8d69a27a");
 
-export const USDC = "0x0000000000000000000000000000000000000000";
+export const USDC = "0x985458e523db3d53125813ed68c274899e9dfab4";
 
-export const USDT = "0xde3a24028580884448a5397872046a019649b084";
+export const USDT = "0x3c2b8be99c50593081eaa2a724f0b8285f5aba8f";
 
-export const DAI = "0xba7deebbfc5fa1100fb055a87773e1e99cd3507a";
+export const DAI = "0xef977d2f931c1978db5f6747666fa1eacb0d0339";
 
-export const WHITELIST: string[] = "0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7,0x408d4cd0adb7cebd1f1a1c33a0ba2098e1295bab,0xf20d962a6c8f70c731bd838a3a388d7d48fa6e15,0x49d5c2bdffac6ce2bfdb6640f4f80f226bc10bab,0xde3a24028580884448a5397872046a019649b084,0xba7deebbfc5fa1100fb055a87773e1e99cd3507a,0x130966628846bfd36ff31a822705796e8cb8c18d".split(",");
+export const WHITELIST: string[] = "0xcf664087a5bb0237a0bad6742852ec6c8d69a27a,0x6983d1e6def3690c4d616b13597a09e6193ea013,0x3095c7557bcb296ccc6e363de01b760ba031f2d9,0x985458e523db3d53125813ed68c274899e9dfab4,0x3c2b8be99c50593081eaa2a724f0b8285f5aba8f,0xe176ebe47d621b984a73036b9da5d834411ef734,0xef977d2f931c1978db5f6747666fa1eacb0d0339".split(",");
 
 // export const WHITELIST: string[] = [
 //   "0xcf664087a5bb0237a0bad6742852ec6c8d69a27a",
