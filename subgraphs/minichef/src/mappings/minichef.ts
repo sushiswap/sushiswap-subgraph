@@ -152,7 +152,11 @@ export function emergencyWithdraw(event: EmergencyWithdraw): void {
   ])
 
   const miniChef = getMiniChef(event.block)
+  const pool = getPool(event.params.pid, event.block)
   const user = getUser(event.params.user, event.params.pid, event.block)
+
+  pool.slpBalance = pool.slpBalance.minus(event.params.amount)
+  pool.save()
 
   user.amount = BIG_INT_ZERO
   user.rewardDebt = BIG_INT_ZERO
