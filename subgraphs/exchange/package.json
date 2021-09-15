@@ -19,8 +19,8 @@
         "deploy:xdai": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/xdai-exchange subgraph.yaml",
         "deploy:bsc": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/bsc-exchange subgraph.yaml",
         "deploy:okex": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/okex-exchange subgraph.yaml",
-        "deploy:arbitrum": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/arbitrum-exchange subgraph.yaml",
-
+        "deploy:arbitrum": "graph deploy --product hosted-service sushiswap/arbitrum-exchange",
+        "deploy:fuse": "graph deploy --product hosted-service sushiswap/fuse-exchange",
         "deploy-studio:mainnet": "graph deploy --studio sushi---mainnet-exchange",
 
         "prepare:arbitrum": "mustache ../../config/arbitrum.json template.yaml > subgraph.yaml",
@@ -38,6 +38,7 @@
         "prepare:celo": "mustache ../../config/celo.json template.yaml > subgraph.yaml",
         "prepare:avalanche": "mustache ../../config/avalanche.json template.yaml > subgraph.yaml",
         "prepare:palm": "mustache ../../config/palm.json template.yaml > subgraph.yaml",
-        "prepare:heco": "mustache ../../config/heco.json template.yaml > subgraph.yaml"
+        "prepare:heco": "mustache ../../config/heco.json template.yaml > subgraph.yaml",
+        "prepare:fuse": "mustache ../../config/fuse.json template.yaml > subgraph.yaml"    
     }
 }
