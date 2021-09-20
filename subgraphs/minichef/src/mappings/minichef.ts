@@ -1,14 +1,4 @@
-import {
-  ACC_SUSHI_PRECISION,
-  BIG_DECIMAL_1E12,
-  BIG_DECIMAL_1E18,
-  BIG_DECIMAL_ZERO,
-  BIG_INT_ONE,
-  BIG_INT_ONE_DAY_SECONDS,
-  BIG_INT_ZERO,
-  MINI_CHEF_ADDRESS
-} from 'const'
-import { Address, BigDecimal, BigInt, dataSource, ethereum, log } from '@graphprotocol/graph-ts'
+import { ACC_SUSHI_PRECISION, ADDRESS_ZERO, BIG_INT_ONE, BIG_INT_ZERO } from 'const'
 import {
   Deposit,
   EmergencyWithdraw,
@@ -17,35 +7,27 @@ import {
   LogSetPool,
   LogSushiPerSecond,
   LogUpdatePool,
-  MiniChef as MiniChefContract,
-  Withdraw
+  Withdraw,
 } from '../../generated/MiniChef/MiniChef'
-import { MiniChef, Pool, User } from '../../generated/schema'
-import {
-  getMiniChef,
-  getPool,
-  getRewarder,
-  getUser
-} from '../entities'
+import { getMiniChef, getPool, getRewarder, getUser } from '../entities'
 
-import { ERC20 as ERC20Contract } from '../../generated/MiniChef/ERC20'
+import { log } from '@graphprotocol/graph-ts'
 
 export function logPoolAddition(event: LogPoolAddition): void {
   log.info('[MiniChef] Log Pool Addition {} {} {} {}', [
     event.params.pid.toString(),
     event.params.allocPoint.toString(),
     event.params.lpToken.toHex(),
-    event.params.rewarder.toHex()
+    event.params.rewarder.toHex(),
   ])
 
   const miniChef = getMiniChef(event.block)
   const pool = getPool(event.params.pid, event.block)
-  const rewarder = getRewarder(event.params.rewarder, event.block)
 
-  pool.pair = event.params.lpToken
+  const rewarder = getRewarder(event.params.rewarder, event.block)
   pool.rewarder = rewarder.id
+  pool.pair = event.params.lpToken
   pool.allocPoint = event.params.allocPoint
-  
   pool.save()
 
   miniChef.totalAllocPoint = miniChef.totalAllocPoint.plus(pool.allocPoint)
@@ -58,15 +40,15 @@ export function logSetPool(event: LogSetPool): void {
     event.params.pid.toString(),
     event.params.allocPoint.toString(),
     event.params.rewarder.toHex(),
-    event.params.overwrite == true ? 'true' : 'false'
+    event.params.overwrite == true ? 'true' : 'false',
   ])
 
   const miniChef = getMiniChef(event.block)
   const pool = getPool(event.params.pid, event.block)
 
   if (event.params.overwrite == true) {
-     const rewarder = getRewarder(event.params.rewarder, event.block)
-     pool.rewarder = rewarder.id
+    const rewarder = getRewarder(event.params.rewarder, event.block)
+    pool.rewarder = rewarder.id
   }
 
   miniChef.totalAllocPoint = miniChef.totalAllocPoint.plus(event.params.allocPoint.minus(pool.allocPoint))
@@ -80,22 +62,16 @@ export function logUpdatePool(event: LogUpdatePool): void {
     event.params.pid.toString(),
     event.params.lastRewardTime.toString(), //uint64, I think this is Decimal but not sure
     event.params.lpSupply.toString(),
-    event.params.accSushiPerShare.toString()
+    event.params.accSushiPerShare.toString(),
   ])
-
-  const miniChef = getMiniChef(event.block)
   const pool = getPool(event.params.pid, event.block)
-
-  //pool.slpBalance = event.params.lpSupply
   pool.accSushiPerShare = event.params.accSushiPerShare
   pool.lastRewardTime = event.params.lastRewardTime
   pool.save()
 }
 
 export function logSushiPerSecond(event: LogSushiPerSecond): void {
-  log.info('[MiniChef] Log Sushi Per Second {}', [
-    event.params.sushiPerSecond.toString()
-  ])
+  log.info('[MiniChef] Log Sushi Per Second {}', [event.params.sushiPerSecond.toString()])
 
   const miniChef = getMiniChef(event.block)
 
@@ -108,10 +84,8 @@ export function deposit(event: Deposit): void {
     event.params.user.toHex(),
     event.params.pid.toString(),
     event.params.amount.toString(),
-    event.params.to.toHex()
+    event.params.to.toHex(),
   ])
-
-  const miniChef = getMiniChef(event.block)
   const pool = getPool(event.params.pid, event.block)
   const user = getUser(event.params.to, event.params.pid, event.block)
 
@@ -128,10 +102,9 @@ export function withdraw(event: Withdraw): void {
     event.params.user.toHex(),
     event.params.pid.toString(),
     event.params.amount.toString(),
-    event.params.to.toHex()
+    event.params.to.toHex(),
   ])
 
-  const miniChef = getMiniChef(event.block)
   const pool = getPool(event.params.pid, event.block)
   const user = getUser(event.params.user, event.params.pid, event.block)
 
@@ -148,10 +121,9 @@ export function emergencyWithdraw(event: EmergencyWithdraw): void {
     event.params.user.toHex(),
     event.params.pid.toString(),
     event.params.amount.toString(),
-    event.params.to.toHex()
+    event.params.to.toHex(),
   ])
 
-  const miniChef = getMiniChef(event.block)
   const pool = getPool(event.params.pid, event.block)
   const user = getUser(event.params.user, event.params.pid, event.block)
 
@@ -167,14 +139,13 @@ export function harvest(event: Harvest): void {
   log.info('[MiniChef] Log Withdraw {} {} {}', [
     event.params.user.toHex(),
     event.params.pid.toString(),
-    event.params.amount.toString()
+    event.params.amount.toString(),
   ])
 
-  const miniChef = getMiniChef(event.block)
   const pool = getPool(event.params.pid, event.block)
   const user = getUser(event.params.user, event.params.pid, event.block)
 
-  let accumulatedSushi = user.amount.times(pool.accSushiPerShare).div(ACC_SUSHI_PRECISION)
+  const accumulatedSushi = user.amount.times(pool.accSushiPerShare).div(ACC_SUSHI_PRECISION)
 
   user.rewardDebt = accumulatedSushi
   user.sushiHarvested = user.sushiHarvested.plus(event.params.amount)
