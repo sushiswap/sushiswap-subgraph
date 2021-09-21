@@ -18,7 +18,7 @@
         "deploy:xdai": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/xdai-exchange subgraph.yaml",
         "deploy:bsc": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/bsc-exchange subgraph.yaml",
         "deploy:okex": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/okex-exchange subgraph.yaml",
-        "deploy:arbitrum": "graph deploy --product hosted-service sushiswap/arbitrum-exchange",
+        "deploy:arbitrum": "graph deploy --product hosted-service matthewlilley/arbitrum-exchange",
         "deploy:fuse": "graph deploy --product hosted-service sushiswap/fuse-exchange",
         "deploy:matic": "graph deploy --product hosted-service sushiswap/matic-exchange",
         "deploy-studio:mainnet": "graph deploy --studio sushi---mainnet-exchange",

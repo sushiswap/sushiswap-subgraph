@@ -2,7 +2,7 @@
   "key": "fuse",
   "network": "fuse",
   "factory_address": "0x43ea90e2b786728520e4f930d2a71a477bf2737c",
-  "sushi_token_address": "0x0000000000000000000000000000000000000000",
+  "sushi_address": "0x0000000000000000000000000000000000000000",
   "usdc_weth_pair": "0xba9ca720e314f42e17e80991c1d0affe47387108",
   "dai_weth_pair": "0x44f5b873d6b2a2ee8309927e22f3359c7f23d428",
   "usdt_weth_pair": "0xadf3924f44d0ae0242333cde32d75309b30a0fcc",

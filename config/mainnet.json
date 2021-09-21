@@ -4,7 +4,7 @@
   "masterchef_address": "0xc2edad668740f1aa35e4d8f227fb8e17dca888cd",
   "sushi_bar_address": "0x8798249c2e607446efb7ad49ec89dd1865ff4272",
   "sushi_maker_address": "0xe11fc0b43ab98eb91e9836129d1ee7c3bc95df50",
-  "sushi_token_address": "0x6b3595068778dd592e39a122f4f5a5cf09c90fe2",
+  "sushi_address": "0x6b3595068778dd592e39a122f4f5a5cf09c90fe2",
   "sushi_usdt_pair_address": "0x680a025da7b1be2c204d7745e809919bce074026",
   "xsushi_usdc_pair_address": "0xd597924b16cc1904d808285bc9044fd51ceeead7",
   "xsushi_weth_pair_address": "0x36e2fcccc59e5747ff63a03ea2e5c0c2c14911e7",

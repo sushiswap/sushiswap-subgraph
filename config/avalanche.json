@@ -5,7 +5,7 @@
   "usdc_weth_pair": "0x0000000000000000000000000000000000000000",
   "dai_weth_pair": "0x034c1b19dab61b5de448efc1e10a2e592725c893",
   "usdt_weth_pair": "0x47f1c2a9c9027a10c3b13d1c40dd976c5014339b",
-  "sushi_token_address": "0x39cf1bd5f15fb22ec3d9ff86b0727afc203427cc",
+  "sushi_address": "0x39cf1bd5f15fb22ec3d9ff86b0727afc203427cc",
   "weth_address": "0xf20d962a6c8f70c731bd838a3a388d7d48fa6e15",
   "native_address": "0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7",
   "usdc_address": "0x0000000000000000000000000000000000000000",

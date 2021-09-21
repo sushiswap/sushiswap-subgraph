@@ -9,7 +9,7 @@
   "minichef_address": "0xddcbf776df3de60163066a5dddf2277cb445e0f3",
   "complex_rewarder_address": "0x84562ce1a5f3a4a957a5a94ed0be05ba73fd2665",
   "native_address": "0xe91d153e0b41518a2ce8dd3d7944fa863463a97d",
-  "sushi_token_address": "0x2995d1317dcd4f0ab89f4ae60f3f020a4f17c7ce",
+  "sushi_address": "0x2995d1317dcd4f0ab89f4ae60f3f020a4f17c7ce",
   "usdt_address": "0x4ecaba5870353805a9f068101a40e0f32ed605c6",
   "usdc_address": "0xddafbb505ad214d7b80b1f830fccc89b60fb7a83",
   "weth_address": "0x6a023ccd1ff6f2045c3309768ead9e68f978f6e1",

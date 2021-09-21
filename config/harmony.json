@@ -2,7 +2,7 @@
   "key": "harmony",
   "network": "mainnet",
   "factory_address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
-  "sushi_token_address": "0xbec775cb42abfa4288de81f387a9b1a3c4bc552a",
+  "sushi_address": "0xbec775cb42abfa4288de81f387a9b1a3c4bc552a",
   "usdc_weth_pair": "0xbf255d8c30dbab84ea42110ea7dc870f01c0013a",
   "dai_weth_pair": "0x194f4a320cbda15a0910d1ae20e0049cdc50916e",
   "usdt_weth_pair": "0x2c7862b408bb3dbff277110ffde1b4eaa45c692a",

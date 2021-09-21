@@ -9,7 +9,7 @@
     "kashi_pair_medium_risk_master_address": "0x2cba6ab6574646badc84f0544d05059e57a5dc42",
     "minimum_usd_threshold_new_pairs": "3000",
     "minimum_liquidity_threshold_eth": "5",
-    "sushi_token_address": "0x947950bcc74888a40ffa2593c5798f11fc9124c4",
+    "sushi_address": "0x947950bcc74888a40ffa2593c5798f11fc9124c4",
     "weth_address": "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
     "native_address": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
     "dai_address": "0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3",
