@@ -1,4 +1,4 @@
-import { Address, BigInt, log } from '@graphprotocol/graph-ts'
+import { Address, BigInt, dataSource, log } from '@graphprotocol/graph-ts'
 import { BIG_DECIMAL_ZERO, BIG_INT_ZERO, NULL_CALL_RESULT_VALUE } from 'const'
 
 import { ERC20 } from '../../generated/Factory/ERC20'
@@ -130,6 +130,10 @@ export function getName(address: Address): string {
 }
 
 export function getTotalSupply(address: Address): BigInt {
+  if (dataSource.network() == 'fuse' && address.toHexString() == '0x0be9e53fd7edac9f859882afdda116645287c629') {
+    return BigInt.fromI32(1)
+  }
+
   const contract = ERC20.bind(address)
   let totalSupplyValue = null
   const totalSupplyResult = contract.try_totalSupply()
