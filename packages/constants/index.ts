@@ -1,170 +1,183 @@
-import { Address, BigDecimal, BigInt } from "@graphprotocol/graph-ts";
+import { Address, BigDecimal, BigInt } from '@graphprotocol/graph-ts'
 
-export const NULL_CALL_RESULT_VALUE =
-  "0x0000000000000000000000000000000000000000000000000000000000000001";
+export const NULL_CALL_RESULT_VALUE = '0x0000000000000000000000000000000000000000000000000000000000000001'
 
-export const ADDRESS_ZERO = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
+export const ADDRESS_ZERO = Address.fromString('0x0000000000000000000000000000000000000000')
 
-export const BIG_DECIMAL_1E6 = BigDecimal.fromString("1e6");
+export const BIG_DECIMAL_1E6 = BigDecimal.fromString('1e6')
 
-export const BIG_DECIMAL_1E12 = BigDecimal.fromString("1e12");
+export const BIG_DECIMAL_1E12 = BigDecimal.fromString('1e12')
 
-export const BIG_DECIMAL_1E18 = BigDecimal.fromString("1e18");
+export const BIG_DECIMAL_1E18 = BigDecimal.fromString('1e18')
 
-export const BIG_DECIMAL_ZERO = BigDecimal.fromString("0");
+export const BIG_DECIMAL_ZERO = BigDecimal.fromString('0')
 
-export const BIG_DECIMAL_ONE = BigDecimal.fromString("1");
+export const BIG_DECIMAL_ONE = BigDecimal.fromString('1')
 
-export const BIG_INT_ONE = BigInt.fromI32(1);
+export const BIG_INT_ONE = BigInt.fromI32(1)
 
-export const BIG_INT_TWO = BigInt.fromI32(2);
+export const BIG_INT_TWO = BigInt.fromI32(2)
 
-export const BIG_INT_ONE_HUNDRED = BigInt.fromI32(100);
+export const BIG_INT_ONE_HUNDRED = BigInt.fromI32(100)
 
-export const BIG_INT_ONE_DAY_SECONDS = BigInt.fromI32(86400);
+export const BIG_INT_ONE_DAY_SECONDS = BigInt.fromI32(86400)
 
-export const BIG_INT_ZERO = BigInt.fromI32(0);
+export const BIG_INT_ZERO = BigInt.fromI32(0)
 
-export const LOCKUP_POOL_NUMBER = BigInt.fromI32(29);
+export const LOCKUP_POOL_NUMBER = BigInt.fromI32(29)
 
-export const LOCKUP_BLOCK_NUMBER = BigInt.fromI32(10959148);
+export const LOCKUP_BLOCK_NUMBER = BigInt.fromI32(10959148)
 
-export const MASTER_CHEF_START_BLOCK = BigInt.fromI32(10750000);
+export const MASTER_CHEF_START_BLOCK = BigInt.fromI32(10750000)
 
-export const UNISWAP_SUSHI_ETH_PAIR_FIRST_LIQUDITY_BLOCK =
-  BigInt.fromI32(10750005);
+export const UNISWAP_SUSHI_ETH_PAIR_FIRST_LIQUDITY_BLOCK = BigInt.fromI32(10750005)
 
-export const ACC_SUSHI_PRECISION = BigInt.fromString("1000000000000");
+export const ACC_SUSHI_PRECISION = BigInt.fromString('1000000000000')
 
-export const BENTOBOX_DEPOSIT = "deposit";
+export const BENTOBOX_DEPOSIT = 'deposit'
 
-export const BENTOBOX_TRANSFER = "transfer";
+export const BENTOBOX_TRANSFER = 'transfer'
 
-export const BENTOBOX_WITHDRAW = "withdraw";
+export const BENTOBOX_WITHDRAW = 'withdraw'
 
-export const KASHI_PAIR_MEDIUM_RISK_TYPE = "medium";
+export const KASHI_PAIR_MEDIUM_RISK_TYPE = 'medium'
 
-export const PAIR_ADD_COLLATERAL = "addCollateral";
+export const PAIR_ADD_COLLATERAL = 'addCollateral'
 
-export const PAIR_REMOVE_COLLATERAL = "removeCollateral";
+export const PAIR_REMOVE_COLLATERAL = 'removeCollateral'
 
-export const PAIR_ADD_ASSET = "addAsset";
+export const PAIR_ADD_ASSET = 'addAsset'
 
-export const PAIR_REMOVE_ASSET = "removeAsset";
+export const PAIR_REMOVE_ASSET = 'removeAsset'
 
-export const PAIR_BORROW = "borrow";
+export const PAIR_BORROW = 'borrow'
 
-export const PAIR_REPAY = "repay";
+export const PAIR_REPAY = 'repay'
 
-export const FACTORY_ADDRESS = Address.fromString("0x43ea90e2b786728520e4f930d2a71a477bf2737c");
+export const FACTORY_ADDRESS = Address.fromString(
+  '0xc35dadb65012ec5796536bd9864ed8773abc74c4'
+)
 
 export const MASTER_CHEF_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
+  '0x0000000000000000000000000000000000000000'
+)
 
-export const MASTER_CHEF_V2_ADDRESS = Address.fromString(
-  "0xef0881ec094552b2e128cf945ef17a6752b4ec5d"
-);
+export const MASTER_CHEF_V2_ADDRESS = Address.fromString('0xef0881ec094552b2e128cf945ef17a6752b4ec5d')
 
-export const SUSHI_BAR_ADDRESS = Address.fromString("0x0000000000000000000000000000000000000000");
+export const SUSHI_BAR_ADDRESS = Address.fromString(
+  '0x0000000000000000000000000000000000000000'
+)
 
 export const SUSHI_MAKER_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
+  '0x0000000000000000000000000000000000000000'
+)
 
 export const SUSHI_TOKEN_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
+  '0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a'
+)
 
 export const SUSHI_USDT_PAIR_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
+  '0x0000000000000000000000000000000000000000'
+)
 
 export const XSUSHI_USDC_PAIR_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
+  '0x0000000000000000000000000000000000000000'
+)
 
 export const XSUSHI_WETH_PAIR_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
+  '0x0000000000000000000000000000000000000000'
+)
 
 export const SUSHI_DISTRIBUTOR_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
+  '0x0000000000000000000000000000000000000000'
+)
 
-export const USDC_WETH_PAIR = "0xba9ca720e314f42e17e80991c1d0affe47387108";
+export const USDC_WETH_PAIR =
+  '0x34965ba0ac2451a34a0471f04cca3f990b8dea27'
 
-export const DAI_WETH_PAIR = "0x44f5b873d6b2a2ee8309927e22f3359c7f23d428";
+export const DAI_WETH_PAIR =
+  '0x6ff62bfb8c12109e8000935a6de54dad83a4f39f'
 
-export const USDT_WETH_PAIR = "0xadf3924f44d0ae0242333cde32d75309b30a0fcc";
+export const USDT_WETH_PAIR =
+  '0xc2755915a85c6f6c1c0f3a86ac8c058f11caa9c9'
 
-export const SUSHI_USDT_PAIR = "0x0000000000000000000000000000000000000000";
+export const SUSHI_USDT_PAIR =
+  '0x0000000000000000000000000000000000000000'
 
 // minimum liquidity required to count towards tracked volume for pairs with small # of Lps
 export const MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString(
-  "3000"
-);
+  '3000'
+)
 
 // minimum liquidity for price to get tracked
-export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString(
-  "15000"
-);
+export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString('2500')
 
-export const WETH_ADDRESS = Address.fromString("0xa722c13135930332eb3d749b2f0906559d2c5b99");
+export const WETH_ADDRESS = Address.fromString(
+  '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270'
+)
 
 export const SUSHISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
+  '0x0000000000000000000000000000000000000000'
+)
 
-export const USDT_ADDRESS = Address.fromString("0xfadbbf8ce7d5b7041be672561bba99f79c532e10");
+export const USDT_ADDRESS = Address.fromString(
+  '0xc2132d05d31c914a87c6611c10748aeb04b58e8f'
+)
 
 export const UNISWAP_FACTORY_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
+  '0x0000000000000000000000000000000000000000'
+)
 
 export const UNISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
+  '0x0000000000000000000000000000000000000000'
+)
 
 export const UNISWAP_SUSHI_ETH_PAIR_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
+  '0x0000000000000000000000000000000000000000'
+)
 
 export const UNISWAP_SUSHI_USDT_PAIR_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
+  '0x0000000000000000000000000000000000000000'
+)
 
 // Bentobox constants
-export const BENTOBOX_ADDRESS = Address.fromString("0x0000000000000000000000000000000000000000");
+export const BENTOBOX_ADDRESS = Address.fromString(
+  '0xf5bce5077908a1b7370b9ae04adc565ebd643966'
+)
 
 export const KASHI_PAIR_MEDIUM_RISK_MASTER_ADDRESS = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
+  '0x2cba6ab6574646badc84f0544d05059e57a5dc42'
+)
 
 // MiniChef
-export const MINI_CHEF_ADDRESS = Address.fromString("0x0000000000000000000000000000000000000000");
+export const MINI_CHEF_ADDRESS = Address.fromString(
+  '0x0769fd68dfb93167989c6f7254cd0d766fb2841f'
+)
 
 export const COMPLEX_REWARDER = Address.fromString(
-  "0x0000000000000000000000000000000000000000"
-);
+  '0x0000000000000000000000000000000000000000'
+)
 
-export const CONVEX_REWARDERS: Array<Address> = [Address.fromString('0x9e01aac4b3e8781a85b21d9d9f848e72af77b362'), Address.fromString('0x1fd97b5e5a257b0b9b9a42a96bb8870cbdd1eb79')]
+export const CONVEX_REWARDERS: Array<Address> = [
+  Address.fromString('0x9e01aac4b3e8781a85b21d9d9f848e72af77b362'),
+  Address.fromString('0x1fd97b5e5a257b0b9b9a42a96bb8870cbdd1eb79'),
+]
 
 export const ALCX_REWARDER = Address.fromString('0x7519c93fc5073e15d89131fd38118d73a72370f8')
 
 export const LIDO_REWARDER = Address.fromString('0x75ff3dd673ef9fc459a52e1054db5df2a1101212')
 
-export const NATIVE = Address.fromString("0x0be9e53fd7edac9f859882afdda116645287c629");
+export const NATIVE = Address.fromString(
+  '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270'
+)
 
-export const USDC = "0x620fd5fa44be6af63715ef4e65ddfa0387ad13f5";
+export const USDC = '0x2791bca1f2de4661ed88a30c99a7a9449aa84174'
 
-export const USDT = "0xfadbbf8ce7d5b7041be672561bba99f79c532e10";
+export const USDT = '0xc2132d05d31c914a87c6611c10748aeb04b58e8f'
 
-export const DAI = "0x94ba7a27c7a95863d1bdc7645ac2951e0cca06ba";
+export const DAI = '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063'
 
-export const WHITELIST: string[] = "0x0be9e53fd7edac9f859882afdda116645287c629,0xa722c13135930332eb3d749b2f0906559d2c5b99,0x94ba7a27c7a95863d1bdc7645ac2951e0cca06ba,0xfadbbf8ce7d5b7041be672561bba99f79c532e10,0x33284f95ccb7b948d9d352e1439561cf83d8d00d,0x249be57637d8b013ad64785404b24aebae9b098b".split(",");
+export const WHITELIST: string[] = '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270,0x7ceb23fd6bc0add59e62ac25578270cff1b9f619,0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6,0x2791bca1f2de4661ed88a30c99a7a9449aa84174,0x8f3cf7ad23cd3cadbd9735aff958023239c6a063,0xc2132d05d31c914a87c6611c10748aeb04b58e8f,0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a,0xd6df932a45c0f255f85145f286ea0b292b21c90b,0x104592a158490a9228070e0a8e5343b499e125d0'.split(',')
 
 // export const WHITELIST: string[] = [
 //   "0xcf664087a5bb0237a0bad6742852ec6c8d69a27a",
@@ -182,4 +195,4 @@ export const WHITELIST: string[] = "0x0be9e53fd7edac9f859882afdda116645287c629,0
 //   "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73"
 // ];
 
-const CUSTOM_BASES = new Map<string,string>();
+const CUSTOM_BASES = new Map<string, string>()
