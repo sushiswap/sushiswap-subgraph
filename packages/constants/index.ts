@@ -73,7 +73,7 @@ export const SUSHI_MAKER_ADDRESS = Address.fromString(
 )
 
 export const SUSHI_TOKEN_ADDRESS = Address.fromString(
-  '0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a'
+  '0x39cf1bd5f15fb22ec3d9ff86b0727afc203427cc'
 )
 
 export const SUSHI_USDT_PAIR_ADDRESS = Address.fromString(
@@ -93,13 +93,13 @@ export const SUSHI_DISTRIBUTOR_ADDRESS = Address.fromString(
 )
 
 export const USDC_WETH_PAIR =
-  '0x34965ba0ac2451a34a0471f04cca3f990b8dea27'
+  '0x4ed65dab34d5fd4b1eb384432027ce47e90e1185'
 
 export const DAI_WETH_PAIR =
-  '0x6ff62bfb8c12109e8000935a6de54dad83a4f39f'
+  '0x55cf10bfbc6a9deaeb3c7ec0dd96d3c1179cb948'
 
 export const USDT_WETH_PAIR =
-  '0xc2755915a85c6f6c1c0f3a86ac8c058f11caa9c9'
+  '0x09657b445df5bf0141e3ef0f5276a329fc01de01'
 
 export const SUSHI_USDT_PAIR =
   '0x0000000000000000000000000000000000000000'
@@ -110,10 +110,10 @@ export const MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString(
 )
 
 // minimum liquidity for price to get tracked
-export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString('2500')
+export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString('50')
 
 export const WETH_ADDRESS = Address.fromString(
-  '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270'
+  '0x49d5c2bdffac6ce2bfdb6640f4f80f226bc10bab'
 )
 
 export const SUSHISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString(
@@ -121,7 +121,7 @@ export const SUSHISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString(
 )
 
 export const USDT_ADDRESS = Address.fromString(
-  '0xc2132d05d31c914a87c6611c10748aeb04b58e8f'
+  '0xc7198437980c041c805a1edcba50c1ce5db95118'
 )
 
 export const UNISWAP_FACTORY_ADDRESS = Address.fromString(
@@ -142,16 +142,16 @@ export const UNISWAP_SUSHI_USDT_PAIR_ADDRESS = Address.fromString(
 
 // Bentobox constants
 export const BENTOBOX_ADDRESS = Address.fromString(
-  '0xf5bce5077908a1b7370b9ae04adc565ebd643966'
+  '0x0000000000000000000000000000000000000000'
 )
 
 export const KASHI_PAIR_MEDIUM_RISK_MASTER_ADDRESS = Address.fromString(
-  '0x2cba6ab6574646badc84f0544d05059e57a5dc42'
+  '0x0000000000000000000000000000000000000000'
 )
 
 // MiniChef
 export const MINI_CHEF_ADDRESS = Address.fromString(
-  '0x0769fd68dfb93167989c6f7254cd0d766fb2841f'
+  '0x0000000000000000000000000000000000000000'
 )
 
 export const COMPLEX_REWARDER = Address.fromString(
@@ -168,16 +168,16 @@ export const ALCX_REWARDER = Address.fromString('0x7519c93fc5073e15d89131fd38118
 export const LIDO_REWARDER = Address.fromString('0x75ff3dd673ef9fc459a52e1054db5df2a1101212')
 
 export const NATIVE = Address.fromString(
-  '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270'
+  '0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7'
 )
 
-export const USDC = '0x2791bca1f2de4661ed88a30c99a7a9449aa84174'
+export const USDC = '0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664'
 
-export const USDT = '0xc2132d05d31c914a87c6611c10748aeb04b58e8f'
+export const USDT = '0xc7198437980c041c805a1edcba50c1ce5db95118'
 
-export const DAI = '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063'
+export const DAI = '0xd586e7f844cea2f87f50152665bcbc2c279d8d70'
 
-export const WHITELIST: string[] = '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270,0x7ceb23fd6bc0add59e62ac25578270cff1b9f619,0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6,0x2791bca1f2de4661ed88a30c99a7a9449aa84174,0x8f3cf7ad23cd3cadbd9735aff958023239c6a063,0xc2132d05d31c914a87c6611c10748aeb04b58e8f,0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a,0xd6df932a45c0f255f85145f286ea0b292b21c90b,0x104592a158490a9228070e0a8e5343b499e125d0'.split(',')
+export const WHITELIST: string[] = '0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7,0x49d5c2bdffac6ce2bfdb6640f4f80f226bc10bab,0x50b7545627a5162f82a992c33b87adc75187b218,0xc7198437980c041c805a1edcba50c1ce5db95118,0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664,0xd586e7f844cea2f87f50152665bcbc2c279d8d70,0x37b608519f91f70f2eeb0e5ed9af4061722e4f76,0xb54f16fb19478766a268f172c9480f8da1a7c9c3,0x130966628846bfd36ff31a822705796e8cb8c18d'.split(',')
 
 // export const WHITELIST: string[] = [
 //   "0xcf664087a5bb0237a0bad6742852ec6c8d69a27a",
