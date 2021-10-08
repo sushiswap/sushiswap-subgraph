@@ -4,13 +4,17 @@ type Maker @entity {
 	id: ID!
 
 	# Sushi served
-	sushiServed: BigDecimal!
+	sushiServed: BigInt!
+	totalServings: BigDecimal!
 
 	# Servers
 	servers: [Server!]! @derivedFrom(field: "maker")
 
 	# Servings
 	servings: [Serving!]! @derivedFrom(field: "maker")
+
+	block: BigInt!
+	timestamp: BigInt!
 }
 
 type Server @entity {
@@ -21,10 +25,14 @@ type Server @entity {
 	maker: Maker!
 
 	# Sushi served
-	sushiServed: BigDecimal!
+	sushiServed: BigInt!
+	totalServings: BigDecimal!
 
 	# Servings related to the server
 	servings: [Serving!]! @derivedFrom(field: "server")
+
+	block: BigInt!
+	timestamp: BigInt!
 }
 
 type Serving @entity {
@@ -53,7 +61,7 @@ type Serving @entity {
 	amount1: BigInt!
 
 	# Sushi served
-	amountSUSHI: BigInt!
+	amountSushi: BigInt!
 
 	# Block
 	block: BigInt!

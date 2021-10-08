@@ -1,0 +1,26 @@
+{
+  "network": "arbitrum-one",
+  "factory_address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
+  "sushi_token_address": "0xd4d42f0b6def4ce0383636770ef773390d85c61a",
+  "usdc_weth_pair": "0x905dfcd5649217c42684f23958568e533c711aa3",
+  "usdt_weth_pair": "0xcb0e5bfa72bbb4d16ab5aa0c60601c438f04b4ad",
+  "weth_address": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+  "bentobox_address": "0x74c764d41b77dbbb4fe771dab1939b00b146894a",
+  "kashi_pair_medium_risk_master_address": "0xa010ee0226cd071bebd8919a1f675caE1f1f5d3e",
+  "minichef_address": "0xf4d73326c13a4fc5fd7a064217e12780e9bd62c3",
+  "native_address": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+  "usdt_address": "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
+  "usdc_address": "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8",
+  "minimum_usd_threshold_new_pairs": "3000",
+  "minimum_liquidity_threshold_eth": "3",
+  "factory": {
+    "address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
+    "startBlock": "70"
+  },
+  "whitelist": [
+    "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+    "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f",
+    "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
+    "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8"
+  ]
+}

@@ -1,11 +1,11 @@
-import { Address, BigInt, log } from '@graphprotocol/graph-ts'
+import { Address, BigInt, dataSource, log } from '@graphprotocol/graph-ts'
 import { BIG_DECIMAL_ZERO, BIG_INT_ZERO, NULL_CALL_RESULT_VALUE } from 'const'
 
-import { ERC20 } from '../../../generated/Factory/ERC20'
-import { ERC20NameBytes } from '../../../generated/Factory/ERC20NameBytes'
-import { ERC20SymbolBytes } from '../../../generated/Factory/ERC20SymbolBytes'
-import { Token } from '../../../generated/schema'
-import { getFactory } from '.'
+import { ERC20 } from '../../generated/Factory/ERC20'
+import { ERC20NameBytes } from '../../generated/Factory/ERC20NameBytes'
+import { ERC20SymbolBytes } from '../../generated/Factory/ERC20SymbolBytes'
+import { Token } from '../../generated/schema'
+import { getFactory } from './factory'
 
 export function getToken(address: Address): Token | null {
   let token = Token.load(address.toHex())
@@ -28,6 +28,7 @@ export function getToken(address: Address): Token | null {
       return null
     }
 
+    token.whitelistPairs = []
     token.decimals = decimals
     token.derivedETH = BIG_DECIMAL_ZERO
     token.volume = BIG_DECIMAL_ZERO
@@ -58,6 +59,9 @@ export function getSymbol(address: Address): string {
   }
   if (address.toHex() == '0x3fa729b4548becbad4eab6ef18413470e6d5324c') {
     return 'MOVE'
+  }
+  if (address.toHex() == '0xe95a203b1a91a908f9b9ce46459d101078c2c3cb') {
+    return 'aETHc'
   }
 
   const contract = ERC20.bind(address)
@@ -100,6 +104,9 @@ export function getName(address: Address): string {
   if (address.toHex() == '0x3fa729b4548becbad4eab6ef18413470e6d5324c') {
     return 'Mover'
   }
+  if (address.toHex() == '0xe95a203b1a91a908f9b9ce46459d101078c2c3cb') {
+    return 'Ankr Eth2 Reward Bearing Certificate'
+  }
 
   const contract = ERC20.bind(address)
   const contractNameBytes = ERC20NameBytes.bind(address)
@@ -123,6 +130,10 @@ export function getName(address: Address): string {
 }
 
 export function getTotalSupply(address: Address): BigInt {
+  if (dataSource.network() == 'fuse' && address.toHexString() == '0x0be9e53fd7edac9f859882afdda116645287c629') {
+    return BigInt.fromI32(1)
+  }
+
   const contract = ERC20.bind(address)
   let totalSupplyValue = null
   const totalSupplyResult = contract.try_totalSupply()

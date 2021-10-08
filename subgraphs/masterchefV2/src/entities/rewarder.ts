@@ -2,7 +2,8 @@ import {
   ADDRESS_ZERO,
   BIG_INT_ZERO,
   CONVEX_REWARDERS,
-  ALCX_REWARDER
+  ALCX_REWARDER,
+  LIDO_REWARDER,
 } from 'const'
 import { Address, ethereum } from '@graphprotocol/graph-ts'
 
@@ -10,6 +11,8 @@ import { ComplexRewarder as ComplexRewarderContract } from '../../generated/Mast
 import { ConvexRewarder as ConvexRewarderContract } from '../../generated/MasterChefV2/ConvexRewarder'
 import { CloneRewarderTime as CloneRewarderTimeContract } from '../../generated/templates/CloneRewarderTime/CloneRewarderTime'
 import { CloneRewarderTime as CloneRewarderTimeTemplate } from '../../generated/templates'
+import { StakingRewardsSushi as StakingRewardsContract} from '../../generated/templates/StakingRewardsSushi/StakingRewardsSushi'
+import { StakingRewardsSushi as StakingRewardsTemplate } from '../../generated/templates'
 import { Rewarder } from '../../generated/schema'
 
 export function getRewarder(address: Address, block: ethereum.Block): Rewarder {
@@ -26,6 +29,13 @@ export function getRewarder(address: Address, block: ethereum.Block): Rewarder {
     }
     else if (address == ALCX_REWARDER) {
       rewarder.rewardToken = Address.fromString('0xdbdb4d16eda451d0503b854cf79d55697f90c8df')
+    }
+    else if (address == LIDO_REWARDER) {
+      const rewarderContract = StakingRewardsContract.bind(address)
+      rewarder.rewardToken = rewarderContract.rewardToken()
+      rewarder.rewardPerSecond = rewarderContract.rewardPerSecond()
+
+      StakingRewardsTemplate.create(address)
     }
     else {
       const rewarderContract = CloneRewarderTimeContract.bind(address)

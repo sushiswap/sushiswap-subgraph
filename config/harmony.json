@@ -2,7 +2,7 @@
   "key": "harmony",
   "network": "mainnet",
   "factory_address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
-  "sushi_token_address": "0xbec775cb42abfa4288de81f387a9b1a3c4bc552a",
+  "sushi_address": "0xbec775cb42abfa4288de81f387a9b1a3c4bc552a",
   "usdc_weth_pair": "0xbf255d8c30dbab84ea42110ea7dc870f01c0013a",
   "dai_weth_pair": "0x194f4a320cbda15a0910d1ae20e0049cdc50916e",
   "usdt_weth_pair": "0x2c7862b408bb3dbff277110ffde1b4eaa45c692a",
@@ -25,8 +25,7 @@
     "0x985458e523db3d53125813ed68c274899e9dfab4",
     "0x3c2b8be99c50593081eaa2a724f0b8285f5aba8f",
     "0xe176ebe47d621b984a73036b9da5d834411ef734",
-    "0xef977d2f931c1978db5f6747666fa1eacb0d0339",
-    "0x218532a12a389a4a92fc0c5fb22901d1c19198aa"
+    "0xef977d2f931c1978db5f6747666fa1eacb0d0339"
   ],
   "minimum_usd_threshold_new_pairs": "1000",
   "minimum_liquidity_threshold_eth": "50000"

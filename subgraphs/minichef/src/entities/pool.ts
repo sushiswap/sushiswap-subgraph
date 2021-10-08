@@ -1,5 +1,5 @@
 import { ADDRESS_ZERO, BIG_INT_ZERO } from 'const'
-import { Address, BigInt, dataSource, ethereum } from '@graphprotocol/graph-ts'
+import { BigInt, ethereum } from '@graphprotocol/graph-ts'
 
 import { Pool } from '../../generated/schema'
 import { getMiniChef } from './minichef'
@@ -18,11 +18,10 @@ export function getPool(pid: BigInt, block: ethereum.Block): Pool {
     pool.accSushiPerShare = BIG_INT_ZERO
     pool.slpBalance = BIG_INT_ZERO
     pool.userCount = BIG_INT_ZERO
+    pool.timestamp = block.timestamp
+    pool.block = block.number
+    pool.save()
   }
-
-  pool.timestamp = block.timestamp
-  pool.block = block.number
-  pool.save()
 
   return pool as Pool
 }

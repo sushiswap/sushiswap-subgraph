@@ -1,0 +1,25 @@
+{
+  "key": "palm",
+  "network": "palm",
+  "factory_address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
+  "sushi_address": "0x0000000000000000000000000000000000000000",
+  "usdc_weth_pair": "0x0000000000000000000000000000000000000000",
+  "dai_weth_pair": "0x0000000000000000000000000000000000000000",
+  "usdt_weth_pair": "0x0000000000000000000000000000000000000000",
+  "weth_address": "0x726138359c17f1e56ba8c4f737a7caf724f6010b",
+  "native_address": "0xf98cabf0a963452c5536330408b2590567611a71",
+  "usdc_address": "0x0000000000000000000000000000000000000000",
+  "dai_address": "0x4c1f6fcbd233241bf2f4d02811e3bf8429bc27b8",
+  "usdt_address": "0x0000000000000000000000000000000000000000",
+  "whitelist": [
+    "0xf98cabf0a963452c5536330408b2590567611a71",
+    "0x726138359c17f1e56ba8c4f737a7caf724f6010b",
+    "0x4c1f6fcbd233241bf2f4d02811e3bf8429bc27b8"
+  ],
+  "factory": {
+    "address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
+    "startBlock": "902496"
+  },
+  "minimum_usd_threshold_new_pairs": "3000",
+  "minimum_liquidity_threshold_eth": "4500"
+}

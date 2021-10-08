@@ -1,7 +1,7 @@
 {
   "network": "fantom",
   "factory_address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
-  "sushi_token_address": "0xae75a438b2e0cb8bb01ec1e1e376de11d44477cc",
+  "sushi_address": "0xae75a438b2e0cb8bb01ec1e1e376de11d44477cc",
   "usdc_weth_pair": "0xa48869049e36f8bfe0cc5cf655632626988c0140",
   "dai_weth_pair": "0xd32f2eb49e91aa160946f3538564118388d6246a",
   "usdt_weth_pair": "0xd019dd7c760c6431797d6ed170bffb8faee11f99",

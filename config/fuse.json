@@ -1,0 +1,28 @@
+{
+  "key": "fuse",
+  "network": "fuse",
+  "factory_address": "0x43ea90e2b786728520e4f930d2a71a477bf2737c",
+  "sushi_address": "0x0000000000000000000000000000000000000000",
+  "usdc_weth_pair": "0xba9ca720e314f42e17e80991c1d0affe47387108",
+  "dai_weth_pair": "0x44f5b873d6b2a2ee8309927e22f3359c7f23d428",
+  "usdt_weth_pair": "0xadf3924f44d0ae0242333cde32d75309b30a0fcc",
+  "weth_address": "0xa722c13135930332eb3d749b2f0906559d2c5b99",
+  "native_address": "0x0be9e53fd7edac9f859882afdda116645287c629",
+  "usdc_address": "0x620fd5fa44be6af63715ef4e65ddfa0387ad13f5",
+  "dai_address": "0x94ba7a27c7a95863d1bdc7645ac2951e0cca06ba",
+  "usdt_address": "0xfadbbf8ce7d5b7041be672561bba99f79c532e10",
+  "whitelist": [
+    "0x0be9e53fd7edac9f859882afdda116645287c629",
+    "0xa722c13135930332eb3d749b2f0906559d2c5b99",
+    "0x94ba7a27c7a95863d1bdc7645ac2951e0cca06ba",
+    "0xfadbbf8ce7d5b7041be672561bba99f79c532e10",
+    "0x33284f95ccb7b948d9d352e1439561cf83d8d00d",
+    "0x249be57637d8b013ad64785404b24aebae9b098b" 
+  ],
+  "factory": {
+    "address": "0x43ea90e2b786728520e4f930d2a71a477bf2737c",
+    "startBlock": "12943648"
+  },
+  "minimum_usd_threshold_new_pairs": "3000",
+  "minimum_liquidity_threshold_eth": "15000"
+}

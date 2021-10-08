@@ -1,0 +1,27 @@
+{
+    "network": "mainnet",
+    "factory_address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
+    "dai_weth_pair": "",
+    "usdc_weth_pair": "",
+    "usdt_weth_pair": "0x07920a02cee6252eAD0Da0cd36b9b3EF9dDa75db",
+    "sushi_address": "0x52e00b2da5bd7940ffe26b609a42f957f31118d5",
+    "weth_address": "0x64ff637fb478863b7468bc97d30a5bf3a428a1fd",
+    "native_address": "0x5545153ccfca01fbd7dd11c0b23ba694d9509a6f",
+    "dai_address": "0x3d760a45d0887dfd89a2f5385a236b29cb46ed2a",
+    "usdt_address": "0xa71edc38d189767582c38a3145b5873052c3e47a",
+    "usdc_address": "0x9362bbef4b8313a8aa9f0c9808b80577aa26b73b",
+    "minimum_usd_threshold_new_pairs": "3000",
+    "minimum_liquidity_threshold_eth": "160",
+    "factory": {
+        "address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
+        "startBlock": "2765001"
+    },
+    "whitelist": [
+        "0x5545153ccfca01fbd7dd11c0b23ba694d9509a6f",
+        "0x64ff637fb478863b7468bc97d30a5bf3a428a1fd",
+        "0x66a79d23e58475d2738179ca52cd0b41d73f0bea",
+        "0x3d760a45d0887dfd89a2f5385a236b29cb46ed2a",
+        "0x9362bbef4b8313a8aa9f0c9808b80577aa26b73b",
+        "0xa71edc38d189767582c38a3145b5873052c3e47a"
+    ]
+}

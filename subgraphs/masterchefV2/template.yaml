@@ -30,6 +30,8 @@ dataSources:
           file: ./packages/abis/ComplexRewarder.json
         - name: CloneRewarderTime
           file: ./packages/abis/CloneRewarderTime.json
+        - name: StakingRewardsSushi
+          file: ./packages/abis/StakingRewardsSushi.json
         - name: Factory
           file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
         - name: Pair
@@ -70,3 +72,21 @@ templates:
       eventHandlers:
         - event: LogRewardPerSecond(uint256)
           handler: logRewardPerSecond
+  - kind: ethereum/contract
+    name: StakingRewardsSushi
+    network: {{ network }}
+    source:
+      abi: StakingRewardsSushi
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappings/staking-rewarder.ts
+      entities:
+        - Rewarder
+      abis:
+        - name: StakingRewardsSushi
+          file: ./packages/abis/StakingRewardsSushi.json
+      eventHandlers:
+        - event: RewardAdded(uint256)
+          handler: rewardAdded

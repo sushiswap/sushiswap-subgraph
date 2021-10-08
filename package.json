@@ -19,7 +19,7 @@
     "prepare:xdai": "yarn workspaces run prepare:xdai"
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.20.0",
+    "@graphprotocol/graph-cli": "^0.21.1",
     "@graphprotocol/graph-ts": "^0.20.0",
     "@sushiswap/core": "^1.4.2",
     "@sushiswap/prettier-config": "^0.1.0",
