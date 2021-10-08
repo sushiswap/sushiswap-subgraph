@@ -86,8 +86,8 @@ type Token @entity {
   decimals: BigInt!
   totalSupplyElastic: BigInt!
   totalSupplyBase: BigInt!
+  strategy: Strategy
   strategyTargetPercentage: BigInt!
-  strategy: Strategy @derivedFrom(field: "token")
   block: BigInt!
   timestamp: BigInt!
 }
@@ -243,8 +243,5 @@ type Strategy @entity {
   id: ID!
   token: Token!
   balance: BigInt!
-  targetPercentage: BigInt!
   totalProfit: BigInt!
-  date: BigInt!
-  block: BigInt!
 }
