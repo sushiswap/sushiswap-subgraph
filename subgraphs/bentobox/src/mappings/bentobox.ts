@@ -100,7 +100,7 @@ export function handleLogWithdraw(event: LogWithdraw): void {
   token.totalSupplyBase = token.totalSupplyBase.minus(event.params.share)
   token.totalSupplyElastic = token.totalSupplyElastic.minus(event.params.amount)
   token.save()
-  
+
   const userTokenData = getUserToken(from, token as Token, event.block)
   userTokenData.share = userTokenData.share.minus(event.params.share)
   userTokenData.save()
@@ -188,7 +188,7 @@ export function handleLogStrategySet(event: LogStrategySet): void {
   token.strategy = event.params.strategy.toHex()
   token.save()
 
-  getOrCreateStrategy(Address.fromHexString(token.strategy) as Address, event.params.token)
+  getOrCreateStrategy(Address.fromHexString(token.strategy) as Address, event.params.token, event.block)
 }
 
 export function handleLogStrategyTargetPercentage(event: LogStrategyTargetPercentage): void {
@@ -207,7 +207,11 @@ export function handleLogStrategyInvest(event: LogStrategyInvest): void {
 
   const token = getToken(event.params.token, event.block)
 
-  const strategy = getOrCreateStrategy(Address.fromHexString(token.strategy) as Address, event.params.token)
+  const strategy = getOrCreateStrategy(
+    Address.fromHexString(token.strategy) as Address,
+    event.params.token,
+    event.block
+  )
 
   strategy.balance = strategy.balance.plus(event.params.amount)
   strategy.save()
@@ -218,7 +222,11 @@ export function handleLogStrategyDivest(event: LogStrategyDivest): void {
 
   const token = getToken(event.params.token, event.block)
 
-  const strategy = getOrCreateStrategy(Address.fromHexString(token.strategy) as Address, event.params.token)
+  const strategy = getOrCreateStrategy(
+    Address.fromHexString(token.strategy) as Address,
+    event.params.token,
+    event.block
+  )
 
   strategy.balance = strategy.balance.minus(event.params.amount)
   strategy.save()
@@ -231,7 +239,11 @@ export function handleLogStrategyProfit(event: LogStrategyProfit): void {
   token.totalSupplyElastic = token.totalSupplyElastic.plus(event.params.amount)
   token.save()
 
-  const strategy = getOrCreateStrategy(Address.fromHexString(token.strategy) as Address, event.params.token)
+  const strategy = getOrCreateStrategy(
+    Address.fromHexString(token.strategy) as Address,
+    event.params.token,
+    event.block
+  )
 
   strategy.totalProfit = strategy.totalProfit.plus(event.params.amount)
   strategy.save()
@@ -244,7 +256,11 @@ export function handleLogStrategyLoss(event: LogStrategyLoss): void {
   token.totalSupplyElastic = token.totalSupplyElastic.minus(event.params.amount)
   token.save()
 
-  const strategy = getOrCreateStrategy(Address.fromHexString(token.strategy) as Address, event.params.token)
+  const strategy = getOrCreateStrategy(
+    Address.fromHexString(token.strategy) as Address,
+    event.params.token,
+    event.block
+  )
 
   strategy.totalProfit = strategy.totalProfit.minus(event.params.amount)
   strategy.balance = strategy.balance.minus(event.params.amount)
