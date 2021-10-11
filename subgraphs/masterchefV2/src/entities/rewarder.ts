@@ -5,7 +5,7 @@ import {
   ALCX_REWARDER,
   LIDO_REWARDER,
 } from 'const'
-import { Address, ethereum } from '@graphprotocol/graph-ts'
+import { Address, BigInt, ethereum } from '@graphprotocol/graph-ts'
 
 import { ComplexRewarder as ComplexRewarderContract } from '../../generated/MasterChefV2/ComplexRewarder'
 import { ConvexRewarder as ConvexRewarderContract } from '../../generated/MasterChefV2/ConvexRewarder'
@@ -13,6 +13,8 @@ import { CloneRewarderTime as CloneRewarderTimeContract } from '../../generated/
 import { CloneRewarderTime as CloneRewarderTimeTemplate } from '../../generated/templates'
 import { StakingRewardsSushi as StakingRewardsContract} from '../../generated/templates/StakingRewardsSushi/StakingRewardsSushi'
 import { StakingRewardsSushi as StakingRewardsTemplate } from '../../generated/templates'
+import { CloneRewarderTime2 as CloneRewarderTime2Contract } from '../../generated/templates/CloneRewarderTime2/CloneRewarderTime2'
+import { CloneRewarderTime2 as CloneRewarderTime2Template } from '../../generated/templates'
 import { Rewarder } from '../../generated/schema'
 
 export function getRewarder(address: Address, block: ethereum.Block): Rewarder {
@@ -38,16 +40,31 @@ export function getRewarder(address: Address, block: ethereum.Block): Rewarder {
       StakingRewardsTemplate.create(address)
     }
     else {
-      const rewarderContract = CloneRewarderTimeContract.bind(address)
-      let rewardTokenResult = rewarderContract.try_rewardToken()
-      let rewardRateResult = rewarderContract.try_rewardPerSecond()
+      if (block.number > BigInt.fromI32(13375435)) {
+        const rewarderContract = CloneRewarderTime2Contract.bind(address)
+        let rewardTokenResult = rewarderContract.try_rewardToken()
+        let rewardRateResult = rewarderContract.try_rewardPerSecond()
 
-      if (!rewardTokenResult.reverted) {
-        rewarder.rewardToken = rewardTokenResult.value
+        if (!rewardTokenResult.reverted) {
+          rewarder.rewardToken = rewardTokenResult.value
+        }
+        if (!rewardRateResult.reverted) {
+          rewarder.rewardPerSecond = rewardRateResult.value
+          CloneRewarderTime2Template.create(address)
+        }
       }
-      if (!rewardRateResult.reverted) {
-        rewarder.rewardPerSecond = rewardRateResult.value
-        CloneRewarderTimeTemplate.create(address);
+      else {
+        const rewarderContract = CloneRewarderTimeContract.bind(address)
+        let rewardTokenResult = rewarderContract.try_rewardToken()
+        let rewardRateResult = rewarderContract.try_rewardPerSecond()
+
+        if (!rewardTokenResult.reverted) {
+          rewarder.rewardToken = rewardTokenResult.value
+        }
+        if (!rewardRateResult.reverted) {
+          rewarder.rewardPerSecond = rewardRateResult.value
+          CloneRewarderTimeTemplate.create(address)
+        }
       }
     }
   }

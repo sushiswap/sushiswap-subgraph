@@ -30,6 +30,8 @@ dataSources:
           file: ./packages/abis/ComplexRewarder.json
         - name: CloneRewarderTime
           file: ./packages/abis/CloneRewarderTime.json
+        - name: CloneRewarderTime2
+          file: ./packages/abis/CloneRewarderTime2.json
         - name: StakingRewardsSushi
           file: ./packages/abis/StakingRewardsSushi.json
         - name: Factory
@@ -90,3 +92,21 @@ templates:
       eventHandlers:
         - event: RewardAdded(uint256)
           handler: rewardAdded
+  - kind: ethereum/contract
+    name: CloneRewarderTime2
+    network: {{ network }}
+    source:
+      abi: CloneRewarderTime2
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappings/clone-rewarder2.ts
+      entities:
+        - Rewarder
+      abis:
+        - name: CloneRewarderTime2
+          file: ./packages/abis/CloneRewarderTime2.json
+      eventHandlers:
+        - event: LogRewardPerSecond(uint256)
+          handler: logRewardPerSecond
