@@ -8,10 +8,16 @@ Current subgraph locations:
 
 1. **Exchange**: Includes all SushiSwap Exchange data with Price Data, Volume, Users, etc:
    + https://thegraph.com/explorer/subgraph/sushiswap/exchange (mainnet)
-   + https://thegraph.com/explorer/subgraph/sushiswap/fantom-exchange (ftm)
-   + https://thegraph.com/explorer/subgraph/sushiswap/matic-exchange (matic)
-   + https://thegraph.com/explorer/subgraph/sushiswap/xdai-exchange (xdai)
    + https://thegraph.com/explorer/subgraph/sushiswap/bsc-exchange (bsc)
+   + https://q.hg.network/okex-exchange/oec (okex)
+   + https://thegraph.com/explorer/subgraph/sushiswap/xdai-exchange (xdai)
+   + https://q.hg.network/heco-exchange/heco (heco)
+   + https://thegraph.com/explorer/subgraph/sushiswap/matic-exchange (matic)
+   + https://thegraph.com/explorer/subgraph/sushiswap/fantom-exchange (fantom)
+   + https://thegraph.com/explorer/subgraph/sushiswap/arbitrum-exchange (arbitrum)
+   + https://thegraph.com/explorer/subgraph/sushiswap/celo-exchange (celo)
+   + https://thegraph.com/explorer/subgraph/sushiswap/avalanche-exchange (avalanche)
+   + https://sushi.graph.t.hmny.io/subgraphs/name/sushiswap/harmony-exchange (harmony)
 
 2. **Master Chef**: Indexes all MasterChef staking data: https://thegraph.com/explorer/subgraph/sushiswap/master-chef
 
