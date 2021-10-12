@@ -10,16 +10,16 @@
     "exchange": "^1.0.0"
   },
   "scripts": {
-    "codegen": ".",
-    "build": ".",
-    "prepare:bsc": ".",
-    "prepare:fantom": ".",
-    "prepare:goerli": ".",
-    "prepare:kovan": ".",
-    "prepare:mainnet": ".",
-    "prepare:matic": ".",
-    "prepare:rinkeby": ".",
-    "prepare:ropsten": ".",
-    "prepare:xdai": "."
+    "codegen": "true",
+    "build": "true",
+    "prepare:bsc": "true",
+    "prepare:fantom": "true",
+    "prepare:goerli": "true",
+    "prepare:kovan": "true",
+    "prepare:mainnet": "true",
+    "prepare:matic": "true",
+    "prepare:rinkeby": "true",
+    "prepare:ropsten": "true",
+    "prepare:xdai": "true"
   }
 }
