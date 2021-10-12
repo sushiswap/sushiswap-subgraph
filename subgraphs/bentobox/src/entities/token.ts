@@ -18,6 +18,7 @@ export function createToken(address: Address, block: ethereum.Block): Token {
   token.decimals = getDecimals(address)
   token.totalSupplyBase = BIG_INT_ZERO
   token.totalSupplyElastic = BIG_INT_ZERO
+  token.strategyTargetPercentage = BIG_INT_ZERO
   token.block = block.number
   token.timestamp = block.timestamp
 

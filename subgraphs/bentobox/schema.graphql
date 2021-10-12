@@ -86,6 +86,8 @@ type Token @entity {
   decimals: BigInt!
   totalSupplyElastic: BigInt!
   totalSupplyBase: BigInt!
+  strategy: Strategy
+  strategyTargetPercentage: BigInt!
   block: BigInt!
   timestamp: BigInt!
 }
@@ -235,4 +237,13 @@ type KashiPairDayData @entity {
   avgInterestPerSecond: BigInt!
   #avgSupplyInterestPerSecond: BigInt!
   #avgBorrowInterestPerSecond: BigInt!
+}
+
+type Strategy @entity {
+  id: ID!
+  token: Token!
+  balance: BigInt!
+  totalProfit: BigInt!
+  timestamp: BigInt!
+  block: BigInt!
 }

@@ -328,5 +328,20 @@ export function handleLogWithdrawFees(event: LogWithdrawFees): void {
 }
 
 export function handleTransfer(event: Transfer): void {
-  // TODO: not sure if we should do anything or not for this event
+  log.info('[BentoBox:KashiPair] Log Transfer {} {} {}',
+  [
+    event.params._from.toHex(),
+    event.params._to.toHex(),
+    event.params._value.toString()
+  ])
+
+  const fraction = event.params._value
+
+  const userFrom = getUserKashiPair(event.params._from, event.address, event.block)
+  userFrom.assetFraction = userFrom.assetFraction.minus(fraction)
+  userFrom.save()
+
+  const userTo = getUserKashiPair(event.params._to, event.address, event.block)
+  userTo.assetFraction = userTo.assetFraction.plus(fraction)
+  userTo.save()
 }
