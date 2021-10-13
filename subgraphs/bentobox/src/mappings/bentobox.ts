@@ -23,7 +23,7 @@ import {
   LogStrategyProfit,
   LogStrategyLoss,
 } from '../../generated/BentoBox/BentoBox'
-import { Token, User, FlashLoan, Protocol, Clone } from '../../generated/schema'
+import { Token, User, FlashLoan, Protocol, Clone, StrategyHarvest } from '../../generated/schema'
 import {
   getToken,
   getUser,
@@ -37,7 +37,7 @@ import {
 } from '../entities'
 
 import { KashiPair as PairTemplate } from '../../generated/templates'
-import { Address, log } from '@graphprotocol/graph-ts'
+import { Address, BigInt, log } from '@graphprotocol/graph-ts'
 
 export function handleLogDeploy(event: LogDeploy): void {
   log.info('[BentoBox] Log Deploy {} {} {}', [
@@ -247,6 +247,14 @@ export function handleLogStrategyProfit(event: LogStrategyProfit): void {
 
   strategy.totalProfit = strategy.totalProfit.plus(event.params.amount)
   strategy.save()
+
+  const strategyHarvest = new StrategyHarvest(strategy.id + '-' + event.block.number.toString())
+  strategyHarvest.strategy = strategy.id
+  strategyHarvest.profit = event.params.amount
+  strategyHarvest.tokenElastic = token.totalSupplyElastic
+  strategyHarvest.timestamp = event.block.timestamp
+  strategyHarvest.block = event.block.number
+  strategyHarvest.save()
 }
 
 export function handleLogStrategyLoss(event: LogStrategyLoss): void {
@@ -264,5 +272,14 @@ export function handleLogStrategyLoss(event: LogStrategyLoss): void {
 
   strategy.totalProfit = strategy.totalProfit.minus(event.params.amount)
   strategy.balance = strategy.balance.minus(event.params.amount)
+
   strategy.save()
+
+  const strategyHarvest = new StrategyHarvest(strategy.id + '-' + event.block.number.toString())
+  strategyHarvest.strategy = strategy.id
+  strategyHarvest.profit = event.params.amount.times(BigInt.fromI32(-1))
+  strategyHarvest.tokenElastic = token.totalSupplyElastic
+  strategyHarvest.timestamp = event.block.timestamp
+  strategyHarvest.block = event.block.number
+  strategyHarvest.save()
 }

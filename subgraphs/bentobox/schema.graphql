@@ -244,6 +244,16 @@ type Strategy @entity {
   token: Token!
   balance: BigInt!
   totalProfit: BigInt!
+  harvests: [StrategyHarvest!] @derivedFrom(field: "strategy")
+  timestamp: BigInt!
+  block: BigInt!
+}
+
+type StrategyHarvest @entity {
+  id: ID!
+  strategy: Strategy!
+  profit: BigInt!
+  tokenElastic: BigInt!
   timestamp: BigInt!
   block: BigInt!
 }
