@@ -64,6 +64,11 @@ export function getSymbol(address: Address): string {
     return 'aETHc'
   }
 
+  // CELO hardcode
+  if (address.toHex() == '0x471ece3750da237f93b8e339c536989b8978a438') {
+    return 'CELO'
+  }
+
   const contract = ERC20.bind(address)
   const contractSymbolBytes = ERC20SymbolBytes.bind(address)
 
@@ -106,6 +111,11 @@ export function getName(address: Address): string {
   }
   if (address.toHex() == '0xe95a203b1a91a908f9b9ce46459d101078c2c3cb') {
     return 'Ankr Eth2 Reward Bearing Certificate'
+  }
+
+  // CELO hardcode
+  if (address.toHex() == '0x471ece3750da237f93b8e339c536989b8978a438') {
+    return 'Celo Native Asset'
   }
 
   const contract = ERC20.bind(address)
