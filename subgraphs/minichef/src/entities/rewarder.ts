@@ -1,4 +1,4 @@
-import { ADDRESS_ZERO, BIG_INT_ZERO, COMPLEX_REWARDER } from 'const'
+import { ADDRESS_ZERO, BIG_INT_ZERO, COMPLEX_REWARDER, NATIVE } from 'const'
 import { Address, ethereum } from '@graphprotocol/graph-ts'
 import {
   CloneRewarderTime as CloneRewarderTimeTemplate,
@@ -25,6 +25,8 @@ export function getRewarder(address: Address, block: ethereum.Block): Rewarder {
     if (COMPLEX_REWARDER != ADDRESS_ZERO && address == COMPLEX_REWARDER) {
       rewarder.timestamp = block.timestamp
       rewarder.block = block.number
+      rewarder.rewardToken = NATIVE
+      rewarder.rewardPerSecond = BIG_INT_ZERO
       rewarder.save()
       ComplexRewarderTimeTemplate.create(address)
     } else if (address != ADDRESS_ZERO) {

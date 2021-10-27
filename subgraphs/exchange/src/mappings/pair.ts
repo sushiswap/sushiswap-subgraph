@@ -373,6 +373,11 @@ export function onMint(event: MintEvent): void {
 
   const mints = transaction.mints
 
+  if (mints == null) {
+    log.info('Mints history null onMint event', [])
+    return
+  }
+
   const mint = Mint.load(mints[mints.length - 1])
 
   const pair = getPair(event.address)

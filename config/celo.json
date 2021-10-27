@@ -9,19 +9,22 @@
   "weth_address": "0x2def4285787d58a2f811af24755a8150622f4361",
   "native_address": "0x471ece3750da237f93b8e339c536989b8978a438",
   "usdc_address": "0x765de816845861e75a25fca122bb6898b8b1282a",
-  "dai_address": "0x0000000000000000000000000000000000000000",
+  "dai_address": "0xe4fe50cdd716522a56204352f00aa110f731932d",
   "usdt_address": "0x0000000000000000000000000000000000000000",
+  "complex_rewarder_address": "0x1be211d8da40bc0ae8719c6663307bfc987b1d6c",
+  "minichef_address": "0x0769fd68dfb93167989c6f7254cd0d766fb2841f",
   "whitelist": [
     "0x471ece3750da237f93b8e339c536989b8978a438",
     "0x2def4285787d58a2f811af24755a8150622f4361",
     "0xd629eb00deced2a080b7ec630ef6ac117e614f1b",
     "0x765de816845861e75a25fca122bb6898b8b1282a",
-    "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73"
+    "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
+    "0xe4fe50cdd716522a56204352f00aa110f731932d"
   ],
   "factory": {
     "address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
     "startBlock": "7253488"
   },
   "minimum_usd_threshold_new_pairs": "3000",
-  "minimum_liquidity_threshold_eth": "500"
+  "minimum_liquidity_threshold_eth": "1"
 }

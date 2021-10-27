@@ -8,10 +8,16 @@ Current subgraph locations:
 
 1. **Exchange**: Includes all SushiSwap Exchange data with Price Data, Volume, Users, etc:
    + https://thegraph.com/explorer/subgraph/sushiswap/exchange (mainnet)
-   + https://thegraph.com/explorer/subgraph/sushiswap/fantom-exchange (ftm)
-   + https://thegraph.com/explorer/subgraph/sushiswap/matic-exchange (matic)
-   + https://thegraph.com/explorer/subgraph/sushiswap/xdai-exchange (xdai)
    + https://thegraph.com/explorer/subgraph/sushiswap/bsc-exchange (bsc)
+   + https://q.hg.network/okex-exchange/oec (okex)
+   + https://thegraph.com/explorer/subgraph/sushiswap/xdai-exchange (xdai)
+   + https://q.hg.network/heco-exchange/heco (heco)
+   + https://thegraph.com/explorer/subgraph/sushiswap/matic-exchange (matic)
+   + https://thegraph.com/explorer/subgraph/sushiswap/fantom-exchange (fantom)
+   + https://thegraph.com/explorer/subgraph/sushiswap/arbitrum-exchange (arbitrum)
+   + https://thegraph.com/explorer/subgraph/sushiswap/celo-exchange (celo)
+   + https://thegraph.com/explorer/subgraph/sushiswap/avalanche-exchange (avalanche)
+   + https://sushi.graph.t.hmny.io/subgraphs/name/sushiswap/harmony-exchange (harmony)
 
 2. **Master Chef**: Indexes all MasterChef staking data: https://thegraph.com/explorer/subgraph/sushiswap/master-chef
 
@@ -30,13 +36,17 @@ Current subgraph locations:
 
 ## To setup and deploy
 
-For any of the subgraphs: `sushiswap` or `bar` as `[subgraph]`
+For any of the subgraphs follow below steps
 
-1. Run the `yarn run codegen:[subgraph]` command to prepare the TypeScript sources for the GraphQL (generated/schema) and the ABIs (generated/[ABI]/\*)
-2. [Optional] run the `yarn run build:[subgraph]` command to build the subgraph. Can be used to check compile errors before deploying.
-3. Run `graph auth https://api.thegraph.com/deploy/ <ACCESS_TOKEN>`
-4. Deploy via `yarn run deploy:[subgraph]`.
+1. CD in to the subgraph directory `subgraphs:[subgraphName]`
+2. Run the `yarn run prepare:[network]` to prepare yaml file from template.yaml and network specific data.
+3. Run the `yarn run codegen` command to prepare the TypeScript sources for the GraphQL (generated/schema) and the ABIs (generated/[ABI]/\*)
+4. [Optional] run the `yarn run build` command to build the subgraph. Can be used to check compile errors before deploying.
+5. Run `graph auth https://api.thegraph.com/deploy/ <ACCESS_TOKEN>`
+6. Deploy via `yarn run deploy`.
 
+> It is also possible to follow steps 2-4 from root directory. Given you are running from root, it will try to prepare/codegen/build all subgraphs.
+> So to ensure successful run for `prepare:[network]` command, `network` of your interest, all subgraphs should have this command.
 ## To query these subgraphs
 
 Please use our node utility: [sushi-data](https://github.com/sushiswap/sushi-data).

@@ -22,6 +22,7 @@
         "deploy:fuse": "graph deploy --product hosted-service sushiswap/fuse-exchange",
         "deploy:avalanche": "graph deploy --product hosted-service sushiswap/avalanche-exchange",
         "deploy:matic": "graph deploy --product hosted-service matthewlilley/matic-exchange",
+        "deploy:celo": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/celo-exchange subgraph.yaml",
         "deploy-studio:mainnet": "graph deploy --studio sushi---mainnet-exchange",
 
         "prepare:arbitrum": "mustache ../../config/arbitrum.json template.yaml > subgraph.yaml",
@@ -40,6 +41,6 @@
         "prepare:avalanche": "mustache ../../config/avalanche.json template.yaml > subgraph.yaml",
         "prepare:palm": "mustache ../../config/palm.json template.yaml > subgraph.yaml",
         "prepare:heco": "mustache ../../config/heco.json template.yaml > subgraph.yaml",
-        "prepare:fuse": "mustache ../../config/fuse.json template.yaml > subgraph.yaml"    
+        "prepare:fuse": "mustache ../../config/fuse.json template.yaml > subgraph.yaml"
     }
 }
