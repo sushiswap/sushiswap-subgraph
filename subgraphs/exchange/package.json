@@ -23,6 +23,7 @@
         "deploy:avalanche": "graph deploy --product hosted-service sushiswap/avalanche-exchange",
         "deploy:matic": "graph deploy --product hosted-service matthewlilley/matic-exchange",
         "deploy:celo": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/celo-exchange subgraph.yaml",
+        "deploy:moonriver": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/moonriver-exchange subgraph.yaml",
         "deploy-studio:mainnet": "graph deploy --studio sushi---mainnet-exchange",
 
         "prepare:arbitrum": "mustache ../../config/arbitrum.json template.yaml > subgraph.yaml",
@@ -38,6 +39,7 @@
         "prepare:okex": "mustache ../../config/okex.json template.yaml > subgraph.yaml",
         "prepare:harmony": "mustache ../../config/harmony.json template.yaml > subgraph.yaml",
         "prepare:celo": "mustache ../../config/celo.json template.yaml > subgraph.yaml",
+        "prepare:moonriver": "mustache ../../config/moonriver.json template.yaml > subgraph.yaml",
         "prepare:avalanche": "mustache ../../config/avalanche.json template.yaml > subgraph.yaml",
         "prepare:palm": "mustache ../../config/palm.json template.yaml > subgraph.yaml",
         "prepare:heco": "mustache ../../config/heco.json template.yaml > subgraph.yaml",
