@@ -18,6 +18,7 @@ Current subgraph locations:
    + https://thegraph.com/explorer/subgraph/sushiswap/celo-exchange (celo)
    + https://thegraph.com/explorer/subgraph/sushiswap/avalanche-exchange (avalanche)
    + https://sushi.graph.t.hmny.io/subgraphs/name/sushiswap/harmony-exchange (harmony)
+   + https://api.thegraph.com/subgraphs/name/sushiswap/moonriver-exchange (moonriver)
 
 2. **Master Chef**: Indexes all MasterChef staking data: https://thegraph.com/explorer/subgraph/sushiswap/master-chef
 
