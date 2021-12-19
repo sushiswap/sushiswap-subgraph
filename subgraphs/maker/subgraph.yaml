@@ -1,32 +1,33 @@
 specVersion: 0.0.2
+description: SushiMaker
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: Maker
+    name: SushiMaker
     network: mainnet
     source:
-      address: "0xE11fc0B43ab98Eb91e9836129d1ee7c3Bc95df50"
-      abi: Maker
+      address: '0xe11fc0b43ab98eb91e9836129d1ee7c3bc95df50'
+      abi: SushiMaker
       startBlock: 11626958
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
+      file: ./src/mappings/maker.ts
       entities:
         - Maker
         - Server
         - Serving
       abis:
-        - name: Maker
-          file: ./node_modules/@sushiswap/core/build/abi/Maker.json
+        - name: SushiMaker
+          file: ../../node_modules/@sushiswap/core/build/abi/SushiMaker.json
         - name: Pair
-          file: ./node_modules/@sushiswap/core/build/abi/UniswapV2Pair.json
+          file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Pair.json
         - name: ERC20
-          file: ./node_modules/@sushiswap/core/build/abi/ERC20.json
+          file: ../../node_modules/@sushiswap/core/build/abi/ERC20.json
         - name: Factory
-          file: ./node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
+          file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
       eventHandlers:
         - event: LogConvert(indexed address,indexed address,indexed address,uint256,uint256,uint256)
           handler: handleLogConvert
-      file: ./src/maker.ts
