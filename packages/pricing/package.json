@@ -20,6 +20,7 @@
     "prepare:matic": "true",
     "prepare:rinkeby": "true",
     "prepare:ropsten": "true",
-    "prepare:xdai": "true"
+    "prepare:xdai": "true",
+    "prepare:fuse": "true"
   }
 }
