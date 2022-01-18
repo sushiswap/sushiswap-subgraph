@@ -3,31 +3,30 @@
   "network": "celo",
   "factory_address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
   "sushi_address": "0x0000000000000000000000000000000000000000",
-  "usdc_weth_pair": "0x93887e0fA9F6C375b2765a6fE885593F16f077f9",
-  "dai_weth_pair": "0xCCd9d850eF40f19566cd8df950765E9A1a0B9Ef2",
-  "usdt_weth_pair": "0xC77398cfb7B0F7ab42baFC02ABc20A69CE8cEf7f",
-  "weth_address": "0x122013fd7dF1C6F636a5bb8f03108E876548b455",
+  "usdc_weth_pair": "0x93887e0fa9f6c375b2765a6fe885593f16f077f9",
+  "dai_weth_pair": "0xccd9d850ef40f19566cd8df950765e9a1a0b9ef2",
+  "usdt_weth_pair": "0xc77398cfb7b0f7ab42bafc02abc20a69ce8cef7f",
+  "weth_address": "0x122013fd7df1c6f636a5bb8f03108e876548b455",
   "native_address": "0x471ece3750da237f93b8e339c536989b8978a438",
   "usdc_address": "0x765de816845861e75a25fca122bb6898b8b1282a",
-  "dai_address": "0x90Ca507a5D4458a4C6C6249d186b6dCb02a5BCCd",
-  "usdt_address": "0x88eeC49252c8cbc039DCdB394c0c2BA2f1637EA0",
+  "dai_address": "0x90ca507a5d4458a4c6c6249d186b6dcb02a5bccd",
+  "usdt_address": "0x88eec49252c8cbc039dcdb394c0c2ba2f1637ea0",
   "complex_rewarder_address": "0xFa3de59eDd2500BA725Dad355B98E6a4346Ada7d",
   "minichef_address": "0x8084936982D089130e001b470eDf58faCA445008",
   "whitelist": [
     "0x471ece3750da237f93b8e339c536989b8978a438",
-    "0x122013fd7dF1C6F636a5bb8f03108E876548b455",
-    "0x765DE816845861e75A25fCA122bb6898B8B1282a",
-    "0xef4229c8c3250C675F21BCefa42f58EfbfF6002a",
-    "0x88eeC49252c8cbc039DCdB394c0c2BA2f1637EA0",
-    "0xBAAB46E28388d2779e6E31Fd00cF0e5Ad95E327B",
+    "0x122013fd7df1c6f636a5bb8f03108e876548b455",
+    "0x765de816845861e75a25fca122bb6898b8b1282a",
+    "0xef4229c8c3250c675f21bcefa42f58efbff6002a",
+    "0x88eec49252c8cbc039dcdb394c0c2ba2f1637ea0",
+    "0x90ca507a5d4458a4c6c6249d186b6dcb02a5bccd",
     "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73",
-    "0x90Ca507a5D4458a4C6C6249d186b6dCb02a5BCCd",
-    "0xE4fE50cdD716522A56204352f00AA110F731932d"
+    "0xbaab46e28388d2779e6e31fd00cf0e5ad95e327b"
   ],
   "factory": {
     "address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
     "startBlock": "7253488"
   },
   "minimum_usd_threshold_new_pairs": "3000",
-  "minimum_liquidity_threshold_eth": "1"
+  "minimum_liquidity_threshold_eth": "1000"
 }

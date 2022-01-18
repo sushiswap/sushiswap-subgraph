@@ -28,5 +28,5 @@
     "startBlock": "506190"
   },
   "minimum_usd_threshold_new_pairs": "3000",
-  "minimum_liquidity_threshold_eth": "100"
+  "minimum_liquidity_threshold_eth": "5"
 }
