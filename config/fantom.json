@@ -9,6 +9,8 @@
   "native_address": "0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83",
   "dai_address": "0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e",
   "usdt_address": "0x049d68029688eabf473097a2fc38ef61633a3c7a",
+  "complex_rewarder_address": "0xeaf76e3bd36680d98d254b378ed706cb0dfbfc1b",
+  "minichef_address": "0xf731202a3cf7efa9368c2d7bd613926f7a144db5",
   "usdc_address": "0x04068da6c83afcfa0e13ba15a6696662335d5b75",
   "minimum_liquidity_threshold_eth": "15000",
   "minimum_usd_threshold_new_pairs": "1000",

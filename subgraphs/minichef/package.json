@@ -16,6 +16,7 @@
         "deploy:celo": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/celo-minichef subgraph.yaml",
         "deploy:moonriver": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/moonriver-minichef subgraph.yaml",
         "deploy:fuse": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/fuse-minichef subgraph.yaml",
+        "deploy:fantom": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/fantom-minichef subgraph.yaml",
 
         "prepare:arbitrum": "mustache config/arbitrum.json template.yaml > subgraph.yaml",
         "prepare:matic": "mustache config/matic.json template.yaml > subgraph.yaml",
@@ -23,6 +24,7 @@
         "prepare:harmony": "mustache config/harmony.json template.yaml > subgraph.yaml",
         "prepare:celo": "mustache config/celo.json template.yaml > subgraph.yaml",
         "prepare:moonriver": "mustache config/moonriver.json template.yaml > subgraph.yaml",
-        "prepare:fuse": "mustache config/fuse.json template.yaml > subgraph.yaml"
+        "prepare:fuse": "mustache config/fuse.json template.yaml > subgraph.yaml",
+        "prepare:fantom": "mustache config/fantom.json template.yaml > subgraph.yaml"
     }
 }
