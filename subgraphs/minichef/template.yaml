@@ -70,6 +70,11 @@ templates:
       eventHandlers:
         - event: LogRewardPerSecond(uint256)
           handler: logRewardPerSecond
+        - event: LogPoolAddition(indexed uint256,uint256)
+          handler: logPoolAddition
+        - event: LogSetPool(indexed uint256,uint256)
+          handler: logSetPool
+
   - kind: ethereum/contract
     name: CloneRewarderTime
     network: {{ network }}
