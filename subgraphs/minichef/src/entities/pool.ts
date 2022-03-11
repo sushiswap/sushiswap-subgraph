@@ -1,7 +1,7 @@
 import { ADDRESS_ZERO, BIG_INT_ZERO } from 'const'
 import { BigInt, ethereum } from '@graphprotocol/graph-ts'
 
-import { Pool } from '../../generated/schema'
+import { Pool, NativeRewarderPool } from '../../generated/schema'
 import { getMiniChef } from './minichef'
 
 export function getPool(pid: BigInt, block: ethereum.Block): Pool {
@@ -24,4 +24,17 @@ export function getPool(pid: BigInt, block: ethereum.Block): Pool {
   }
 
   return pool as Pool
+}
+
+
+export function getNativeRewarderPool(pid: BigInt): NativeRewarderPool {
+  let pool = NativeRewarderPool.load(pid.toString())
+
+  if (pool === null) {
+    pool = new NativeRewarderPool(pid.toString())
+    pool.allocPoint = BIG_INT_ZERO
+    pool.save()
+  }
+
+  return pool as NativeRewarderPool
 }

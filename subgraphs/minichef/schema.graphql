@@ -41,11 +41,20 @@ type Pool @entity {
   block: BigInt!
 }
 
+type NativeRewarderPool @entity {
+  # index of pool in poolInfo on ComplexRewarder contracts
+  id: ID!
+
+  allocPoint: BigInt!
+}
+
 type Rewarder @entity {
   # address
   id: ID!
   rewardToken: Bytes!
   rewardPerSecond: BigInt!
+
+  totalAllocPoint: BigInt!
 
   timestamp: BigInt!
   block: BigInt!
