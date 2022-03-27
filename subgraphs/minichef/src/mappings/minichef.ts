@@ -14,12 +14,12 @@ import { getMiniChef, getPool, getRewarder, getUser } from '../entities'
 import { log } from '@graphprotocol/graph-ts'
 
 export function logPoolAddition(event: LogPoolAddition): void {
-  log.info('[MiniChef] Log Pool Addition {} {} {} {}', [
+  /*log.info('[MiniChef] Log Pool Addition {} {} {} {}', [
     event.params.pid.toString(),
     event.params.allocPoint.toString(),
     event.params.lpToken.toHex(),
     event.params.rewarder.toHex(),
-  ])
+  ])*/
 
   const miniChef = getMiniChef(event.block)
   const pool = getPool(event.params.pid, event.block)
@@ -36,12 +36,12 @@ export function logPoolAddition(event: LogPoolAddition): void {
 }
 
 export function logSetPool(event: LogSetPool): void {
-  log.info('[MiniChef] Log Set Pool {} {} {} {}', [
+  /*log.info('[MiniChef] Log Set Pool {} {} {} {}', [
     event.params.pid.toString(),
     event.params.allocPoint.toString(),
     event.params.rewarder.toHex(),
     event.params.overwrite == true ? 'true' : 'false',
-  ])
+  ])*/
 
   const miniChef = getMiniChef(event.block)
   const pool = getPool(event.params.pid, event.block)
@@ -58,12 +58,12 @@ export function logSetPool(event: LogSetPool): void {
 }
 
 export function logUpdatePool(event: LogUpdatePool): void {
-  log.info('[MiniChef] Log Update Pool {} {} {} {}', [
+  /*log.info('[MiniChef] Log Update Pool {} {} {} {}', [
     event.params.pid.toString(),
     event.params.lastRewardTime.toString(), //uint64, I think this is Decimal but not sure
     event.params.lpSupply.toString(),
     event.params.accSushiPerShare.toString(),
-  ])
+  ])*/
   const pool = getPool(event.params.pid, event.block)
   pool.accSushiPerShare = event.params.accSushiPerShare
   pool.lastRewardTime = event.params.lastRewardTime
@@ -71,7 +71,7 @@ export function logUpdatePool(event: LogUpdatePool): void {
 }
 
 export function logSushiPerSecond(event: LogSushiPerSecond): void {
-  log.info('[MiniChef] Log Sushi Per Second {}', [event.params.sushiPerSecond.toString()])
+  //log.info('[MiniChef] Log Sushi Per Second {}', [event.params.sushiPerSecond.toString()])
 
   const miniChef = getMiniChef(event.block)
 
@@ -80,12 +80,12 @@ export function logSushiPerSecond(event: LogSushiPerSecond): void {
 }
 
 export function deposit(event: Deposit): void {
-  log.info('[MiniChef] Log Deposit {} {} {} {}', [
+  /*log.info('[MiniChef] Log Deposit {} {} {} {}', [
     event.params.user.toHex(),
     event.params.pid.toString(),
     event.params.amount.toString(),
     event.params.to.toHex(),
-  ])
+  ])*/
   const pool = getPool(event.params.pid, event.block)
   const user = getUser(event.params.to, event.params.pid, event.block)
 
@@ -98,12 +98,12 @@ export function deposit(event: Deposit): void {
 }
 
 export function withdraw(event: Withdraw): void {
-  log.info('[MiniChef] Log Withdraw {} {} {} {}', [
+  /*log.info('[MiniChef] Log Withdraw {} {} {} {}', [
     event.params.user.toHex(),
     event.params.pid.toString(),
     event.params.amount.toString(),
     event.params.to.toHex(),
-  ])
+  ])*/
 
   const pool = getPool(event.params.pid, event.block)
   const user = getUser(event.params.user, event.params.pid, event.block)
@@ -117,12 +117,12 @@ export function withdraw(event: Withdraw): void {
 }
 
 export function emergencyWithdraw(event: EmergencyWithdraw): void {
-  log.info('[MiniChef] Log Emergency Withdraw {} {} {} {}', [
+  /*log.info('[MiniChef] Log Emergency Withdraw {} {} {} {}', [
     event.params.user.toHex(),
     event.params.pid.toString(),
     event.params.amount.toString(),
     event.params.to.toHex(),
-  ])
+  ])*/
 
   const pool = getPool(event.params.pid, event.block)
   const user = getUser(event.params.user, event.params.pid, event.block)
@@ -136,11 +136,11 @@ export function emergencyWithdraw(event: EmergencyWithdraw): void {
 }
 
 export function harvest(event: Harvest): void {
-  log.info('[MiniChef] Log Withdraw {} {} {}', [
+  /*log.info('[MiniChef] Log Withdraw {} {} {}', [
     event.params.user.toHex(),
     event.params.pid.toString(),
     event.params.amount.toString(),
-  ])
+  ])*/
 
   const pool = getPool(event.params.pid, event.block)
   const user = getUser(event.params.user, event.params.pid, event.block)

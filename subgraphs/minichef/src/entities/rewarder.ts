@@ -17,6 +17,7 @@ export function getRewarder(address: Address, block: ethereum.Block): Rewarder {
     if (address == ADDRESS_ZERO) {
       rewarder.rewardToken = ADDRESS_ZERO
       rewarder.rewardPerSecond = BIG_INT_ZERO
+      rewarder.totalAllocPoint = BIG_INT_ZERO
       rewarder.timestamp = block.timestamp
       rewarder.block = block.number
       rewarder.save()
@@ -27,6 +28,7 @@ export function getRewarder(address: Address, block: ethereum.Block): Rewarder {
       rewarder.block = block.number
       rewarder.rewardToken = NATIVE
       rewarder.rewardPerSecond = BIG_INT_ZERO
+      rewarder.totalAllocPoint = BIG_INT_ZERO
       rewarder.save()
       ComplexRewarderTimeTemplate.create(address)
     } else if (address != ADDRESS_ZERO) {
@@ -39,6 +41,7 @@ export function getRewarder(address: Address, block: ethereum.Block): Rewarder {
       if (!rewardRateResult.reverted) {
         rewarder.rewardPerSecond = rewardRateResult.value
       }
+      rewarder.totalAllocPoint = BIG_INT_ZERO
       rewarder.timestamp = block.timestamp
       rewarder.block = block.number
       rewarder.save()

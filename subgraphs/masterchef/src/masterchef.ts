@@ -450,6 +450,10 @@ export function withdraw(event: Withdraw): void {
   //   event.params.pid.toString(),
   // ])
 
+  if (event.block.number == BigInt.fromI32(14098817) && event.params.pid == BigInt.fromI32(344)) {
+    return
+  }
+
   const masterChefContract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
 
   const poolInfo = masterChefContract.poolInfo(event.params.pid)
