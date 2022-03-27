@@ -1,5 +1,6 @@
 {
   "network": "fantom",
+  "bentobox_address": "0xf5bce5077908a1b7370b9ae04adc565ebd643966",
   "factory_address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
   "sushi_address": "0xae75a438b2e0cb8bb01ec1e1e376de11d44477cc",
   "usdc_weth_pair": "0xa48869049e36f8bfe0cc5cf655632626988c0140",
