@@ -15,6 +15,8 @@
     "deploy:moonriver": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/moonriver-blocks subgraph.yaml",
     "deploy:fuse": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/fuse-blocks subgraph.yaml",
     "prepare:moonriver": "mustache config/moonriver.json template.yaml > subgraph.yaml",
-    "prepare:fuse": "mustache config/fuse.json template.yaml > subgraph.yaml"
+    "prepare:fuse": "mustache config/fuse.json template.yaml > subgraph.yaml",
+    "prepare:moonbeam": "mustache config/moonbeam.json template.yaml > subgraph.yaml",
+    "deploy:moonbeam": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/moonbeam-blocks subgraph.yaml"
   }
 }
