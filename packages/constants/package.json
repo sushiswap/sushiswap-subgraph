@@ -25,6 +25,7 @@
     "prepare:palm": "mustache ../../config/palm.json index.template.ts > index.ts",
     "prepare:heco": "mustache ../../config/heco.json index.template.ts > index.ts",
     "prepare:fuse": "mustache ../../config/fuse.json index.template.ts > index.ts",
-    "prepare:moonriver": "mustache ../../config/moonriver.json index.template.ts > index.ts"
+    "prepare:moonriver": "mustache ../../config/moonriver.json index.template.ts > index.ts",
+    "prepare:moonbeam": "mustache ../../config/moonbeam.json index.template.ts > index.ts"
   }
 }

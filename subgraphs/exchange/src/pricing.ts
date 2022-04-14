@@ -67,6 +67,12 @@ export function getEthPrice(block: ethereum.Block = null): BigDecimal {
   const daiPair = Pair.load(DAI_WETH_PAIR)
   const usdcPair = Pair.load(USDC_WETH_PAIR)
   const usdtPair = Pair.load(USDT_WETH_PAIR)
+  // const stablePair = Pair.load(STABLE_WNATIVE_PAIR)
+
+  // if (stablePair !== null && daiPair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH)) {
+  //   const isStableFirst = stablePair.token0 == STABLE
+  //   return isStableFirst ? stablePair.token0Price : stablePair.token1Price
+  // }
 
   // if (daiPair !== null) {
   //   log.warning('Dai Pair {} {}', [

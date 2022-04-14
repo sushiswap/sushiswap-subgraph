@@ -120,6 +120,13 @@ export const SUSHISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString(
   '{{ sushiswap_weth_usdt_pair_address }}{{^sushiswap_weth_usdt_pair_address}}0x0000000000000000000000000000000000000000{{/sushiswap_weth_usdt_pair_address}}'
 )
 
+export const STABLE_WNATIVE_PAIR =
+  '{{ stable_wnative_pair }}{{^stable_wnative_pair}}0x0000000000000000000000000000000000000000{{/stable_wnative_pair}}'
+
+export const STABLE_ADDRESS = Address.fromString(
+  '{{ stable_address }}{{^stable_address}}0x0000000000000000000000000000000000000000{{/stable_address}}'
+)
+
 export const USDT_ADDRESS = Address.fromString(
   '{{ usdt_address }}{{^usdt_address}}0x0000000000000000000000000000000000000000{{/usdt_address}}'
 )
