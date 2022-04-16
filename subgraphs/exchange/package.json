@@ -21,7 +21,7 @@
         "deploy:arbitrum": "graph deploy --product hosted-service matthewlilley/arbitrum-exchange",
         "deploy:fuse": "graph deploy --product hosted-service sushiswap/fuse-exchange",
         "deploy:avalanche": "graph deploy --product hosted-service sushiswap/avalanche-exchange",
-        "deploy:matic": "graph deploy --product hosted-service matthewlilley/matic-exchange",
+        "deploy:matic": "graph deploy --product hosted-service sushiswap/matic-exchange",
         "deploy:celo": "graph deploy --product hosted-service sushiswap/celo-exchange",
         "deploy:moonriver": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/moonriver-exchange subgraph.yaml",
         "deploy-studio:mainnet": "graph deploy --studio sushi---mainnet-exchange",
