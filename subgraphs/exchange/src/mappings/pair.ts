@@ -1,6 +1,6 @@
 import { ADDRESS_ZERO, BIG_DECIMAL_ZERO, MASTER_CHEF_ADDRESS, MINIMUM_USD_THRESHOLD_NEW_PAIRS, WHITELIST } from 'const'
 import { Address, BigDecimal, BigInt, dataSource, log, store } from '@graphprotocol/graph-ts'
-import { Burn, Mint, Pair, Swap, Token, Transaction } from '../../generated/schema'
+import { Burn, Mint, Pair, Swap, Token, Transaction, Transfer } from '../../generated/schema'
 import {
   Burn as BurnEvent,
   Mint as MintEvent,
@@ -170,11 +170,25 @@ export function onTransfer(event: TransferEvent): void {
     transaction.mints = new Array<string>()
     transaction.burns = new Array<string>()
     transaction.swaps = new Array<string>()
+    transaction.transfers = new Array<string>()
   }
 
   const mints = transaction.mints
   const burns = transaction.burns
+  const transfers = transaction.transfers
 
+  if (event.params.from != event.params.to) {
+    let transfer = new Transfer(transactionHash.concat('-').concat(BigInt.fromI32(transfers.length).toString()))
+    transfer.transaction = transaction.id
+    transfer.timestamp = transaction.timestamp
+    transfer.pair = pair.id
+    transfer.to = event.params.to
+    transfer.from = event.params.from
+    transfer.liquidity = value
+    transfer.save()
+    transaction.transfers = transfers.concat([transfer.id])
+    transaction.save()
+  }
   // 3 cases, mints, send first on ETH withdrawls, and burns
 
   if (event.params.from == ADDRESS_ZERO) {
@@ -454,6 +468,7 @@ export function onBurn(event: BurnEvent): void {
     transaction.mints = new Array<string>()
     transaction.burns = new Array<string>()
     transaction.swaps = new Array<string>()
+    transaction.transfers = new Array<string>()
     transaction.save()
   }
 
@@ -623,6 +638,7 @@ export function onSwap(event: SwapEvent): void {
     transaction.mints = []
     transaction.swaps = []
     transaction.burns = []
+    transaction.transfers = []
   }
 
   const swaps = transaction.swaps

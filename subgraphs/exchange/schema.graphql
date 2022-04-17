@@ -404,6 +404,7 @@ type Transaction @entity {
   mints: [Mint]!
   burns: [Burn]!
   swaps: [Swap]!
+  transfers: [Transfer]!
 }
 
 # mint
@@ -478,4 +479,21 @@ type Swap @entity {
 
   # derived info
   amountUSD: BigDecimal!
+}
+
+
+# transfer
+type Transfer @entity {
+  # transaction hash - index of transfer in transaction transfers array
+  id: ID!
+  transaction: Transaction!
+  timestamp: BigInt! # need this to pull recent txns for specific token or pair
+  pair: Pair!
+
+  # populated from transfer event
+  from: Bytes!
+  to: Bytes!
+  liquidity: BigDecimal!
+
+
 }
