@@ -89,6 +89,10 @@ export function deposit(event: Deposit): void {
   const pool = getPool(event.params.pid, event.block)
   const user = getUser(event.params.to, event.params.pid, event.block)
 
+  if (user.amount === BIG_INT_ZERO && event.params.amount.gt(BIG_INT_ZERO) ) {
+    pool.userCount = pool.userCount.plus(BIG_INT_ONE)
+  }
+
   pool.slpBalance = pool.slpBalance.plus(event.params.amount)
   pool.save()
 
@@ -109,11 +113,16 @@ export function withdraw(event: Withdraw): void {
   const user = getUser(event.params.user, event.params.pid, event.block)
 
   pool.slpBalance = pool.slpBalance.minus(event.params.amount)
-  pool.save()
-
+  
   user.amount = user.amount.minus(event.params.amount)
   user.rewardDebt = user.rewardDebt.minus(event.params.amount.times(pool.accSushiPerShare).div(ACC_SUSHI_PRECISION))
   user.save()
+
+  if (user.amount === BIG_INT_ZERO) {
+    pool.userCount = pool.userCount.minus(BIG_INT_ONE)
+  }
+  
+  pool.save()
 }
 
 export function emergencyWithdraw(event: EmergencyWithdraw): void {
@@ -128,6 +137,7 @@ export function emergencyWithdraw(event: EmergencyWithdraw): void {
   const user = getUser(event.params.user, event.params.pid, event.block)
 
   pool.slpBalance = pool.slpBalance.minus(event.params.amount)
+  pool.userCount = pool.userCount.minus(BIG_INT_ONE)
   pool.save()
 
   user.amount = BIG_INT_ZERO

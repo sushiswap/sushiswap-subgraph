@@ -21,9 +21,6 @@ export function getUser(address: Address, pid: BigInt, block: ethereum.Block): U
     user.timestamp = block.timestamp
     user.block = block.number
     user.save()
-
-    pool.userCount = pool.userCount.plus(BIG_INT_ONE)
-    pool.save()
   }
 
   return user as User
