@@ -110,7 +110,9 @@ export const MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString(
 )
 
 // minimum liquidity for price to get tracked
-export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString('{{ minimum_liquidity_threshold_eth }}')
+export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString(
+  '{{ minimum_liquidity_threshold_eth }}{{^minimum_liquidity_threshold_eth}}1{{/minimum_liquidity_threshold_eth}}'
+)
 
 export const WETH_ADDRESS = Address.fromString(
   '{{ weth_address }}{{^weth_address}}0x0000000000000000000000000000000000000000{{/weth_address}}'
