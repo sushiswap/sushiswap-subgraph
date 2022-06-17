@@ -14,6 +14,7 @@
   "complex_rewarder_address": "0xfa3de59edd2500ba725dad355b98e6a4346ada7d",
   "minichef_address": "0x8084936982d089130e001b470edf58faca445008",
   "whitelist": [
+    "0x122013fd7df1c6f636a5bb8f03108e876548b455",
     "0x471ece3750da237f93b8e339c536989b8978a438",
     "0x765de816845861e75a25fca122bb6898b8b1282a",
     "0xef4229c8c3250c675f21bcefa42f58efbff6002a",
@@ -27,5 +28,5 @@
     "startBlock": "7253488"
   },
   "minimum_usd_threshold_new_pairs": "3000",
-  "minimum_liquidity_threshold_eth": "3"
+  "minimum_liquidity_threshold_eth": "1"
 }

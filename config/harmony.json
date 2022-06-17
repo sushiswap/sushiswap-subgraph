@@ -1,6 +1,6 @@
 {
   "key": "harmony",
-  "network": "mainnet",
+  "network": "harmony",
   "factory_address": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
   "sushi_address": "0xbec775cb42abfa4288de81f387a9b1a3c4bc552a",
   "usdc_weth_pair": "0xbf255d8c30dbab84ea42110ea7dc870f01c0013a",
