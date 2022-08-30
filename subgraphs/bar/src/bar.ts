@@ -282,7 +282,10 @@ export function transfer(event: TransferEvent): void {
     // Recalc xSushi age first
     fromUser.xSushiAge = fromUser.xSushiAge.plus(fromUserDays.times(fromUser.xSushi))
     // Calculate xSushiAge being transfered
-    const xSushiAgeTranfered = fromUser.xSushiAge.div(fromUser.xSushi).times(value)
+    let xSushiAgeTranfered = BigDecimal.fromString('0')
+    if (!fromUser.xSushiAge.equals(BigDecimal.fromString('0')) && !fromUser.xSushi.equals(BigDecimal.fromString('0'))) {
+      xSushiAgeTranfered = fromUser.xSushiAge.div(fromUser.xSushi).times(value)
+    }
     // Subtract from xSushiAge
     fromUser.xSushiAge = fromUser.xSushiAge.minus(xSushiAgeTranfered)
     fromUser.updatedAt = event.block.timestamp

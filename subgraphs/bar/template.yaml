@@ -1,4 +1,9 @@
 specVersion: 0.0.3
+# features:
+#   - grafting
+# graft:
+#   base: 'QmTSGqvK8kYdNFe8cRJ1S1naUb4C19cB9tijNU872hqc2i'
+#   block: 15439322 #NOTE: the next block had a div by 0 issue
 description: Bar
 repository: https://github.com/sushiswap/sushiswap-subgraph
 schema:
