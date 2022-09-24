@@ -9,6 +9,7 @@
     "build": "yarn workspaces run build",
     "codegen": "yarn workspaces run codegen",
     "prepare:bsc": "yarn workspaces run prepare:bsc",
+    "prepare:boba": "yarn workspaces run prepare:boba",
     "prepare:fantom": "yarn workspaces run prepare:fantom",
     "prepare:goerli": "yarn workspaces run prepare:goerli",
     "prepare:kovan": "yarn workspaces run prepare:kovan",

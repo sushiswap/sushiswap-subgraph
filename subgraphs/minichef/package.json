@@ -11,6 +11,7 @@
         "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 /sushiswap/sushiswap",
 
         "deploy:arbitrum": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ matthewlilley/arbitrum-minichef subgraph.yaml",
+        "deploy:boba": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ lufycz/minichef-boba subgraph.yaml",
         "deploy:matic": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ jiro-ono/minichef-staging-updates subgraph.yaml",
         "deploy:xdai": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/xdai-minichef subgraph.yaml",
         "deploy:celo": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/celo-minichef subgraph.yaml",
@@ -20,6 +21,7 @@
         "deploy:fantom": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/fantom-minichef subgraph.yaml",
         
         "prepare:arbitrum": "mustache config/arbitrum.json template.yaml > subgraph.yaml",
+        "prepare:boba": "mustache config/boba.json template.yaml > subgraph.yaml",
         "prepare:matic": "mustache config/matic.json template.yaml > subgraph.yaml",
         "prepare:xdai": "mustache config/xdai.json template.yaml > subgraph.yaml",
         "prepare:harmony": "mustache config/harmony.json template.yaml > subgraph.yaml",
