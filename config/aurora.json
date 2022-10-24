@@ -1,0 +1,26 @@
+{
+  "key": "aurora",
+  "network": "aurora",
+  "factory_address": "0xc66f594268041db60507f00703b152492fb176e7",
+  "usdc_weth_pair": "0x20f8aefb5697b77e0bb835a8518be70775cda1b0",
+  "usdt_weth_pair": "0x03b666f3488a7992b2385b12df7f35156d7b29cd",
+  "sushi_address": "0xfa94348467f64d5a457f75f8bc40495d33c65abb",
+  "weth_address": "0xc9bdeed33cd01541e1eed10f90519d2c06fe3feb",
+  "native_address": "0xc42c30ac6cc15fac9bd938618bcaa1a1fae8501d",
+  "usdc_address": "0xb12bfca5a55806aaf64e99521918a4bf0fc40802",
+  "usdt_address": "0x4988a896b1227218e4a686fde5eabdcabd91571f",
+  "whitelist": [
+    "0xc42c30ac6cc15fac9bd938618bcaa1a1fae8501d",
+    "0xfa94348467f64d5a457f75f8bc40495d33c65abb",
+    "0xc9bdeed33cd01541e1eed10f90519d2c06fe3feb",
+    "0xb12bfca5a55806aaf64e99521918a4bf0fc40802",
+    "0xe3520349f477a5f6eb06107066048508498a291b",
+    "0x4988a896b1227218e4a686fde5eabdcabd91571f"
+  ],
+  "factory": {
+    "address": "0xc66f594268041db60507f00703b152492fb176e7",
+    "startBlock": "51600000"
+  },
+  "minimum_usd_threshold_new_pairs": "1000",
+  "minimum_liquidity_threshold_eth": "1"
+}
