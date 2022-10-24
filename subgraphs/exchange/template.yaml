@@ -62,6 +62,12 @@ templates:
           file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Pair.json
         - name: Factory
           file: ../../node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
+        - name: ERC20
+          file: ../../node_modules/@sushiswap/core/build/abi/ERC20.json
+        - name: ERC20SymbolBytes
+          file: ../../packages/abis/ERC20SymbolBytes.json
+        - name: ERC20NameBytes
+          file: ../../packages/abis/ERC20NameBytes.json
       eventHandlers:
         - event: Mint(indexed address,uint256,uint256)
           handler: onMint

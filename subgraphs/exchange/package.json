@@ -1,7 +1,7 @@
 {
     "name": "exchange",
     "license": "MIT",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "author": "SushiSwap",
     "files": [
         "generated"
@@ -21,6 +21,7 @@
         "deploy:arbitrum": "graph deploy --product hosted-service matthewlilley/arbitrum-exchange",
         "deploy:fuse": "graph deploy --product hosted-service sushiswap/fuse-exchange",
         "deploy:avalanche": "graph deploy --product hosted-service sushiswap/avalanche-exchange",
+        "deploy:aurora": "graph deploy --product hosted-service sushiswap/aurora-exchange",
         "deploy:matic": "graph deploy --product hosted-service sushiswap/matic-exchange",
         "deploy:celo": "graph deploy --product hosted-service sushiswap/celo-exchange",
         "deploy:moonriver": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/moonriver-exchange subgraph.yaml",
@@ -41,6 +42,7 @@
         "prepare:celo": "mustache ../../config/celo.json template.yaml > subgraph.yaml",
         "prepare:moonriver": "mustache ../../config/moonriver.json template.yaml > subgraph.yaml",
         "prepare:avalanche": "mustache ../../config/avalanche.json template.yaml > subgraph.yaml",
+        "prepare:aurora": "mustache ../../config/aurora.json template.yaml > subgraph.yaml",
         "prepare:palm": "mustache ../../config/palm.json template.yaml > subgraph.yaml",
         "prepare:heco": "mustache ../../config/heco.json template.yaml > subgraph.yaml",
         "prepare:fuse": "mustache ../../config/fuse.json template.yaml > subgraph.yaml",

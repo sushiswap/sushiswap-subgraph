@@ -10,6 +10,8 @@ export const BIG_DECIMAL_1E12 = BigDecimal.fromString('1e12')
 
 export const BIG_DECIMAL_1E18 = BigDecimal.fromString('1e18')
 
+export const BIG_DECIMAL_1E24 = BigDecimal.fromString('1e24')
+
 export const BIG_DECIMAL_ZERO = BigDecimal.fromString('0')
 
 export const BIG_DECIMAL_ONE = BigDecimal.fromString('1')
@@ -53,6 +55,8 @@ export const PAIR_REMOVE_ASSET = 'removeAsset'
 export const PAIR_BORROW = 'borrow'
 
 export const PAIR_REPAY = 'repay'
+
+export const NETWORK = '{{ network }}{{^network}}mainnet{{/network}}'
 
 export const FACTORY_ADDRESS = Address.fromString(
   '{{ factory_address }}{{^factory_address}}0x0000000000000000000000000000000000000000{{/factory_address}}'
